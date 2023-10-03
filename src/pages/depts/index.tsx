@@ -26,7 +26,34 @@ const DeptsPage: FC = () => {
           <span>7</span>
         </div>
       </div>
-      <Card className="flex gap-5 py-2 px-5">
+
+      <Card className="flex gap-4 py-2 px-5">
+        <div className="flex flex-col items-center flex-0 justify-between">
+          <span className="text-2xl">$ {value}</span>
+          <Button>Pay</Button>
+        </div>
+        <div className="flex-1">
+          <div className="flex items-center gap-5">
+            <div className="flex-1">
+              <h2 className="text-lg font-semibold">Apple</h2>
+              <span>Credit for IPhone</span>
+            </div>
+            <div className="flex gap-2">
+              <Button variant="outline" size="icon">
+                <Pencil1Icon className="h-4 w-4" />
+              </Button>
+              <Button variant="destructive" size="icon">
+                <TrashIcon className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+          <div className="flex flex-col items-center">
+            <span className="">$ {coveredValue}</span>
+            <Progress color="primary" value={(coveredValue / value) * 100} />
+          </div>
+        </div>
+      </Card>
+      <Card className="flex gap-4 py-2 px-5">
         <div className="flex flex-col items-center flex-0 justify-between">
           <span className="text-2xl">$ {value}</span>
           <Button>Pay</Button>
