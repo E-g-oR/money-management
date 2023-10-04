@@ -43,7 +43,7 @@ const AsideSettings: FC = () => {
           <SelectGroup>
             {Object.keys(langages).map((lang) => (
               <SelectItem value={lang} key={lang}>
-                {langages[lang]}
+                {langages[lang as keyof typeof dictionaries]}
               </SelectItem>
             ))}
           </SelectGroup>
