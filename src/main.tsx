@@ -6,6 +6,7 @@ import Layout from "./components/layout/index.tsx";
 import { ROUTES } from "./router/index.ts";
 import AccountsPage from "./pages/accounts/index.tsx";
 import DeptsPage from "./pages/depts/index.tsx";
+import ThemeProvider from "./components/layout/theme-provider.tsx";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ThemeProvider>
+      <RouterProvider router={router} />
+    </ThemeProvider>
   </React.StrictMode>
 );
