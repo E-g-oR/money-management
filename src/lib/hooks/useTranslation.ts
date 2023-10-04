@@ -1,7 +1,7 @@
-import { Translation } from "@/translation";
-import { en } from "@/translation/en";
-import { ru } from "@/translation/ru";
+import { getLanguage, useSettingsStore } from "@/store/settings";
+import { Translation, dictionaries } from "@/translation";
 
 export const useTranslation = (): Translation => {
-  return ru;
+  const lang = useSettingsStore(getLanguage)
+  return dictionaries[lang];
 };

@@ -1,3 +1,6 @@
+import { en } from "./en";
+import { ru } from "./ru";
+
 export interface Translation {
   format: {
     currency: (value: number, currency?: string) => string;
@@ -33,4 +36,9 @@ export interface Translation {
   accounts: {};
   categories: {};
   settings: {};
+}
+
+export const dictionaries = {
+  ru,
+  en
 }
