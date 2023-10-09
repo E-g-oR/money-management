@@ -4,9 +4,13 @@ import { FC } from "react";
 
 const AccountCard: FC = () => {
   return (
-    <Card className={"py-3 px-7 flex gap-5 w-fit"}>
+    <Card
+      className={
+        "py-3 px-7 flex gap-5 justify-between bg-gradient-to-r from-slate-500/20 to-slate-800/10"
+      }
+    >
       <div className="flex flex-col justify-evenly">
-        <span className={"text-2xl"}>870 $</span> 
+        <span className={"text-2xl"}>870 $</span>
         {/* TODO: show account difference on last month */}
         <h2 className={"text-2xl font-bold"}>Alfa bank</h2>
         <p>Main card with salary</p>

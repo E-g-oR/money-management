@@ -1,17 +1,28 @@
+import { FC } from "react";
+import PageLayout from "@/components/layout/page-layout";
 import AccountCard from "./account-card";
+import { Button } from "@/components/ui/button";
+import { PlusIcon } from "@radix-ui/react-icons";
+import { Input } from "@/components/ui/input";
+import CardsList from "@/components/layout/cards-list";
 
-const AccountsPage = () => {
+const AccountsPage: FC = () => {
   return (
-    <div>
-      <h1 className="text-4xl font-bold">Your accounts</h1>
-      <label>
-        поиск по аккаунтам
-        <input className="border rounded border-primary" type="text" />
-      </label>
-      <AccountCard />
-      <AccountCard />
-      <AccountCard />
-    </div>
+    <PageLayout
+      title="Your accounts"
+      action={
+        <Button size={"icon"}>
+          <PlusIcon />
+        </Button>
+      }
+    >
+      <Input placeholder={"Search accounts"} />
+      <CardsList>
+        <AccountCard />
+        <AccountCard />
+        <AccountCard />
+      </CardsList>
+    </PageLayout>
   );
 };
 
