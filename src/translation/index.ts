@@ -8,8 +8,8 @@ export interface Translation {
   };
   common: {
     rates: string;
-    currency: string;
     rate: string;
+    currency: string;
     actions: {
       pay: string;
       edit: string;
@@ -17,6 +17,14 @@ export interface Translation {
       submit: string;
       delete: string;
     };
+    fieldMessages: {
+      required: string;
+      minLength: (lenght: number) => string;
+      minValue: (value: number) => string;
+    };
+    name: string,
+    description: string,
+    value: string
   };
   navbar: {
     accounts: string;
@@ -33,12 +41,28 @@ export interface Translation {
       closedCount: string;
     };
   };
-  accounts: {};
+  accounts: {
+    createAccountModal: {
+      title: string;
+      description: string;
+      fields: {
+        name: {
+          placeholder: string;
+        };
+        description: {
+          placeholder: string;
+        };
+        value: {
+          placeholder: string;
+        };
+      };
+    };
+  };
   categories: {};
   settings: {};
 }
 
 export const dictionaries = {
   ru,
-  en
-}
+  en,
+};

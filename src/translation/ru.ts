@@ -17,6 +17,16 @@ export const ru: Translation = {
       submit: "Подтвердить",
       delete: "Удалить",
     },
+    fieldMessages: {
+      required: "Это поле обязательно для заполнения.",
+      minLength: (lenght: number) =>
+        `Это поле должно быть как минимум ${lenght} символов.`,
+      minValue: (value: number) =>
+        `Это поле не может быть меньше, чем ${value}.`,
+    },
+    name: "Название",
+    description: "Описание",
+    value: "Значение",
   },
   navbar: {
     accounts: "Счета",
@@ -33,7 +43,24 @@ export const ru: Translation = {
       closedCount: "Закрытые долги",
     },
   },
-  accounts: {},
+  accounts: {
+    createAccountModal: {
+      title: "Создать счет",
+      description:
+        'Создайте ваш счет здесь. Нажмите "подтвердить", когда закончите.',
+      fields: {
+        name: {
+          placeholder: "Зарплата",
+        },
+        description: {
+          placeholder: "Главный счет, куда приходит зарплата.",
+        },
+        value: {
+          placeholder: "0",
+        },
+      },
+    },
+  },
   categories: {},
   settings: {},
 };
