@@ -825,6 +825,10 @@
   resolved "https://registry.yarnpkg.com/@types/semver/-/semver-7.5.3.tgz#9a726e116beb26c24f1ccd6850201e1246122e04"
   integrity sha512-OxepLK9EuNEIPxWNME+C6WwbRAOOI2o2BaQEGzz5Lu2e4Z5eDnEo+/aVEDMIXywoJitJ7xWd641wrGLZdtwRyw==
 
+"@types/thin-backend@https://thin.dev/types/7aaaaeea-e4bc-4969-93c3-a3cb60419aaf/SUFcADFsdWGrksIroyjxGXaHmqjMZOER":
+  version "1.0.0"
+  resolved "https://thin.dev/types/7aaaaeea-e4bc-4969-93c3-a3cb60419aaf/SUFcADFsdWGrksIroyjxGXaHmqjMZOER#156df5ab14f222b55ec5d6159cbc57ef4d05f089"
+
 "@typescript-eslint/eslint-plugin@^6.0.0":
   version "6.7.3"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-6.7.3.tgz#d98046e9f7102d49a93d944d413c6055c47fafd7"
@@ -2204,6 +2208,16 @@ thenify-all@^1.0.0:
   integrity sha512-RVZSIV5IG10Hk3enotrhvz0T9em6cyHBLkH/YAZuKqd8hRkKhSfCGIcP2KUY0EPxndzANBmNllzWPwak+bheSw==
   dependencies:
     any-promise "^1.0.0"
+
+thin-backend-react@^0.10.1:
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/thin-backend-react/-/thin-backend-react-0.10.1.tgz#571a2a91a17970ead67dcf2cb66e8a491109f195"
+  integrity sha512-jMF9aC2aeSqkldd0+TPPiXYK/JhBkaioIgtvKt7VPOFnOxqMh+rxx9V/DIsmXhVizl1xsIm9hMIZf3DTnilfsw==
+
+thin-backend@^0.12.1:
+  version "0.12.1"
+  resolved "https://registry.yarnpkg.com/thin-backend/-/thin-backend-0.12.1.tgz#9879f9400eda537bc2478158d43178140b7d5651"
+  integrity sha512-zka5tousWVNUMxAx5dWfq7D6QPUG1adI2z9cgqCFTdFbtQ2sEMrS3rWJa6J+CMfIZPuE0aMCVz71AowEu3NTyA==
 
 to-fast-properties@^2.0.0:
   version "2.0.0"

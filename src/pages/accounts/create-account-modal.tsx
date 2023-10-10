@@ -19,11 +19,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { PlusIcon } from "lucide-react";
 import { useTranslation } from "@/lib/hooks/useTranslation";
+import { Api } from "@/api";
 
 interface AccountCreate {
   account_name: string;
   account_description?: string;
-  account_value: number;
+  account_value: string;
 }
 
 const CreateAccountModal: FC = () => {
@@ -35,15 +36,22 @@ const CreateAccountModal: FC = () => {
     defaultValues: {
       account_name: "",
       account_description: "",
-      account_value: 0,
+      account_value: "0",
     },
   });
 
   const onSubmit = useCallback(
     (data: AccountCreate) => {
-      // console.log(data);
-      setIsOpen(false);
-      form.reset();
+      Api.account
+        .create({
+          name: data.account_name,
+          description: data.account_description,
+          value: data?.account_value,
+        })
+        .then(() => {
+          setIsOpen(false);
+          form.reset();
+        });
     },
     [form.reset]
   );

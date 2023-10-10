@@ -25,12 +25,15 @@
     "react-router-dom": "^6.16.0",
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.7",
+    "thin-backend": "^0.12.1",
+    "thin-backend-react": "^0.10.1",
     "zustand": "^4.4.2"
   },
   "devDependencies": {
     "@types/node": "^20.7.1",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
+    "@types/thin-backend": "https://thin.dev/types/7aaaaeea-e4bc-4969-93c3-a3cb60419aaf/SUFcADFsdWGrksIroyjxGXaHmqjMZOER",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-react": "^4.0.3",
