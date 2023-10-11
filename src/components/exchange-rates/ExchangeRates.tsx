@@ -34,9 +34,9 @@ const ExchangeRates: FC = () => {
   const t = useTranslation();
   const [currency, setCurrency] = useState<string>(currencies[0]);
   return (
-    <div className="bg-primary-foreground rounded-md px-5 py-3 self-start">
+    <div className="bg-primary-foreground rounded-md px-5 py-3 self-start flex flex-col gap-2">
       <p className="text-2xl">{t.common.rates}</p>
-      <div className={"flex items-center justify-between gap-4"}>
+      {/* <div className={"flex flex-col gap-2"}> */}
         <p>Select base currency</p>
         <Select value={currency} onValueChange={setCurrency}>
           <SelectTrigger>
@@ -52,7 +52,7 @@ const ExchangeRates: FC = () => {
             </SelectGroup>
           </SelectContent>
         </Select>
-      </div>
+      {/* </div> */}
 
       <Table>
         <TableHeader>

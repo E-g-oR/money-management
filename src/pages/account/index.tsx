@@ -3,6 +3,7 @@ import AccountPageHeader from "./account-page-header";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import TransactionCard from "./transaction-card";
+import CardsList from "@/components/layout/cards-list";
 
 const AccountPage: FC = ({}) => {
   return (
@@ -14,7 +15,15 @@ const AccountPage: FC = ({}) => {
           <Plus />
         </Button>
       </div>
-      <TransactionCard />
+      <CardsList>
+        <TransactionCard />
+        <TransactionCard />
+        <TransactionCard />
+        <TransactionCard />
+        <TransactionCard />
+        <TransactionCard />
+        <TransactionCard />
+      </CardsList>
     </>
   );
 };

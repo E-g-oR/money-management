@@ -52,8 +52,9 @@ const EditAccount: FC<Props> = ({
           name={"account_name"}
           render={({ field }) => (
             <div>
-              <Label>{t.common.name}</Label>
+              <Label htmlFor={"account_name"}>{t.common.name}</Label>
               <Input
+                id={"account_name"}
                 placeholder={
                   t.accounts.createAccountModal.fields.name.placeholder
                 }
@@ -67,8 +68,11 @@ const EditAccount: FC<Props> = ({
           name={"account_description"}
           render={({ field }) => (
             <div>
-              <Label>{t.common.description}</Label>
+              <Label htmlFor={"account_description"}>
+                {t.common.description}
+              </Label>
               <Input
+                id={"account_description"}
                 placeholder={
                   t.accounts.createAccountModal.fields.description.placeholder
                 }

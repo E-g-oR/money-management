@@ -80,7 +80,7 @@ const NavigationMenu: FC = () => {
 };
 
 const Aside: FC = () => (
-  <div className="flex flex-col justify-between bg-primary-foreground transition p-3 sm:p-5 lg:p-8 rounded-r-xl border flex-1 max-w-xs min-w-min">
+  <div className="flex flex-col justify-between bg-primary-foreground transition p-3 sm:p-5 xl:p-8 rounded-r-xl border flex-1 max-w-xs min-w-min">
     <NavigationMenu />
     <AsideSettings />
   </div>

@@ -8,7 +8,7 @@ const Layout: FC = () => {
     <div className={"w-screen h-screen flex gap-5 bg-background"}>
       <Aside />
       <div className="flex gap-5 flex-grow pr-5">
-        <div className="flex-1">
+        <div className={"flex-1 flex flex-col gap-5 mt-5"}>
           <Outlet />
         </div>
         <ExchangeRates />
