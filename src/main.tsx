@@ -1,18 +1,21 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Layout from "./components/layout/index.tsx";
-import { ROUTES } from "./router/index.ts";
-import AccountsPage from "./pages/accounts/index.tsx";
-import DeptsPage from "./pages/depts/index.tsx";
-import ThemeProvider from "./components/layout/theme-provider.tsx";
+import ReactDOM from "react-dom/client";
 import { ThinBackend } from "thin-backend-react/index";
 import { initThinBackend } from "thin-backend";
-import "thin-backend-react/auth.css"
-// This needs to be run before any calls to `query`, `createRecord`, etc.
+
+import DeptsPage from "@/pages/depts/index.tsx";
+import AccountPage from "@/pages/account/index.tsx";
+import AccountsPage from "@/pages/accounts/index.tsx";
+import Layout from "@/components/layout/index.tsx";
+import ThemeProvider from "@/components/layout/theme-provider.tsx";
+import { ROUTES } from "./router/index.ts";
+
+import "thin-backend-react/auth.css";
+import "./index.css";
+import ErrorBoundary from "./pages/error-boundary.tsx";
+
 initThinBackend({
-  // This url is different for each backend, this one points to 'money-management'
   host: import.meta.env.VITE_BACKEND_URL,
 });
 
@@ -20,6 +23,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
+    errorElement: <ErrorBoundary />,
     children: [
       {
         index: true,
@@ -27,7 +31,16 @@ const router = createBrowserRouter([
       },
       {
         path: ROUTES.accounts.index.relative,
-        element: <AccountsPage />,
+        children: [
+          {
+            index: true,
+            element: <AccountsPage />,
+          },
+          {
+            path: ROUTES.accounts.account.relative,
+            element: <AccountPage />,
+          },
+        ],
       },
       {
         path: ROUTES.depts.path,

@@ -3,7 +3,9 @@ import { Translation } from ".";
 export const ru: Translation = {
   format: {
     currency: (value: number, currency = "USD") =>
-      new Intl.NumberFormat("ru-RU", { currency }).format(value),
+      new Intl.NumberFormat("ru-RU", { style: "currency", currency }).format(
+        value
+      ),
     date: (timestamp: number | string | Date) => "string",
   },
   common: {
