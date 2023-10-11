@@ -33,11 +33,11 @@ const AccountPageHeader: FC = () => {
             cancel={() => setIsEdit(false)}
           />
         ) : (
-          <div className={"flex justify-between"}>
-            <div className={"flex flex-col gap-2"}>
+          <div className={"flex justify-between mb-5"}>
+            <div className={"flex flex-col gap-3"}>
               <h1 className={"text-4xl font-bold"}>{account?.[0].name}</h1>
               <p>{account?.[0].description}</p>
-              <p className={"text-2xl"}>
+              <p className={"text-3xl"}>
                 {t.format.currency(parseFloat(account?.[0].value), "BYN")}
               </p>
             </div>
