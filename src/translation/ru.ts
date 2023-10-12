@@ -1,4 +1,6 @@
+import format from "date-fns/format";
 import { Translation } from ".";
+import {ru as locale} from "date-fns/locale"
 
 export const ru: Translation = {
   format: {
@@ -6,7 +8,7 @@ export const ru: Translation = {
       new Intl.NumberFormat("ru-RU", { style: "currency", currency }).format(
         value
       ),
-    date: (timestamp: number | string | Date) => "string",
+    date: (timestamp: string) => format(Date.parse(timestamp), "LLL do, p", {locale}),
   },
   common: {
     rates: "Курсы",

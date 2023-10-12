@@ -1,5 +1,8 @@
+import { useTranslation } from "@/lib/hooks/useTranslation";
+import { cn } from "@/lib/utils";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import { FC } from "react";
+import { FC, useMemo } from "react";
+import { Transaction } from "thin-backend";
 
 const IncomeIcon: FC = () => (
   <div
@@ -20,23 +23,48 @@ const ExpenseIcon: FC = () => (
   </div>
 );
 
-const TransactionCard: FC = () => {
+interface Props {
+  transaction: Transaction;
+}
+const TransactionCard: FC<Props> = ({ transaction }) => {
+  const t = useTranslation();
+  const isIncome = useMemo(
+    () => transaction.transactionType === "income",
+    [transaction]
+  );
+  console.log(transaction.createdAt);
+  
   return (
-    <div className="flex gap-4 px-4 py-2 border dark:border-red-500/30 border-red-700/50 rounded-xl">
-      <ExpenseIcon />
+    <div
+      className={cn(
+        "flex gap-4 px-4 py-2 border rounded-xl",
+        isIncome
+          ? "border-green-700/50 dark:border-green-500/30"
+          : "dark:border-red-500/30 border-red-700/50"
+      )}
+    >
+      {isIncome ? <IncomeIcon /> : <ExpenseIcon />}
       <div className="flex flex-col gap-0.5 flex-1">
         <div className={"flex items-baseline flex-1"}>
-          <p className="text-2xl flex-1">title</p>
-          <p className={"text-lg dark:text-red-500 text-red-700"}>$ 17.52</p>
+          <p className="text-2xl flex-1">{transaction.title}</p>
+          <p
+            className={cn(
+              "text-lg ",
+              isIncome
+                ? "dark:text-green-500 text-green-700"
+                : "dark:text-red-500 text-red-700"
+            )}
+          >
+            {t.format.currency(parseFloat(transaction.value), "BYN")}
+          </p>
         </div>
         <div className={"flex items-center text-muted-foreground gap-3"}>
-          <p className={"line-clamp-1 text-ellipsis flex-1"}>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis
-            voluptas aliquam commodi facilis voluptatem exercitationem
-            perspiciatis eius eos dolore. Dicta quidem accusantium nostrum
-            repellendus eligendi obcaecati quo laudantium fugit harum.
-          </p>
-          <p className={"text-sm"}>Sep 17, 5:34 pm</p>
+          {transaction?.description && (
+            <p className={"line-clamp-1 text-ellipsis flex-1"}>
+              {transaction.description}
+            </p>
+          )}
+          <p className={"text-sm ml-auto"}>{t.format.date(transaction.createdAt)}</p>
         </div>
       </div>
     </div>

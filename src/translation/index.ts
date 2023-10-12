@@ -4,7 +4,7 @@ import { ru } from "./ru";
 export interface Translation {
   format: {
     currency: (value: number, currency?: string) => string;
-    date: (timestamp: number | string | Date) => string;
+    date: (timestamp: string) => string;
   };
   common: {
     rates: string;

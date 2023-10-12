@@ -1,10 +1,12 @@
+import format from "date-fns/format";
 import { Translation } from ".";
+import {enUS as locale} from "date-fns/locale"
 
 export const en: Translation = {
   format: {
     currency: (value: number, currency = "USD") =>
       new Intl.NumberFormat("en-US", { style: "currency", currency }).format(value),
-    date: (timestamp: number | string | Date) => "string",
+    date: (timestamp: string) => format(Date.parse(timestamp), "LLL do, p", {locale}),
   },
   common: {
     rates: "Rates",

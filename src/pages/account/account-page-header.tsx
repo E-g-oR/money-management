@@ -17,9 +17,11 @@ const AccountPageHeaderSkeleton: FC = () => (
   </div>
 );
 
-const AccountPageHeader: FC = () => {
+interface Props {
+  accountId: string | undefined;
+}
+const AccountPageHeader: FC<Props> = ({ accountId }) => {
   const t = useTranslation();
-  const { accountId } = useParams<"accountId">();
   const account = useQuery(query("accounts").where("id", accountId ?? ""));
   const [isEdit, setIsEdit] = useState(false);
   return (
