@@ -31,7 +31,6 @@ const AsideSettings: FC = () => {
   const setIsDark = useSettingsStore(getSetIsDark);
   const appLanguage = useSettingsStore(getLanguage);
   const setLanguage = useSettingsStore(getSetLanguage);
-  console.log(appLanguage);
 
   return (
     <div className="flex justify-between gap-4">

@@ -1,6 +1,5 @@
 import { FC, Suspense, lazy, useState } from "react";
 import { useTranslation } from "@/lib/hooks/useTranslation";
-import { useParams } from "react-router-dom";
 import { query } from "thin-backend";
 import { useQuery } from "thin-backend-react";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -45,7 +44,11 @@ const AccountPageHeader: FC<Props> = ({ accountId }) => {
                 {t.format.currency(parseFloat(account?.[0].value), "BYN")}
               </p>
             </div>
-            <Button size={"icon"} onClick={() => setIsEdit(true)}>
+            <Button
+              variant={"ghost"}
+              size={"icon"}
+              onClick={() => setIsEdit(true)}
+            >
               <PencilIcon />
             </Button>
           </div>

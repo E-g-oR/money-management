@@ -9,7 +9,7 @@ import { query } from "thin-backend";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const AccountsPage: FC = () => {
-  const accounts = useQuery(query("accounts"));
+  const accounts = useQuery(query("accounts").orderByDesc("updatedAt"));
 
   return (
     <PageLayout title={"Your accounts"} action={<CreateAccountModal />}>

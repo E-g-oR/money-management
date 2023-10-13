@@ -32,7 +32,6 @@ const TransactionCard: FC<Props> = ({ transaction }) => {
     () => transaction.transactionType === "income",
     [transaction]
   );
-  console.log(transaction.createdAt);
   
   return (
     <div
