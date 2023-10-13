@@ -34,7 +34,7 @@ const ExchangeRates: FC = () => {
   const t = useTranslation();
   const [currency, setCurrency] = useState<string>(currencies[0]);
   return (
-    <div className="bg-primary-foreground rounded-md px-5 py-3 self-start flex flex-col gap-2">
+    <div className="bg-primary-foreground rounded-md px-5 py-3 self-start flex flex-col gap-2 w-60">
       <p className="text-2xl">{t.common.rates}</p>
       {/* <div className={"flex flex-col gap-2"}> */}
         <p>Select base currency</p>

@@ -3,7 +3,7 @@ interface Route {
   relative: string;
 }
 interface RouteDynamic extends Route {
-  builder?: (...args: (string | number)[]) => string;
+  builder: (...args: (string | number)[]) => string;
 }
 
 const buildPath = (...pathnames: (string | number)[]) =>

@@ -1,6 +1,6 @@
 import { FC } from "react";
 import AccountPageHeader from "./account-page-header";
-import TransactionCard from "./transaction-card";
+import TransactionCard, { TransactionCardSkeleton } from "./transaction-card";
 import CardsList from "@/components/layout/cards-list";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useParams } from "react-router-dom";
@@ -29,7 +29,7 @@ const AccountPage: FC = ({}) => {
         render={(transaction, i) => (
           <TransactionCard key={i} transaction={transaction} />
         )}
-        skeletonComponent={<Skeleton />}
+        skeletonComponent={<TransactionCardSkeleton />}
         fallback={"You dont have recent transactions on this account."}
       />
     </>

@@ -1,3 +1,4 @@
+import { Skeleton } from "@/components/ui/skeleton";
 import { useTranslation } from "@/lib/hooks/useTranslation";
 import { cn } from "@/lib/utils";
 import { ChevronDown, ChevronUp } from "lucide-react";
@@ -32,7 +33,7 @@ const TransactionCard: FC<Props> = ({ transaction }) => {
     () => transaction.transactionType === "income",
     [transaction]
   );
-  
+
   return (
     <div
       className={cn(
@@ -44,8 +45,10 @@ const TransactionCard: FC<Props> = ({ transaction }) => {
     >
       {isIncome ? <IncomeIcon /> : <ExpenseIcon />}
       <div className="flex flex-col gap-0.5 flex-1">
-        <div className={"flex items-baseline flex-1"}>
-          <p className="text-2xl flex-1">{transaction.title}</p>
+        <div className={"flex items-baseline flex-1 gap-3"}>
+          <p className={"text-2xl flex-1 line-clamp-1 text-ellipsis"}>
+            {transaction.title}
+          </p>
           <p
             className={cn(
               "text-lg ",
@@ -63,7 +66,9 @@ const TransactionCard: FC<Props> = ({ transaction }) => {
               {transaction.description}
             </p>
           )}
-          <p className={"text-sm ml-auto"}>{t.format.date(transaction.createdAt)}</p>
+          <p className={"text-sm ml-auto"}>
+            {t.format.date(transaction.createdAt)}
+          </p>
         </div>
       </div>
     </div>
@@ -71,3 +76,19 @@ const TransactionCard: FC<Props> = ({ transaction }) => {
 };
 
 export default TransactionCard;
+
+export const TransactionCardSkeleton: FC = () => (
+  <div className={"flex gap-4 px-4 py-2 border rounded-xl"}>
+    <IncomeIcon />
+    <div className="flex flex-col gap-2 flex-1 w-full">
+      <div className={"flex items-baseline flex-1 justify-between"}>
+        <Skeleton className={"h-8 w-20"} />
+        <Skeleton className={"h-6 w-16"} />
+      </div>
+      <div className={"flex items-center gap-3 justify-between"}>
+        <Skeleton className={"h-6 w-32"} />
+        <Skeleton className={"h-5 w-24"} />
+      </div>
+    </div>
+  </div>
+);
