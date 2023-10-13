@@ -31,7 +31,6 @@ const AsideSettings: FC = () => {
   const setIsDark = useSettingsStore(getSetIsDark);
   const appLanguage = useSettingsStore(getLanguage);
   const setLanguage = useSettingsStore(getSetLanguage);
-  console.log(appLanguage);
 
   return (
     <div className="flex justify-between gap-4">
@@ -43,7 +42,7 @@ const AsideSettings: FC = () => {
           <SelectGroup>
             {Object.keys(langages).map((lang) => (
               <SelectItem value={lang} key={lang}>
-                {langages[lang]}
+                {langages[lang as keyof typeof dictionaries]}
               </SelectItem>
             ))}
           </SelectGroup>
@@ -63,6 +62,7 @@ const NavigationMenu: FC = () => {
     <nav className="flex flex-col gap-2">
       {Object.keys(t.navbar).map((key) => (
         <NavLink
+          key={key}
           to={key}
           className={({ isActive }) =>
             cn(
@@ -79,7 +79,7 @@ const NavigationMenu: FC = () => {
 };
 
 const Aside: FC = () => (
-  <div className="flex flex-col justify-between bg-primary-foreground p-8 rounded-r-xl border w-full max-w-xs min-w-min">
+  <div className="flex flex-col justify-between bg-primary-foreground p-3 sm:p-5 xl:p-8 rounded-r-xl border">
     <NavigationMenu />
     <AsideSettings />
   </div>
