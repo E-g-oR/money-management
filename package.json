@@ -29,6 +29,7 @@
     "tailwindcss-animate": "^1.0.7",
     "thin-backend": "^0.12.1",
     "thin-backend-react": "^0.10.1",
+    "ts-pattern": "^5.0.5",
     "zustand": "^4.4.2"
   },
   "devDependencies": {

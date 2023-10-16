@@ -14,6 +14,7 @@ import { ROUTES } from "./router/index.ts";
 import "thin-backend-react/auth.css";
 import "./index.css";
 import ErrorBoundary from "./pages/error-boundary.tsx";
+import ResponsiveObserver from "./components/layout/responsive-observer.tsx";
 
 initThinBackend({
   host: import.meta.env.VITE_BACKEND_URL,
@@ -54,7 +55,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ThemeProvider>
       <ThinBackend requireLogin>
-        <RouterProvider router={router} />
+        <ResponsiveObserver>
+          <RouterProvider router={router} />
+        </ResponsiveObserver>
       </ThinBackend>
     </ThemeProvider>
   </React.StrictMode>
