@@ -15,7 +15,6 @@ const deviceBreakpoints: Record<DeviceType, number> = {
 export const useResponsive = () => {
   const [deviceType, setDeviceSize] = useState<DeviceType>("xs");
 
-
   useEffect(() => {
     const resizeListener = () => {
       const deviceSize = match(window.innerWidth)
@@ -56,3 +55,6 @@ export const useResponsive = () => {
 
   return deviceType;
 };
+
+export const checkDeviceSize = (deviceSize: DeviceType, target: DeviceType) =>
+  deviceBreakpoints[deviceSize] <= deviceBreakpoints[target];

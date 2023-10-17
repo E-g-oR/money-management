@@ -20,6 +20,9 @@ import {
   useSettingsStore,
 } from "@/store/settings";
 import { dictionaries } from "@/translation";
+import { navbarIcons, navbarItems } from "@/lib/constants";
+import { getDeviceSize, useResponsiveStore } from "@/store/responsive";
+import { checkDeviceSize } from "@/lib/hooks/useResponsive";
 
 const langages: Record<keyof typeof dictionaries, string> = {
   en: "English",
@@ -31,8 +34,9 @@ const AsideSettings: FC = () => {
   const setIsDark = useSettingsStore(getSetIsDark);
   const appLanguage = useSettingsStore(getLanguage);
   const setLanguage = useSettingsStore(getSetLanguage);
+  const deviceSize = useResponsiveStore(getDeviceSize)
 
-  return (
+  return (!checkDeviceSize(deviceSize, "md") &&
     <div className="flex justify-between gap-4">
       <Select value={appLanguage} onValueChange={setLanguage}>
         <SelectTrigger>
@@ -57,21 +61,23 @@ const AsideSettings: FC = () => {
 
 const NavigationMenu: FC = () => {
   const t = useTranslation();
+  const deviceSize = useResponsiveStore(getDeviceSize)
 
   return (
     <nav className="flex flex-col gap-2">
-      {Object.keys(t.navbar).map((key) => (
+      {navbarItems.map((key) => (
         <NavLink
           key={key}
           to={key}
           className={({ isActive }) =>
             cn(
-              "transition hover:bg-background px-6 py-1.5 rounded",
+              "transition hover:bg-background px-2 md:px-4 py-2 md:py-2.5 rounded flex items-center gap-5",
               isActive ? "bg-background" : undefined
             )
           }
         >
-          {t.navbar[key as keyof typeof t.navbar]}
+          {navbarIcons[key]}
+          {!checkDeviceSize(deviceSize, "md") && t.navbar[key]}
         </NavLink>
       ))}
     </nav>
@@ -79,7 +85,7 @@ const NavigationMenu: FC = () => {
 };
 
 const Aside: FC = () => (
-  <div className="flex flex-col justify-between bg-primary-foreground p-3 sm:p-5 xl:p-8 rounded-r-xl border">
+  <div className="flex flex-col justify-between bg-primary-foreground p-3 md:p-5 xl:p-8 rounded-r-xl border">
     <NavigationMenu />
     <AsideSettings />
   </div>
