@@ -2,7 +2,6 @@ import { FC } from "react";
 import AccountPageHeader from "./account-page-header";
 import TransactionCard, { TransactionCardSkeleton } from "./transaction-card";
 import CardsList from "@/components/layout/cards-list";
-import { Skeleton } from "@/components/ui/skeleton";
 import { useParams } from "react-router-dom";
 import { useQuery } from "thin-backend-react";
 import { query } from "thin-backend";
