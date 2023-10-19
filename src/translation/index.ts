@@ -1,6 +1,8 @@
 import { en } from "./en";
 import { ru } from "./ru";
 
+export type NavigationItemKey = "accounts" | "dashboard" | "depts" | "categories" | "settings"
+
 export interface Translation {
   format: {
     currency: (value: number, currency?: string) => string;
@@ -26,13 +28,7 @@ export interface Translation {
     description: string,
     value: string
   };
-  navbar: {
-    accounts: string;
-    dashboard: string;
-    depts: string;
-    categories: string;
-    settings: string;
-  };
+  navbar: Record<NavigationItemKey, string>;
   depts: {
     title: string;
     badges: {

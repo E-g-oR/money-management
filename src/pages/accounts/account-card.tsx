@@ -16,7 +16,7 @@ const AccountCard: FC<Props> = ({ account }) => {
     >
       <Card
         className={
-          "py-3 px-7 grid grid-cols-[120px_1fr] gap-5 items-center bg-gradient-to-r from-slate-500/20 to-slate-800/10 overflow-hidden h-full"
+          "py-3 px-7 grid grid-cols-1 sm:grid-cols-[120px_1fr] gap-1 md:gap-5 items-center bg-gradient-to-r from-slate-500/20 to-slate-800/10 overflow-hidden h-full"
         }
       >
         <span className={"text-3xl flex-0"}>{account.value} $</span>
