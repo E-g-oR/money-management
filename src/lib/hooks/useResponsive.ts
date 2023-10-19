@@ -42,7 +42,7 @@ export const useResponsive = () => {
           (width) => width < deviceBreakpoints["2xl"],
           () => "2xl"
         )
-        .otherwise(() => "xs");
+        .otherwise(() => "2xl");
 
       setDeviceSize(deviceSize as DeviceType);
     };
@@ -57,4 +57,7 @@ export const useResponsive = () => {
 };
 
 export const checkDeviceSize = (deviceSize: DeviceType, target: DeviceType) =>
-  deviceBreakpoints[deviceSize] <= deviceBreakpoints[target];
+  { 
+    console.log(deviceSize, deviceBreakpoints[deviceSize], target, deviceBreakpoints[target]);
+    
+    return deviceBreakpoints[deviceSize] <= deviceBreakpoints[target]};
