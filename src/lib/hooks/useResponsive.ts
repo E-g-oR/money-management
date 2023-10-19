@@ -19,27 +19,27 @@ export const useResponsive = () => {
     const resizeListener = () => {
       const deviceSize = match(window.innerWidth)
         .when(
-          (width) => width <= deviceBreakpoints.xs,
+          (width) => width < deviceBreakpoints.xs,
           () => "xs"
         )
         .when(
-          (width) => width <= deviceBreakpoints.sm,
+          (width) => width < deviceBreakpoints.sm,
           () => "sm"
         )
         .when(
-          (width) => width <= deviceBreakpoints.md,
+          (width) => width < deviceBreakpoints.md,
           () => "md"
         )
         .when(
-          (width) => width <= deviceBreakpoints.lg,
+          (width) => width < deviceBreakpoints.lg,
           () => "lg"
         )
         .when(
-          (width) => width <= deviceBreakpoints.xl,
+          (width) => width < deviceBreakpoints.xl,
           () => "xl"
         )
         .when(
-          (width) => width <= deviceBreakpoints["2xl"],
+          (width) => width < deviceBreakpoints["2xl"],
           () => "2xl"
         )
         .otherwise(() => "xs");
