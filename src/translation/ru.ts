@@ -31,6 +31,7 @@ export const ru: Translation = {
     name: "Название",
     description: "Описание",
     value: "Значение",
+    coveredValue: "Покрытое значение"
   },
   navbar: {
     accounts: "Счета",
@@ -46,6 +47,14 @@ export const ru: Translation = {
       totalAmount: "Общее значение долгов",
       closedCount: "Закрытые долги",
     },
+    createModal: {
+      title: "Создать запись долга",
+      description: `Создайте запись долга здесь. Нажмите "подтвердить", когда закончите.`,
+      fields: {
+        namePlaceholder: "Айфон",
+        descriptionPlaceholder: "Кредит за Айфон в А1"
+      }
+    }
   },
   accounts: {
     createAccountModal: {

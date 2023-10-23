@@ -26,7 +26,8 @@ export interface Translation {
     };
     name: string,
     description: string,
-    value: string
+    value: string,
+    coveredValue: string,
   };
   navbar: Record<NavigationItemKey, string>;
   depts: {
@@ -36,6 +37,14 @@ export interface Translation {
       totalAmount: string;
       closedCount: string;
     };
+    createModal: {
+      title: string,
+      description: string,
+      fields: {
+        namePlaceholder: string,
+        descriptionPlaceholder: string,
+      }
+    }
   };
   accounts: {
     createAccountModal: {

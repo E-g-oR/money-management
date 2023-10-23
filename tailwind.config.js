@@ -7,6 +7,9 @@ export const content = [
   './src/**/*.{ts,tsx}',
 ];
 export const theme = {
+  fontFamily: {
+    "sans": ["Roboto", "ui-sans-serif", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Helvetica Neue", "Arial", "Noto Sans", "sans-serif", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" ],
+  },
   container: {
     center: true,
     padding: "2rem",

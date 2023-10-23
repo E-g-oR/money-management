@@ -1,5 +1,8 @@
 import {
+  Account,
+  Dept,
   NewAccount,
+  NewDept,
   NewTransaction,
   createRecord,
   query,
@@ -42,8 +45,7 @@ export class API {
       });
 
       // create transaction record
-      const createdTranasction = await this.transaction
-        .create(newTransaction)
+      const createdTranasction = await this.transaction.create(newTransaction);
       return createdTranasction;
     },
     create: async (newTransaction: NewTransaction) => {
@@ -54,7 +56,27 @@ export class API {
       return createdTranasction;
     },
   };
+  public depts = {
+    create: async (newDept: NewDept) => {
+      const dept = await createRecord("depts", newDept);
+      return dept;
+    },
+    pay: async (dept: Dept, value: number, account: Account) => {
+      const newDeptCoveredValue = dept.coveredValue + value,
+        newAccountValue = account.value - value;
+      const transaction =
+        await this.transaction.createTransactionAndUpdateAccount({
+          title: dept.name,
+          accountId: account.id,
+          transactionType: "expense",
+        });
+      const updatedDept = await updateRecord("depts", dept.id, {
+        coveredValue: newDeptCoveredValue,
+      });
+      return updatedDept;
+    },
+    delete: () => {},
+  };
 }
-
 
 export const Api = new API();
