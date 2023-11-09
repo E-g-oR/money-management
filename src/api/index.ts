@@ -61,16 +61,18 @@ export class API {
       const dept = await createRecord("depts", newDept);
       return dept;
     },
+    update: async (id: string, data: Partial<NewDept>) => {
+      const updatedDept = await updateRecord("depts", id, data);
+      return updatedDept;
+    },
     pay: async (dept: Dept, value: number, account: Account) => {
-      const newDeptCoveredValue = dept.coveredValue + value,
-        newAccountValue = account.value - value;
-      const transaction =
-        await this.transaction.createTransactionAndUpdateAccount({
-          title: dept.name,
-          accountId: account.id,
-          transactionType: "expense",
-        });
-      const updatedDept = await updateRecord("depts", dept.id, {
+      const newDeptCoveredValue = dept.coveredValue + value;
+      await this.transaction.createTransactionAndUpdateAccount({
+        title: dept.name,
+        accountId: account.id,
+        transactionType: "expense",
+      });
+      const updatedDept = await this.depts.update(dept.id, {
         coveredValue: newDeptCoveredValue,
       });
       return updatedDept;

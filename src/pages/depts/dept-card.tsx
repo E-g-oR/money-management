@@ -6,6 +6,7 @@ import { Pencil1Icon, TrashIcon } from "@radix-ui/react-icons";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTranslation } from "@/lib/hooks/useTranslation";
 import { Dept } from "thin-backend";
+import { calcProgress } from "./utils";
 
 
 interface Props {
@@ -16,7 +17,7 @@ const DeptCard: FC<Props> = ({ dept }) => {
   const t = useTranslation();
   const formattedValue = useMemo(
     () => t.format.currency(parseFloat(dept.value), "BYN"),
-    [t.format.currency,]
+    [t.format, dept.value]
   );
 
   return (
@@ -45,10 +46,10 @@ const DeptCard: FC<Props> = ({ dept }) => {
           </div>
         </div>
         <div className={"flex flex-col items-center"}>
-          <span>{t.format.currency(dept.coveredValue, "BYN")}</span>
+          <span>{t.format.currency(parseFloat(dept.coveredValue), "BYN")}</span>
           <Progress
             color={"primary"}
-            value={(dept.coveredValue / dept.value) * 100}
+            value={calcProgress(dept.value, dept.coveredValue)}
           />
         </div>
       </div>

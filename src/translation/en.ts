@@ -5,8 +5,11 @@ import {enUS as locale} from "date-fns/locale"
 export const en: Translation = {
   format: {
     currency: (value: number, currency = "USD") =>
-      new Intl.NumberFormat("en-US", { style: "currency", currency }).format(value),
-    date: (timestamp: string) => format(Date.parse(timestamp), "LLL do, p", {locale}),
+      new Intl.NumberFormat("en-US", { style: "currency", currency }).format(
+        value
+      ),
+    date: (timestamp: string) =>
+      format(Date.parse(timestamp), "LLL do, p", { locale }),
   },
   common: {
     rates: "Rates",
@@ -28,6 +31,7 @@ export const en: Translation = {
     name: "Name",
     description: "Description",
     value: "Value",
+    coveredValue: "Covered value",
   },
   navbar: {
     accounts: "Accounts",
@@ -42,6 +46,14 @@ export const en: Translation = {
       totalCount: "Depts count",
       totalAmount: "Total depts amount",
       closedCount: "Closed depts",
+    },
+    createModal: {
+      title: "Create dept",
+      description: `Create dept here. Press "confirm", when finished.`,
+      fields: {
+        namePlaceholder: "iPhone",
+        descriptionPlaceholder: "Credit for iPhone",
+      },
     },
   },
   accounts: {
