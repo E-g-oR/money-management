@@ -8,7 +8,7 @@ import { useTranslation } from "@/lib/hooks/useTranslation";
 import { Dept } from "thin-backend";
 import { calcProgress } from "./utils";
 import { confirmModalContext } from "@/components/confirm-modal";
-import { API, Api } from "@/api";
+import { Api } from "@/api";
 import PayDeptNodal from "./pay-dept-modal";
 
 

@@ -29,7 +29,7 @@ interface Props {
 const ConfirmModal: FC<Props> = ({ children }) => {
   const [title, setTitle] = useState("Confirm");
   const [description, setDescription] = useState("Are you sure about this?");
-  const [onConfirm, setOnConfirm] = useState(() => {});
+  const [onConfirm, setOnConfirm] = useState<()=> void>(() => {});
   const confirm = useCallback(
     (payload: IConfirmPayload) => {
       console.log(payload);
