@@ -16,6 +16,7 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
+import { useTranslation } from "@/lib/hooks/useTranslation";
 
 const currencies = ["EUR", "USD", "BYN", "RUB"] as const;
 const ratesResponse: RatesResponse = {
@@ -30,11 +31,12 @@ const ratesResponse: RatesResponse = {
 };
 
 const ExchangeRates: FC = () => {
+  const t = useTranslation();
   const [currency, setCurrency] = useState<string>(currencies[0]);
   return (
-    <div className="bg-primary-foreground rounded-md px-5 py-3 self-start">
-      <p className="text-2xl">Rates</p>
-      <div className={"flex items-center justify-between gap-4"}>
+    <div className="bg-primary-foreground rounded-md px-5 py-3 self-start flex flex-col gap-2 w-60">
+      <p className="text-2xl">{t.common.rates}</p>
+      {/* <div className={"flex flex-col gap-2"}> */}
         <p>Select base currency</p>
         <Select value={currency} onValueChange={setCurrency}>
           <SelectTrigger>
@@ -50,13 +52,13 @@ const ExchangeRates: FC = () => {
             </SelectGroup>
           </SelectContent>
         </Select>
-      </div>
+      {/* </div> */}
 
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Currency</TableHead>
-            <TableHead>Rate</TableHead>
+            <TableHead>{t.common.currency}</TableHead>
+            <TableHead>{t.common.rate}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
