@@ -61,7 +61,7 @@ const CreateDeptModal: FC = () => {
         } else onClose();
       }}
     >
-      <DialogTrigger>
+      <DialogTrigger asChild>
         <Button size={"icon"}>
           <PlusIcon />
         </Button>
