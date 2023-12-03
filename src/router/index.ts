@@ -14,7 +14,8 @@ const accounts = "accounts",
   categories = "categories",
   settings = "settings",
   profile = "profile",
-  accountIdParam = ":accountId";
+  accountIdParam = ":accountId",
+  dashboard = "dashboard";
 
 interface Routes {
   home: Route;
@@ -26,6 +27,7 @@ interface Routes {
   categories: Route;
   settings: Route;
   profile: Route;
+  dashboard: Route;
 }
 export const ROUTES: Routes = {
   home: {
@@ -59,4 +61,8 @@ export const ROUTES: Routes = {
     path: buildPath(profile),
     relative: profile,
   },
+  dashboard: {
+    path: buildPath(dashboard),
+    relative: dashboard,
+  }
 };

@@ -47,7 +47,7 @@ export const useResponsive = () => {
       setDeviceSize(deviceSize as DeviceType);
     };
     window.addEventListener("resize", resizeListener);
-
+    resizeListener()
     return () => {
       window.removeEventListener("resize", resizeListener);
     };
@@ -57,7 +57,4 @@ export const useResponsive = () => {
 };
 
 export const checkDeviceSize = (deviceSize: DeviceType, target: DeviceType) =>
-  { 
-    console.log(deviceSize, deviceBreakpoints[deviceSize], target, deviceBreakpoints[target]);
-    
-    return deviceBreakpoints[deviceSize] <= deviceBreakpoints[target]};
+  deviceBreakpoints[deviceSize] <= deviceBreakpoints[target];

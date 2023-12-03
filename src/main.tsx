@@ -15,6 +15,8 @@ import "thin-backend-react/auth.css";
 import "./index.css";
 import ErrorBoundary from "./pages/error-boundary.tsx";
 import ResponsiveObserver from "./components/layout/responsive-observer.tsx";
+import InProgress from "./pages/in-progress.tsx";
+import ConfirmModal from "./components/confirm-modal.tsx";
 
 initThinBackend({
   host: import.meta.env.VITE_BACKEND_URL,
@@ -47,6 +49,18 @@ const router = createBrowserRouter([
         path: ROUTES.depts.path,
         element: <DeptsPage />,
       },
+      {
+        path: ROUTES.categories.path,
+        element: <InProgress />,
+      },
+      {
+        path: ROUTES.dashboard.path,
+        element: <InProgress />,
+      },
+      {
+        path: ROUTES.settings.path,
+        element: <InProgress />,
+      },
     ],
   },
 ]);
@@ -56,7 +70,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <ThemeProvider>
       <ThinBackend requireLogin>
         <ResponsiveObserver>
-          <RouterProvider router={router} />
+          <ConfirmModal>
+            <RouterProvider router={router} />
+          </ConfirmModal>
         </ResponsiveObserver>
       </ThinBackend>
     </ThemeProvider>
