@@ -85,7 +85,7 @@ export const DeptCardSkeleton: FC = () => {
         <div className={"flex items-center gap-5"}>
           <div className={"flex-1"}>
             <Skeleton className={"w-24 h-7"} />
-            <Skeleton className={"w-48 h-5 mt-2"} />
+            <Skeleton className={"mw-48 h-5 mt-2"} />
           </div>
           <div className={"flex gap-2"}>
             <Button variant={"outline"} size={"icon"} disabled>

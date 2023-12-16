@@ -1,8 +1,4 @@
-import {
-  Account,
-  Dept,
-  NewTransaction,
-} from "thin-backend";
+import { Account, Dept, NewTransaction } from "thin-backend";
 import { Accounts, Depts, Transactions } from "./cruds";
 
 export class API {
@@ -12,29 +8,41 @@ export class API {
 
   public transactions = {
     crud: Transactions,
+    /**
+     * Создает новую транзакцию и оновляет аккаунт
+     *
+     * 1. получить целевой аккаунт
+     * 2. проверить, есть ли в аккаунте копилка
+     *    - действия для копилки
+     * 3. посчитать новое значение аккаунта
+     *    - если < 0 вернуть ошибку
+     * 4. создаем новую транзакцию
+     * 5. обновляем значение аккаунта
+     */
     createTransactionAndUpdateAccount: async (
       newTransaction: NewTransaction
     ) => {
+      // 1. find target account
+      const account = await this.accounts.crud.read(newTransaction.accountId);
+
       // check if is expense or income
       const isIncome = newTransaction.transactionType === "income";
-
-      // find target account
-      const account = await this.accounts.crud.read(newTransaction.accountId)
 
       const floatAccountValue = parseFloat(account.value),
         floatIncomingValue = parseFloat(newTransaction.value ?? "");
 
+      // 3. новое значение аккаунта
       const newAccountValue = isIncome
         ? floatAccountValue + floatIncomingValue
         : floatAccountValue - floatIncomingValue;
 
-      // update account value
+      // 4. Создать новую транзакцию
+      this.transactions.crud.create(newTransaction);
+
+      // 5. Обновить значение аккаунта
       this.accounts.crud.update(newTransaction.accountId, {
         value: newAccountValue.toString(),
       });
-
-      // create transaction record
-      this.transactions.crud.create(newTransaction);
       return;
     },
   };

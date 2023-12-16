@@ -46,7 +46,7 @@ const CreateDeptModal: FC = () => {
 
   const onSubmit = useCallback(
     async (data: CreateDept) => {
-      Api.depts.create(data);
+      Api.depts.crud.create(data);
       onClose();
     },
     [onClose]
@@ -93,9 +93,7 @@ const CreateDeptModal: FC = () => {
                   <FormLabel>{t.common.name}</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder={
-                        t.depts.createModal.fields.namePlaceholder
-                      }
+                      placeholder={t.depts.createModal.fields.namePlaceholder}
                       {...field}
                     />
                   </FormControl>
