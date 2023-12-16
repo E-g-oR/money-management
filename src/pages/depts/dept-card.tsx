@@ -11,14 +11,13 @@ import { confirmModalContext } from "@/components/confirm-modal";
 import { Api } from "@/api";
 import PayDeptNodal from "./pay-dept-modal";
 
-
 interface Props {
   dept: Dept;
 }
 
 const DeptCard: FC<Props> = ({ dept }) => {
   const t = useTranslation();
-  const {confirm} = useContext(confirmModalContext)
+  const { confirm } = useContext(confirmModalContext);
   const formattedValue = useMemo(
     () => t.format.currency(parseFloat(dept.value), "BYN"),
     [t.format, dept.value]
@@ -28,7 +27,7 @@ const DeptCard: FC<Props> = ({ dept }) => {
     <div className={"flex gap-4 py-2 px-5 border rounded-lg"}>
       <div className={"flex flex-col items-center flex-0 justify-between"}>
         <span className={"text-2xl"}>{formattedValue}</span>
-        <PayDeptNodal dept={dept}/>
+        <PayDeptNodal dept={dept} />
       </div>
       <div className={"flex-1"}>
         <div className={"flex items-center gap-5"}>
@@ -44,13 +43,18 @@ const DeptCard: FC<Props> = ({ dept }) => {
             <Button variant={"outline"} size={"icon"}>
               <Pencil1Icon className={"h-4 w-4"} />
             </Button>
-            <Button variant={"destructive"} size={"icon"} onClick={()=> {
-              confirm({
-                title: "Delete dept",
-                description: "After deleting dept you wont be able to recover it.",
-                onConfirm: ()=> Api.depts.delete(dept.id)
-              })
-            }}>
+            <Button
+              variant={"destructive"}
+              size={"icon"}
+              onClick={() => {
+                confirm({
+                  title: "Delete dept",
+                  description:
+                    "After deleting dept you wont be able to recover it.",
+                  onConfirm: () => Api.depts.crud.delete(dept.id),
+                });
+              }}
+            >
               <TrashIcon className={"h-4 w-4"} />
             </Button>
           </div>
@@ -81,7 +85,7 @@ export const DeptCardSkeleton: FC = () => {
         <div className={"flex items-center gap-5"}>
           <div className={"flex-1"}>
             <Skeleton className={"w-24 h-7"} />
-            <Skeleton className={"w-48 h-5 mt-2"} />
+            <Skeleton className={"mw-48 h-5 mt-2"} />
           </div>
           <div className={"flex gap-2"}>
             <Button variant={"outline"} size={"icon"} disabled>

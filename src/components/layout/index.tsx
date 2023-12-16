@@ -15,7 +15,7 @@ const Layout: FC = () => {
       }
     >
       {!checkDeviceSize(deviceSize, "sm") && <Aside />}
-      <div className={"flex gap-5 flex-grow flex-shrink "}>
+      <div className={"flex gap-5 flex-grow flex-shrink overflow-auto"}>
         <div
           className={
             "flex-1 flex flex-col gap-5 mt-5 mx-5 sm:mx-0 sm:mr-5 md:mr-0"

@@ -1,90 +1,65 @@
-import {
-  Account,
-  Dept,
-  NewAccount,
-  NewDept,
-  NewTransaction,
-  createRecord,
-  deleteRecord,
-  query,
-  updateRecord,
-} from "thin-backend";
+import { Account, Dept, NewTransaction } from "thin-backend";
+import { Accounts, Depts, Transactions } from "./cruds";
 
 export class API {
-  public account = {
-    create: async (newAccount: NewAccount) => {
-      const createdAccount = await createRecord("accounts", newAccount);
-      return createdAccount;
-    },
-    update: async (id: string, data: Partial<NewAccount>) => {
-      console.log("update account", id);
-      
-      const updatedAccount = await updateRecord("accounts", id, data);
-      return updatedAccount;
-    },
+  public accounts = {
+    crud: Accounts,
   };
-  public transaction = {
+
+  public transactions = {
+    crud: Transactions,
+    /**
+     * Создает новую транзакцию и оновляет аккаунт
+     *
+     * 1. получить целевой аккаунт
+     * 2. проверить, есть ли в аккаунте копилка
+     *    - действия для копилки
+     * 3. посчитать новое значение аккаунта
+     *    - если < 0 вернуть ошибку
+     * 4. создаем новую транзакцию
+     * 5. обновляем значение аккаунта
+     */
     createTransactionAndUpdateAccount: async (
       newTransaction: NewTransaction
     ) => {
+      // 1. find target account
+      const account = await this.accounts.crud.read(newTransaction.accountId);
+
       // check if is expense or income
       const isIncome = newTransaction.transactionType === "income";
 
-      // find target account
-      const account = await query("accounts")
-        .where("id", newTransaction.accountId)
-        .fetchOne();
-        
       const floatAccountValue = parseFloat(account.value),
         floatIncomingValue = parseFloat(newTransaction.value ?? "");
 
+      // 3. новое значение аккаунта
       const newAccountValue = isIncome
         ? floatAccountValue + floatIncomingValue
         : floatAccountValue - floatIncomingValue;
 
-        // update account value
-      this.account.update(newTransaction.accountId, {
+      // 4. Создать новую транзакцию
+      this.transactions.crud.create(newTransaction);
+
+      // 5. Обновить значение аккаунта
+      this.accounts.crud.update(newTransaction.accountId, {
         value: newAccountValue.toString(),
       });
-
-      // create transaction record
-      this.transaction.create(newTransaction);
       return;
-    },
-    create: async (newTransaction: NewTransaction) => {
-      console.log("create transaction");
-      const createdTranasction = await createRecord(
-        "transactions",
-        newTransaction
-      );
-      return createdTranasction;
     },
   };
   public depts = {
-    create: async (newDept: NewDept) => {
-      const dept = await createRecord("depts", newDept);
-      return dept;
-    },
-    update: async (id: string, data: Partial<NewDept>) => {
-      const updatedDept = await updateRecord("depts", id, data);
-      return updatedDept;
-    },
+    crud: Depts,
     pay: async (dept: Dept, value: number, account: Account) => {
       const newDeptCoveredValue = dept.coveredValue + value;
-      this.transaction.createTransactionAndUpdateAccount({
+      this.transactions.createTransactionAndUpdateAccount({
         title: dept.name,
         accountId: account.id,
         transactionType: "expense",
         value: value.toString(),
       });
-      const updatedDept = await this.depts.update(dept.id, {
+      const updatedDept = await this.depts.crud.update(dept.id, {
         coveredValue: newDeptCoveredValue,
       });
       return updatedDept;
-    },
-    delete: async (deptId: string) => {
-      const deletedDept = await deleteRecord("depts", deptId);
-      return deletedDept;
     },
   };
 }

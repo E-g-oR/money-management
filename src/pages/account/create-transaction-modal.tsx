@@ -53,7 +53,7 @@ const CreateTransactionModal: FC<Props> = ({ accountId = "" }) => {
 
   const onSubmit = useCallback(
     (data: CreateTransaction) => {
-      Api.transaction.createTransactionAndUpdateAccount({
+      Api.transactions.createTransactionAndUpdateAccount({
         ...data,
         accountId,
       });
