@@ -19,7 +19,7 @@ function CardsList<T>({ data, render, skeletonComponent, fallback }: Props<T>) {
       <i>{fallback}</i>
     )
   ) : (
-    <div className={"grid grid-cols lg:grid-cols-2 xl:grid-cols-3 gap-3"}>
+    <div className={"grid grid-cols xl:grid-cols-2 2xl:grid-cols-3 gap-3"}>
       {skeletonComponent}
       {skeletonComponent}
       {skeletonComponent}

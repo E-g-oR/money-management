@@ -31,10 +31,10 @@ const EditAccount: FC<Props> = ({
 
   const onSubmit = useCallback(
     (data: AccountEdit) => {
-      Api.account
+      Api.accounts.crud
         .update(id, {
           name: data.account_name,
-          description: data.account_description,
+          description: data.account_description ?? null,
         })
         .then(cancel);
     },

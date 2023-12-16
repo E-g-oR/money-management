@@ -42,10 +42,10 @@ const CreateAccountModal: FC = () => {
 
   const onSubmit = useCallback(
     (data: AccountCreate) => {
-      Api.account
+      Api.accounts.crud
         .create({
           name: data.account_name,
-          description: data.account_description,
+          description: data.account_description ?? null,
           value: data?.account_value,
         })
         .then(() => {
@@ -53,7 +53,7 @@ const CreateAccountModal: FC = () => {
           form.reset();
         });
     },
-    [form.reset]
+    [form]
   );
 
   return (
