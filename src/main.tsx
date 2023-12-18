@@ -17,6 +17,9 @@ import ErrorBoundary from "./pages/error-boundary.tsx";
 import ResponsiveObserver from "./components/layout/responsive-observer.tsx";
 import InProgress from "./pages/in-progress.tsx";
 import ConfirmModal from "./components/confirm-modal.tsx";
+import AuthLayout from "./pages/auth/Layout.tsx";
+import LoginForm from "./pages/auth/LoginForm.tsx";
+import RegisterForm from "./pages/auth/RegisterForm.tsx";
 
 initThinBackend({
   host: import.meta.env.VITE_BACKEND_URL,
@@ -60,6 +63,20 @@ const router = createBrowserRouter([
       {
         path: ROUTES.settings.path,
         element: <InProgress />,
+      },
+    ],
+  },
+  {
+    path: ROUTES.auth.index,
+    element: <AuthLayout />,
+    children: [
+      {
+        path: ROUTES.auth.login.relative,
+        element: <LoginForm />,
+      },
+      {
+        path: ROUTES.auth.register.relative,
+        element: <RegisterForm />,
       },
     ],
   },
