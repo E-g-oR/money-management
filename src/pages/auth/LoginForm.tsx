@@ -1,11 +1,11 @@
+import { FC, useCallback } from "react";
+
+import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+
+import { ROUTES } from "@/router";
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import {
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -13,13 +13,15 @@ import {
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { ROUTES } from "@/router";
-import { FC, useCallback } from "react";
-import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import {
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
-interface Auth {
+export interface Auth {
   email: string;
   password: string;
 }
@@ -80,8 +82,14 @@ const LoginForm: FC = () => {
       </CardContent>
       <CardFooter>
         <p>
-          Don't have an account? You can {" "}
-          <Link to={ROUTES.auth.register.path}>register</Link> here.
+          Don't have an account? You can register{" "}
+          <Link
+            to={ROUTES.auth.register.path}
+            className="underline underline-offset-2"
+          >
+            here
+          </Link>
+          .
         </p>
       </CardFooter>
     </>
