@@ -3,9 +3,21 @@ import { Account, Dept, NewTransaction } from "thin-backend";
 import { Auth } from "@/pages/auth/LoginForm";
 import { FirebaseApp, initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { doc, Firestore, getDoc, getFirestore } from "firebase/firestore";
+import {
+  collection,
+  CollectionReference,
+  doc,
+  Firestore,
+  getDoc,
+  getDocs,
+  getFirestore,
+  query,
+  where,
+} from "firebase/firestore";
 
 import { Accounts, Depts, Transactions } from "./cruds";
+import { normalizeData, normalizeDataArray } from "./utils/normalizeData";
+import { TAccount } from "@/types/accounts/account";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -24,16 +36,23 @@ export const firebaseApp = initializeApp(firebaseConfig);
 export class API {
   private firebaseApp: FirebaseApp;
   private fireStore: Firestore;
+  private accountsRef: CollectionReference;
+  private transactionsRef: CollectionReference;
+  private deptsRef: CollectionReference;
 
   constructor(firebaseApp: FirebaseApp) {
     this.firebaseApp = firebaseApp;
     this.fireStore = getFirestore(firebaseApp);
+
+    this.accountsRef = collection(this.fireStore, "accounts");
+    this.transactionsRef = collection(this.fireStore, "transactions");
+    this.deptsRef = collection(this.fireStore, "depts");
   }
 
   /**
    * Log in with email and password
    * @param auth Auth object with keys "email" and "password"
-   * @returns user 
+   * @returns user
    */
   public logIn = async ({ email, password }: Auth) => {
     const auth = getAuth();
@@ -42,8 +61,47 @@ export class API {
       email,
       password
     );
-    return userCredential.user
+    return userCredential.user;
   };
+
+  // ------------------------- Accounts -------------------------
+  private getAccountsQuery = () => {
+    const currentUser = getAuth().currentUser;
+    const q = query(this.accountsRef, where("user_id", "==", currentUser?.uid));
+    return q;
+  };
+
+  public getAccounts = async (): Promise<ReadonlyArray<TAccount>> => {
+    const q = this.getAccountsQuery();
+    const accountsRaw = await getDocs(q);
+    const accountsNormalized = normalizeDataArray<TAccount>(accountsRaw.docs);
+    // TODO: сохранить список счетов в хранилище
+    return accountsNormalized;
+  };
+
+  public getAccount = async (accountId: string) => {
+    const accountRaw = await getDoc(doc(this.fireStore, "accounts", accountId));
+    // TODO: сохранить счет в хранилище
+    const account = normalizeData<TAccount>(accountRaw);
+    return account;
+  };
+
+  /**
+   * Update account
+   */
+  public updateAccount = async () => {};
+
+  /**
+   * Create account
+   */
+  public createAccount = async () => {};
+
+  /**
+   * Delete account
+   * @param accountId<string> string
+   */
+  public deleteAccount = async () => {};
+  // ------------------------- -------------------------
 
   public accounts = {
     crud: Accounts,

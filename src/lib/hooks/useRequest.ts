@@ -23,7 +23,7 @@ export const useRequestTrigger = <D, P>(
   };
 };
 
-export const useRequest = <D, P>(request: (props?: P) => Promise<D>, props?: P) => {
+export const useRequest = <D, P>(request: (props: P) => Promise<D>, props: P) => {
   const { run, ...rest } = useRequestTrigger(request);
   useEffect(() => {
     run(props);

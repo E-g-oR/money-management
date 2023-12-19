@@ -1,10 +1,12 @@
-import { FC, Suspense, lazy, useState } from "react";
-import { useTranslation } from "@/lib/hooks/useTranslation";
-import { query } from "thin-backend";
-import { useQuery } from "thin-backend-react";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Button } from "@/components/ui/button";
+import { FC, lazy, Suspense, useState } from "react";
+
 import { PencilIcon } from "lucide-react";
+
+import { Api } from "@/api";
+import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useRequest } from "@/lib/hooks/useRequest";
+import { useTranslation } from "@/lib/hooks/useTranslation";
 
 const EditAccount = lazy(() => import("./edit-account"));
 
@@ -19,29 +21,30 @@ const AccountPageHeaderSkeleton: FC = () => (
 interface Props {
   accountId: string | undefined;
 }
-const AccountPageHeader: FC<Props> = ({ accountId }) => {
+const AccountPageHeader: FC<Props> = ({ accountId = "" }) => {
   const t = useTranslation();
-  const account = useQuery(query("accounts").where("id", accountId ?? ""));
+
+  // TODO: доставать данные по счету из стора по id
+  const { data: account } = useRequest(Api.getAccount, accountId);
+
   const [isEdit, setIsEdit] = useState(false);
   return (
     <Suspense fallback={<AccountPageHeaderSkeleton />}>
-      {account?.[0] ? (
+      {account ? (
         isEdit ? (
           <EditAccount
-            account_name={account?.[0].name ?? ""}
-            account_description={account?.[0].description ?? ""}
-            id={account?.[0].id ?? ""}
+            account_name={account?.name ?? ""}
+            account_description={account?.description ?? ""}
+            id={account?.id ?? ""}
             cancel={() => setIsEdit(false)}
           />
         ) : (
           <div className={"flex justify-between"}>
             <div className={"flex flex-col gap-3"}>
-              <h1 className={"text-4xl font-bold"}>{account?.[0].name}</h1>
-              <p className="text-muted-foreground">
-                {account?.[0].description}
-              </p>
+              <h1 className={"text-4xl font-bold"}>{account?.name}</h1>
+              <p className="text-muted-foreground">{account?.description}</p>
               <p className={"text-3xl"}>
-                {t.format.currency(parseFloat(account?.[0].value), "BYN")}
+                {t.format.currency(account?.value, "BYN")}
               </p>
             </div>
             <Button
