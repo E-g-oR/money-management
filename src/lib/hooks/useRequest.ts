@@ -29,5 +29,5 @@ export const useRequest = <D, P>(request: (props: P) => Promise<D>, props: P) =>
     run(props);
   }, [run, props]);
 
-  return rest;
+  return {run, ...rest};
 };

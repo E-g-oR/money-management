@@ -24,10 +24,12 @@ interface Props {
 const AccountPageHeader: FC<Props> = ({ accountId = "" }) => {
   const t = useTranslation();
 
-  // TODO: доставать данные по счету из стора по id
-  const { data: account } = useRequest(Api.getAccount, accountId);
+  // TODO: доставать данные по аккаунту из стора по id
+  const { data: account, run: updateAccount } = useRequest(Api.getAccount, accountId);
 
   const [isEdit, setIsEdit] = useState(false);
+
+
   return (
     <Suspense fallback={<AccountPageHeaderSkeleton />}>
       {account ? (
@@ -36,13 +38,14 @@ const AccountPageHeader: FC<Props> = ({ accountId = "" }) => {
             account_name={account?.name ?? ""}
             account_description={account?.description ?? ""}
             id={account?.id ?? ""}
-            cancel={() => setIsEdit(false)}
+            cancel={() => {setIsEdit(false)}}
+            onSuccess={() => updateAccount(accountId)}
           />
         ) : (
           <div className={"flex justify-between"}>
             <div className={"flex flex-col gap-3"}>
               <h1 className={"text-4xl font-bold"}>{account?.name}</h1>
-              <p className="text-muted-foreground">{account?.description}</p>
+              <p className={"text-muted-foreground"}>{account?.description}</p>
               <p className={"text-3xl"}>
                 {t.format.currency(account?.value, "BYN")}
               </p>

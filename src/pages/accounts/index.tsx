@@ -10,10 +10,10 @@ import { useRequest } from "@/lib/hooks/useRequest";
 
 const AccountsPage: FC = () => {
   // const accounts = useAccountsSubscription()
-  const {data: accounts, isLoading} = useRequest(Api.getAccounts)
+  const {data: accounts, isLoading, run: updateAccountsList} = useRequest(Api.getAccounts)
 
   return (
-    <PageLayout title={"Your accounts"} action={<CreateAccountModal />}>
+    <PageLayout title={"Your accounts"} action={<CreateAccountModal onSuccess={updateAccountsList} />}>
       <Input placeholder={"Search accounts"} />
       <CardsList
         data={accounts}

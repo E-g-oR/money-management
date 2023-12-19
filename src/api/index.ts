@@ -4,6 +4,7 @@ import { Auth } from "@/pages/auth/LoginForm";
 import { FirebaseApp, initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import {
+  addDoc,
   collection,
   CollectionReference,
   doc,
@@ -12,12 +13,18 @@ import {
   getDocs,
   getFirestore,
   query,
+  serverTimestamp,
+  setDoc,
   where,
 } from "firebase/firestore";
 
 import { Accounts, Depts, Transactions } from "./cruds";
 import { normalizeData, normalizeDataArray } from "./utils/normalizeData";
-import { TAccount } from "@/types/accounts/account";
+import {
+  TAccount,
+  TCreateAccount,
+  TNewAccount,
+} from "@/types/accounts/account";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -64,7 +71,8 @@ export class API {
     return userCredential.user;
   };
 
-  // ------------------------- Accounts -------------------------
+  //! ------------------------- Accounts -------------------------
+
   private getAccountsQuery = () => {
     const currentUser = getAuth().currentUser;
     const q = query(this.accountsRef, where("user_id", "==", currentUser?.uid));
@@ -89,19 +97,54 @@ export class API {
   /**
    * Update account
    */
-  public updateAccount = async () => {};
+  public updateAccount = async (
+    accountId: string,
+    toUpdate: Partial<TNewAccount>
+  ): Promise<TAccount> => {
+    const accountRef = doc(this.fireStore, "accounts", accountId);
+    await setDoc(accountRef, toUpdate, { merge: true });
+    const updatedAccount = (await getDoc(accountRef)).data() as TAccount;
+    return updatedAccount;
+  };
 
   /**
-   * Create account
+   * Create new account
+   * @param createAccount account body to create new account
    */
-  public createAccount = async () => {};
+  public createAccount = async (createAccount: TCreateAccount) => {
+    const auth = getAuth();
+    const newAccountPrepeared: TNewAccount = {
+      user_id: auth.currentUser?.uid ?? "",
+      created_at: serverTimestamp(),
+      ...createAccount,
+    };
+    const newAccountResponse = await addDoc(
+      this.accountsRef,
+      newAccountPrepeared
+    );
+    // console.log((await getDoc(newAccountResponse)).data());
+    // TODO: this.getAccounts()
+    return newAccountResponse;
+  };
 
   /**
-   * Delete account
+   * TODO: Delete account
    * @param accountId<string> string
    */
   public deleteAccount = async () => {};
-  // ------------------------- -------------------------
+
+  //* ------------------------- -------------------------
+
+  //! ------------------------- Transactions -------------------------
+
+  private getTransactionsQuery = (accountId: string) => {
+    const q = query(this.transactionsRef, where("account_id", "==", accountId));
+    return q;
+  };
+  public getTransactionsForAccount = async (accountId: string, ) => {
+
+  };
+  //* ------------------------- -------------------------
 
   public accounts = {
     crud: Accounts,

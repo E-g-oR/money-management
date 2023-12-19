@@ -26,8 +26,10 @@ interface AccountCreate {
   account_description?: string;
   account_value: string;
 }
-
-const CreateAccountModal: FC = () => {
+type Props = {
+  onSuccess: () => void
+}
+const CreateAccountModal: FC<Props> = ({onSuccess}) => {
   const t = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -42,18 +44,20 @@ const CreateAccountModal: FC = () => {
 
   const onSubmit = useCallback(
     (data: AccountCreate) => {
-      Api.accounts.crud
-        .create({
+      console.log(data);
+      
+      Api.createAccount({
           name: data.account_name,
-          description: data.account_description ?? null,
-          value: data?.account_value,
+          description: data.account_description,
+          value: parseFloat(data?.account_value),
         })
         .then(() => {
+          onSuccess()
           setIsOpen(false);
           form.reset();
         });
     },
-    [form]
+    [form, onSuccess]
   );
 
   return (
