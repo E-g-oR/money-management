@@ -1,11 +1,13 @@
-import { FC, useCallback } from "react";
+import { FC, useEffect } from "react";
 
-import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
 
+import { Api } from "@/api";
 import { ROUTES } from "@/router";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useRequestTrigger } from "@/lib/hooks/useRequest";
 import {
   Form,
   FormControl,
@@ -28,20 +30,27 @@ export interface Auth {
 
 const LoginForm: FC = () => {
   const form = useForm<Auth>();
+  const navigate = useNavigate();
+  const { run: login, isLoading, data } = useRequestTrigger(Api.logIn);
 
-  const onSubmit = useCallback((data: Auth) => {
-    console.log(data);
-  }, []);
+  // TODO: вынести логику редиректа по авторизации в общую обертку приложения
+  useEffect(() => {
+    if (data) {
+      navigate(ROUTES.home.path);
+    }
+  }, [data, navigate]);
+
   return (
     <>
       <CardHeader>
+        {/* TODO: использовать словарь перевода */}
         <CardTitle>Login</CardTitle>
         <CardDescription>Authorise in money-management.io</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit(onSubmit)}
+            onSubmit={form.handleSubmit(login)}
             className={"flex flex-col gap-3"}
           >
             <FormField
@@ -76,7 +85,9 @@ const LoginForm: FC = () => {
                 </FormItem>
               )}
             />
-            <Button type={"submit"}>Log in</Button>
+            <Button type={"submit"} disabled={isLoading}>
+              {isLoading ? "Loading..." : "Log in"}
+            </Button>
           </form>
         </Form>
       </CardContent>

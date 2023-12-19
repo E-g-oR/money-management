@@ -1,7 +1,50 @@
 import { Account, Dept, NewTransaction } from "thin-backend";
+
+import { Auth } from "@/pages/auth/LoginForm";
+import { FirebaseApp, initializeApp } from "firebase/app";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { doc, Firestore, getDoc, getFirestore } from "firebase/firestore";
+
 import { Accounts, Depts, Transactions } from "./cruds";
 
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  databaseURL: import.meta.env.VITE_FIREBASE_DATABASE_URL,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+};
+
+// Initialize Firebase
+export const firebaseApp = initializeApp(firebaseConfig);
+
 export class API {
+  private firebaseApp: FirebaseApp;
+  private fireStore: Firestore;
+
+  constructor(firebaseApp: FirebaseApp) {
+    this.firebaseApp = firebaseApp;
+    this.fireStore = getFirestore(firebaseApp);
+  }
+
+  /**
+   * Log in with email and password
+   * @param auth Auth object with keys "email" and "password"
+   * @returns user 
+   */
+  public logIn = async ({ email, password }: Auth) => {
+    const auth = getAuth();
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    return userCredential.user
+  };
+
   public accounts = {
     crud: Accounts,
   };
@@ -64,4 +107,4 @@ export class API {
   };
 }
 
-export const Api = new API();
+export const Api = new API(firebaseApp);
