@@ -18,8 +18,6 @@ import RegisterForm from "./pages/auth/RegisterForm.tsx";
 import ConfirmModal from "./components/confirm-modal.tsx";
 import ResponsiveObserver from "./components/layout/responsive-observer.tsx";
 
-import "thin-backend-react/auth.css";
-
 import "./index.css";
 
 
