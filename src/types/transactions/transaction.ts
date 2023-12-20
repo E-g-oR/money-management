@@ -2,23 +2,23 @@ import { FieldValue, Timestamp } from "firebase/firestore";
 
 export enum TransactionType {
   Income = "income",
-  Expense = "expense"
+  Expense = "expense",
 }
 
 export type TCreateTransaction = {
-    value: number,
-    title: string,
-    description?: string,
-    account_id: string,
-    type: TransactionType
-}
+  value: number;
+  title: string;
+  description?: string;
+  account_id: string;
+  type: TransactionType;
+};
 
 export type TNewTransaction = TCreateTransaction & {
   created_at: FieldValue;
-  user_id: string
+  user_id: string;
 };
 
 export type TTransaction = TCreateTransaction & {
-    id: string
-    created_at: Timestamp
-}
+  id: string;
+  created_at: Timestamp;
+};

@@ -1,24 +1,27 @@
 import { FC } from "react";
-import DeptCard, { DeptCardSkeleton } from "./dept-card";
-import { DeptsBadgeSkeleton } from "./depts-badge";
-import { useTranslation } from "@/lib/hooks/useTranslation";
-import PageLayout from "@/components/layout/page-layout";
+
+import { Api } from "@/api";
+import { useRequest } from "@/lib/hooks/useRequest";
 import CardsList from "@/components/layout/cards-list";
-import { useQuery } from "thin-backend-react";
-import { query } from "thin-backend";
-import CreateDeptModal from "./create-dept-modal";
+import PageLayout from "@/components/layout/page-layout";
+import { useTranslation } from "@/lib/hooks/useTranslation";
 import { useAccountsSubscription } from "@/lib/hooks/useAccountsSubscription";
+
+import CreateDeptModal from "./create-dept-modal";
+import { DeptsBadgeSkeleton } from "./depts-badge";
+import DeptCard, { DeptCardSkeleton } from "./dept-card";
 
 const DeptsPage: FC = () => {
   const t = useTranslation();
   useAccountsSubscription();
-  
-  const depts = useQuery(
-    query("depts").orderByDesc("value").orderByDesc("coveredValue")
-  );
-  
+
+  const { data: depts, run: updateDepts } = useRequest(Api.getDepts, undefined);
+
   return (
-    <PageLayout title={t.depts.title} action={<CreateDeptModal />}>
+    <PageLayout
+      title={t.depts.title}
+      action={<CreateDeptModal onSuccess={updateDepts} />}
+    >
       <div className={"flex gap-2 flex-wrap"}>
         <DeptsBadgeSkeleton />
         <DeptsBadgeSkeleton />
@@ -26,7 +29,7 @@ const DeptsPage: FC = () => {
       </div>
       <CardsList
         data={depts}
-        render={(dept, index) => <DeptCard key={index} dept={dept} />}
+        render={(dept, index) => <DeptCard key={index} dept={dept} updateDepts={updateDepts} />}
         skeletonComponent={<DeptCardSkeleton />}
         fallback={"You dont have any depts. Congratulations!"}
       />

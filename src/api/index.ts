@@ -1,5 +1,3 @@
-import { Account, Dept, NewTransaction } from "thin-backend";
-
 import { Auth } from "@/pages/auth/LoginForm";
 import { FirebaseApp, initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
@@ -7,12 +5,12 @@ import {
   addDoc,
   collection,
   CollectionReference,
+  deleteDoc,
   doc,
   Firestore,
   getDoc,
   getDocs,
   getFirestore,
-  Query,
   query,
   QueryConstraint,
   serverTimestamp,
@@ -20,7 +18,6 @@ import {
   where,
 } from "firebase/firestore";
 
-import { Accounts, Depts, Transactions } from "./cruds";
 import { TId, normalizeData, normalizeDataArray } from "./utils/normalizeData";
 import {
   TAccount,
@@ -33,6 +30,8 @@ import {
   TTransaction,
   TransactionType,
 } from "@/types/transactions/transaction";
+import { TCreateDept, TDept, TNewDept } from "@/types/depts/dept";
+import { transormListToMap, useDataStore } from "@/store/data";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -104,8 +103,10 @@ class Crud<
     return updated;
   };
 
-  // TODO: delete method
-  public delete = async (docId: string) => {};
+  public delete = async (docId: string) => {
+    const docRef = doc(this.firestore, this.collectionName, docId)
+    await deleteDoc(docRef)
+  };
 }
 
 // Initialize Firebase
@@ -116,7 +117,7 @@ export class API {
   private fireStore: Firestore;
   private accounts: Crud<TCreateAccount, TNewAccount, TAccount>;
   private transactions: Crud<TCreateTransaction, TNewTransaction, TTransaction>;
-  // private depts: Crud;
+  private depts_: Crud<TCreateDept, TNewDept, TDept>;
 
   constructor(firebaseApp: FirebaseApp) {
     this.firebaseApp = firebaseApp;
@@ -124,7 +125,7 @@ export class API {
 
     this.accounts = new Crud(this.fireStore, "accounts");
     this.transactions = new Crud(this.fireStore, "transactions");
-    // this.depts = collection(this.fireStore, "depts");
+    this.depts_ = new Crud(this.fireStore, "depts");
   }
 
   /**
@@ -153,7 +154,9 @@ export class API {
   public getAccounts = async (): Promise<ReadonlyArray<TAccount>> => {
     const q = this.getAccountsQuery();
     const accounts = await this.accounts.readAll(q);
-    // TODO: сохранить список счетов в хранилище
+
+    const setAccounts = useDataStore.getState().setAccountsById;
+    setAccounts(transormListToMap(accounts));
     return accounts;
   };
 
@@ -237,25 +240,36 @@ export class API {
   //* ------------------------- -------------------------
 
   //! ------------------------- Depts -------------------------
-  public createDept = async () => {};
-  //* ------------------------- -------------------------
-
-  public depts = {
-    crud: Depts,
-    pay: async (dept: Dept, value: number, account: Account) => {
-      const newDeptCoveredValue = dept.coveredValue + value;
-      this.transactions.createTransactionAndUpdateAccount({
-        title: dept.name,
-        accountId: account.id,
-        transactionType: "expense",
-        value: value.toString(),
-      });
-      const updatedDept = await this.depts.crud.update(dept.id, {
-        coveredValue: newDeptCoveredValue,
-      });
-      return updatedDept;
-    },
+  public createDept = async (createBody: TCreateDept) => {
+    const dept = await this.depts_.create(createBody);
+    return dept;
   };
+
+  public getDepts = async () => {
+    const q = this.getAccountsQuery();
+    const depts = await this.depts_.readAll(q);
+    return depts;
+  };
+
+  public payDept = async (dept: TDept, value: number, account: TAccount) => {
+    const newDeptCoveredValue = dept.coveredValue + value;
+    await this.createTransactionAndUpdateAccount({
+      account_id: account.id,
+      title: dept.name,
+      description: dept.description ?? "",
+      type: TransactionType.Expense,
+      value,
+    });
+    const updatedDept = await this.depts_.update(dept.id, {
+      coveredValue: newDeptCoveredValue,
+    });
+    return updatedDept;
+  };
+
+  public deleteDept = async (deptId: string) => {
+    await this.depts_.delete(deptId)
+  }
+  //* ------------------------- -------------------------
 }
 
 export const Api = new API(firebaseApp);

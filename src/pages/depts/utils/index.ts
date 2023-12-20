@@ -1,2 +1,2 @@
-export const calcProgress = (value: string, coveredValue: string): number =>
-  (parseFloat(coveredValue) / parseFloat(value)) * 100;
+export const calcProgress = (value: number, coveredValue: number): number =>
+  (coveredValue / value) * 100;

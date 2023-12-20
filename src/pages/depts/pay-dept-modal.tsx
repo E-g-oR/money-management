@@ -1,5 +1,27 @@
+import { FC, useCallback, useState } from "react";
+
+import { useForm } from "react-hook-form";
+
 import { Api } from "@/api";
+import { TDept } from "@/types/depts/dept";
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { getAccountsById, useDataStore } from "@/store/data";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   Dialog,
   DialogContent,
@@ -9,26 +31,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { getAccountsById, useDataStore } from "@/store/data";
-import { FC, useCallback, useState } from "react";
-import { useForm } from "react-hook-form";
-import { Dept } from "thin-backend";
 
 interface IPayDept {
   value: string;
@@ -36,24 +38,33 @@ interface IPayDept {
 }
 
 interface Props {
-  dept: Dept;
+  dept: TDept;
+  onSuccess: () => void;
 }
-const PayDeptNodal: FC<Props> = ({ dept }) => {
+const PayDeptNodal: FC<Props> = ({ dept, onSuccess }) => {
   const [open, setOpen] = useState(false);
 
   const accountsById = useDataStore(getAccountsById);
 
   const form = useForm<IPayDept>();
 
+  const onClose = useCallback(() => {
+    form.reset();
+    form.clearErrors();
+    setOpen(false);
+  }, [form]);
+
   const onSubmit = useCallback(
     (data: IPayDept) => {
       const account = accountsById.get(data.accountId);
       if (account) {
-        Api.depts.pay(dept, parseFloat(data.value), account);
-        setOpen(false);
+        Api.payDept(dept, parseFloat(data.value), account).then(() => {
+          onSuccess();
+          onClose();
+        });
       }
     },
-    [dept, accountsById]
+    [dept, accountsById, onSuccess, onClose]
   );
 
   return (
@@ -66,7 +77,7 @@ const PayDeptNodal: FC<Props> = ({ dept }) => {
           <DialogTitle>Pay dept</DialogTitle>
           <DialogDescription>{`Pay ${dept.name}`}</DialogDescription>
         </DialogHeader>
-        <p>Needs to pay {parseFloat(dept.value) - parseFloat(dept.coveredValue)} to close the dept.</p>
+        <p>Needs to pay {dept.value - dept.coveredValue} to close the dept.</p>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="flex gap-2">
@@ -129,5 +140,3 @@ const PayDeptNodal: FC<Props> = ({ dept }) => {
 };
 
 export default PayDeptNodal;
-
-// const;
