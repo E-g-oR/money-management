@@ -5,7 +5,6 @@ import { useRequest } from "@/lib/hooks/useRequest";
 import CardsList from "@/components/layout/cards-list";
 import PageLayout from "@/components/layout/page-layout";
 import { useTranslation } from "@/lib/hooks/useTranslation";
-import { useAccountsSubscription } from "@/lib/hooks/useAccountsSubscription";
 
 import CreateDeptModal from "./create-dept-modal";
 import { DeptsBadgeSkeleton } from "./depts-badge";
@@ -13,14 +12,20 @@ import DeptCard, { DeptCardSkeleton } from "./dept-card";
 
 const DeptsPage: FC = () => {
   const t = useTranslation();
-  useAccountsSubscription();
-
+  const { run: updateAccounts } = useRequest(Api.getAccounts, undefined);
   const { data: depts, run: updateDepts } = useRequest(Api.getDepts, undefined);
 
   return (
     <PageLayout
       title={t.depts.title}
-      action={<CreateDeptModal onSuccess={() => updateDepts(undefined)} />}
+      action={
+        <CreateDeptModal
+          onSuccess={() => {
+            updateDepts(undefined);
+            updateAccounts(undefined);
+          }}
+        />
+      }
     >
       <div className={"flex gap-2 flex-wrap"}>
         <DeptsBadgeSkeleton />
