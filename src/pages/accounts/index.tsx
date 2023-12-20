@@ -10,15 +10,15 @@ import CreateAccountModal from "./create-account-modal";
 import AccountCard, { AccountCardSkeleton } from "./account-card";
 
 const AccountsPage: FC = () => {
-  // const accounts = useAccountsSubscription()
   const { data: accounts, run: updateAccountsList } = useRequest(
-    Api.getAccounts
+    Api.getAccounts,
+    undefined
   );
 
   return (
     <PageLayout
       title={"Your accounts"}
-      action={<CreateAccountModal onSuccess={updateAccountsList} />}
+      action={<CreateAccountModal onSuccess={() => updateAccountsList(undefined)} />}
     >
       <Input placeholder={"Search accounts"} />
       <CardsList

@@ -44,7 +44,6 @@ const CreateAccountModal: FC<Props> = ({onSuccess}) => {
 
   const onSubmit = useCallback(
     (data: AccountCreate) => {
-      console.log(data);
       
       Api.createAccount({
           name: data.account_name,

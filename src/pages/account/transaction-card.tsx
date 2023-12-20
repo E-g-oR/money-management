@@ -1,10 +1,14 @@
+import { FC, useMemo } from "react";
+
+import { ChevronDown, ChevronUp } from "lucide-react";
+
+import { cn } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTranslation } from "@/lib/hooks/useTranslation";
-import { cn } from "@/lib/utils";
-import { TTransaction, TransactionType } from "@/types/transactions/transaction";
-import { ChevronDown, ChevronUp } from "lucide-react";
-import { FC, useMemo } from "react";
-import { Transaction } from "thin-backend";
+import {
+  TransactionType,
+  TTransaction,
+} from "@/types/transactions/transaction";
 
 const IncomeIcon: FC = () => (
   <div

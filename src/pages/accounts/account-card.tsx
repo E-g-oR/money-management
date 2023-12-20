@@ -1,12 +1,14 @@
+import { FC } from "react";
+
+import { Link } from "react-router-dom";
+
+import { ROUTES } from "@/router";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ROUTES } from "@/router";
-import { FC } from "react";
-import { Link } from "react-router-dom";
-import { Account } from "thin-backend";
+import { TAccount } from "@/types/accounts/account";
 
 interface Props {
-  account: Account;
+  account: TAccount;
 }
 const AccountCard: FC<Props> = ({ account }) => {
   return (
@@ -43,7 +45,7 @@ export const AccountCardSkeleton: FC = () => (
   >
     <Skeleton className={"h-9 w-24"} />
     <div className={"flex flex-col flex-1 justify-evenly gap-2"}>
-      <Skeleton className={"h-8 w-20"}/>
+      <Skeleton className={"h-8 w-20"} />
       <Skeleton className={"h-6 w-52"} />
     </div>
   </Card>

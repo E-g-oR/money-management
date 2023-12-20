@@ -1,16 +1,14 @@
 import { FC } from "react";
 
-import { query } from "thin-backend";
 import { useParams } from "react-router-dom";
-import { useQuery } from "thin-backend-react";
 
+import { Api } from "@/api";
+import { useRequest } from "@/lib/hooks/useRequest";
 import CardsList from "@/components/layout/cards-list";
 
 import AccountPageHeader from "./account-page-header";
 import CreateTransactionModal from "./create-transaction-modal";
 import TransactionCard, { TransactionCardSkeleton } from "./transaction-card";
-import { useRequest } from "@/lib/hooks/useRequest";
-import { Api } from "@/api";
 
 const AccountPage: FC = () => {
   const { accountId } = useParams<"accountId">();
@@ -19,7 +17,6 @@ const AccountPage: FC = () => {
     Api.getTransactionsForAccount,
     accountId ?? ""
   );
-  console.log(transactions);
 
   return (
     <>

@@ -20,7 +20,7 @@ const DeptsPage: FC = () => {
   return (
     <PageLayout
       title={t.depts.title}
-      action={<CreateDeptModal onSuccess={updateDepts} />}
+      action={<CreateDeptModal onSuccess={() => updateDepts(undefined)} />}
     >
       <div className={"flex gap-2 flex-wrap"}>
         <DeptsBadgeSkeleton />
@@ -29,7 +29,13 @@ const DeptsPage: FC = () => {
       </div>
       <CardsList
         data={depts}
-        render={(dept, index) => <DeptCard key={index} dept={dept} updateDepts={updateDepts} />}
+        render={(dept, index) => (
+          <DeptCard
+            key={index}
+            dept={dept}
+            updateDepts={() => updateDepts(undefined)}
+          />
+        )}
         skeletonComponent={<DeptCardSkeleton />}
         fallback={"You dont have any depts. Congratulations!"}
       />

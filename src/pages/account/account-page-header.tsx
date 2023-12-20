@@ -28,7 +28,7 @@ const AccountPageHeader: FC<Props> = ({ accountId = "" }) => {
   const { data: account, run: updateAccount } = useRequest(
     Api.getAccount,
     accountId
-  );
+  );  
 
   const [isEdit, setIsEdit] = useState(false);
 
