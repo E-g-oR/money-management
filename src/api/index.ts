@@ -12,6 +12,7 @@ import {
   getDoc,
   getDocs,
   getFirestore,
+  Query,
   query,
   serverTimestamp,
   setDoc,
@@ -19,12 +20,18 @@ import {
 } from "firebase/firestore";
 
 import { Accounts, Depts, Transactions } from "./cruds";
-import { normalizeData, normalizeDataArray } from "./utils/normalizeData";
+import { TId, normalizeData, normalizeDataArray } from "./utils/normalizeData";
 import {
   TAccount,
   TCreateAccount,
   TNewAccount,
 } from "@/types/accounts/account";
+import {
+  TCreateTransaction,
+  TNewTransaction,
+  TTransaction,
+  TransactionType,
+} from "@/types/transactions/transaction";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -36,6 +43,54 @@ const firebaseConfig = {
   messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
+
+// type TUId = {
+//   user_id: string
+// }
+
+// class Crud<CreateType, NewType extends TUId & CreateType, NormalType extends TId> {
+//   private collectionName: string
+//   private collectionRef: CollectionReference
+//   private firestore: Firestore
+
+//   constructor(firestore: Firestore, collectionName: string) {
+//     this.collectionName = collectionName
+//     this.firestore = firestore
+//     this.collectionRef = collection(firestore, collectionName)
+//   }
+
+//   public read = async (docId: string) => {
+//     const docRaw = await getDoc(doc(this.firestore, this.collectionName, docId))
+//     const docData = normalizeData<NormalType>(docRaw)
+//     return docData
+//   }
+//   public readAll = async (query?: Query) => {
+//     const collectionRaw = await getDocs(query ?? collection(this.firestore, this.collectionName))
+//     const collectionNormalized = normalizeDataArray<NormalType>(collectionRaw.docs)
+//     return collectionNormalized
+//   }
+
+//   public create = async (createBody: CreateType) => {
+//     const auth = getAuth()
+//     // TODO: Продумать как добавить поле created_at, чтобы можно было передавать
+//     const newThing: NewType = {
+//       user_id: auth.currentUser?.uid ?? "",
+//       ...createBody
+//     }
+//     const newDocRef = await addDoc(this.collectionRef, newThing)
+//     const createdDoc = await this.read(newDocRef.id)
+//     return createdDoc
+//   }
+
+//   public update = async (docId: string, updateBody: Partial<NewType>) => {
+//     const docRef = doc(this.firestore, this.collectionName, docId)
+//     await setDoc(docRef, updateBody, { merge: true });
+//     const updated = this.read(docRef.id)
+//     return updated
+//   }
+
+//   // TODO: delete method
+// }
 
 // Initialize Firebase
 export const firebaseApp = initializeApp(firebaseConfig);
@@ -141,9 +196,73 @@ export class API {
     const q = query(this.transactionsRef, where("account_id", "==", accountId));
     return q;
   };
-  public getTransactionsForAccount = async (accountId: string, ) => {
 
+  public getTransactionsForAccount = async (accountId: string) => {
+    // console.group("Inside getTransactionsForAccount()"); 
+    // console.log("accountId : ", accountId);
+    const q = this.getTransactionsQuery(accountId);
+    console.log(
+      "before getDocs() in getTransactionsForAccount :"
+    );
+
+    const transactionsRaw = await getDocs(q);
+    console.log("after getDocs() in getTransactionsForAccount :", transactionsRaw);
+    
+    const transactionsNormalized = normalizeDataArray<TTransaction>(
+      transactionsRaw.docs
+    );
+    // console.log("transactionsNormalized : ", transactionsNormalized);
+
+    // console.groupEnd();
+    return transactionsNormalized;
   };
+
+  public createTransaction = async (transactionBody: TCreateTransaction) => {
+    const auth = getAuth();
+    const newTransactionPrepeared: TNewTransaction = {
+      created_at: serverTimestamp(),
+      user_id: auth.currentUser?.uid ?? "",
+      ...transactionBody,
+    };
+    console.log(
+      "addDoc with newTransactionPrepeared :",
+      newTransactionPrepeared
+    );
+    
+    const transactionRef = await addDoc(
+      this.transactionsRef,
+      newTransactionPrepeared
+    );
+    const transactionResponse = await getDoc(transactionRef);
+    const transaction = normalizeData<TTransaction>(transactionResponse);
+    return transaction;
+  };
+
+  public createTransactionAndUpdateAccount = async (
+    transactionBody: TCreateTransaction
+  ) => {
+    // TODO: добавить проверку на отрицательное число (нельзя потратить больше, чем есть на счету)
+    const account = await this.getAccount(transactionBody.account_id);
+    const newAccountValue =
+      transactionBody.type === TransactionType.Income
+        ? account.value + transactionBody.value
+        : account.value - transactionBody.value;
+
+    console.log("before create transaction");
+    const transaction = await this.createTransaction(transactionBody);
+    console.log("after create transaction");
+    console.log("before update account");
+    await this.updateAccount(transactionBody.account_id, {
+      value: newAccountValue,
+    });
+    console.log("after update account");
+
+    return transaction;
+  };
+  //* ------------------------- -------------------------
+
+  //! ------------------------- Depts -------------------------
+  public createDept = async () => {};
   //* ------------------------- -------------------------
 
   public accounts = {

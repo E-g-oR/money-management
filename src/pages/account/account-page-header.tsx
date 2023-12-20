@@ -25,10 +25,12 @@ const AccountPageHeader: FC<Props> = ({ accountId = "" }) => {
   const t = useTranslation();
 
   // TODO: доставать данные по аккаунту из стора по id
-  const { data: account, run: updateAccount } = useRequest(Api.getAccount, accountId);
+  const { data: account, run: updateAccount } = useRequest(
+    Api.getAccount,
+    accountId
+  );
 
   const [isEdit, setIsEdit] = useState(false);
-
 
   return (
     <Suspense fallback={<AccountPageHeaderSkeleton />}>
@@ -38,7 +40,9 @@ const AccountPageHeader: FC<Props> = ({ accountId = "" }) => {
             account_name={account?.name ?? ""}
             account_description={account?.description ?? ""}
             id={account?.id ?? ""}
-            cancel={() => {setIsEdit(false)}}
+            cancel={() => {
+              setIsEdit(false);
+            }}
             onSuccess={() => updateAccount(accountId)}
           />
         ) : (

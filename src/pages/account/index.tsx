@@ -9,22 +9,27 @@ import CardsList from "@/components/layout/cards-list";
 import AccountPageHeader from "./account-page-header";
 import CreateTransactionModal from "./create-transaction-modal";
 import TransactionCard, { TransactionCardSkeleton } from "./transaction-card";
+import { useRequest } from "@/lib/hooks/useRequest";
+import { Api } from "@/api";
 
 const AccountPage: FC = () => {
   const { accountId } = useParams<"accountId">();
 
-  const transactions = useQuery(
-    query("transactions")
-      .where("accountId", accountId ?? "")
-      .orderByDesc("createdAt")
+  const { data: transactions, run } = useRequest(
+    Api.getTransactionsForAccount,
+    accountId ?? ""
   );
+  console.log(transactions);
 
   return (
     <>
       <AccountPageHeader accountId={accountId} />
       <div className={"flex justify-between items-center"}>
         <p>Your recent transactions</p>
-        <CreateTransactionModal accountId={accountId} />
+        <CreateTransactionModal
+          accountId={accountId}
+          onSuccess={() => run(accountId ?? "")}
+        />
       </div>
       <CardsList
         data={transactions}
