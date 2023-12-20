@@ -1,11 +1,13 @@
+import { FC, useCallback } from "react";
+
+import { Save, Undo2 } from "lucide-react";
+import { Controller, useForm } from "react-hook-form";
+
 import { Api } from "@/api";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/lib/hooks/useTranslation";
-import { Save, Undo2 } from "lucide-react";
-import { FC, useCallback } from "react";
-import { Controller, useForm } from "react-hook-form";
 
 interface AccountEdit {
   account_name: string;
@@ -14,12 +16,15 @@ interface AccountEdit {
 interface Props extends AccountEdit {
   id: string;
   cancel: () => void;
+  onSuccess: () => void;
 }
+
 const EditAccount: FC<Props> = ({
   account_name,
   account_description,
   id,
   cancel,
+  onSuccess,
 }) => {
   const t = useTranslation();
   const form = useForm<AccountEdit>({
@@ -31,14 +36,17 @@ const EditAccount: FC<Props> = ({
 
   const onSubmit = useCallback(
     (data: AccountEdit) => {
-      Api.accounts.crud
-        .update(id, {
-          name: data.account_name,
-          description: data.account_description ?? null,
-        })
-        .then(cancel);
+      Api.updateAccount(id, {
+        name: data.account_name,
+        description: data.account_description,
+      })
+        // todo: update account
+        .then(() => {
+          onSuccess();
+          cancel();
+        });
     },
-    [id, cancel]
+    [id, cancel, onSuccess]
   );
 
   return (

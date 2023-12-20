@@ -1,14 +1,24 @@
 import { FC } from "react";
-import { Outlet } from "react-router-dom";
-import ExchangeRates from "../exchange-rates/ExchangeRates";
-import Aside from "../ui/navigation-menu";
-import { getDeviceSize, useResponsiveStore } from "@/store/responsive";
+
+import { Navigate, Outlet } from "react-router-dom";
+
+import { ROUTES } from "@/router";
+import { getAuth } from "firebase/auth";
 import { checkDeviceSize } from "@/lib/hooks/useResponsive";
+import { getDeviceSize, useResponsiveStore } from "@/store/responsive";
+
+import Aside from "../ui/navigation-menu";
 import BottomNavigation from "../bottom-navigation";
+import ExchangeRates from "../exchange-rates/ExchangeRates";
 
 const Layout: FC = () => {
   const deviceSize = useResponsiveStore(getDeviceSize);
-  return (
+  const auth = getAuth();
+  // TODO: добавить обработчик событий на изменение состояния auth
+
+  return !auth.currentUser ? (
+    <Navigate to={ROUTES.auth.login.path} replace />
+  ) : (
     <div
       className={
         "w-screen h-screen flex flex-col sm:flex-row gap-5 bg-background"

@@ -1,16 +1,12 @@
 import { FC, useCallback, useState } from "react";
+
 import { Plus } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
+
+import { Api } from "@/api";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { useTranslation } from "@/lib/hooks/useTranslation";
 import {
   Form,
   FormControl,
@@ -26,22 +22,34 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useTranslation } from "@/lib/hooks/useTranslation";
-import { Api } from "@/api";
-import { TransactionType } from "thin-backend";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { TransactionType } from "@/types/transactions/transaction";
 
 interface CreateTransaction {
   title: string;
   description?: string;
-  transactionType: TransactionType;
+  type: TransactionType;
   value: string;
 }
 interface Props {
   accountId: string | undefined;
+  onSuccess: () => void;
 }
-const CreateTransactionModal: FC<Props> = ({ accountId = "" }) => {
+const CreateTransactionModal: FC<Props> = ({ accountId = "", onSuccess }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const form = useForm<CreateTransaction>();
+  const form = useForm<CreateTransaction>({defaultValues: {
+    description: "",
+    title: "",
+    type: TransactionType.Expense,
+    value: "0"
+  }});
 
   const t = useTranslation();
 
@@ -53,13 +61,16 @@ const CreateTransactionModal: FC<Props> = ({ accountId = "" }) => {
 
   const onSubmit = useCallback(
     (data: CreateTransaction) => {
-      Api.transactions.createTransactionAndUpdateAccount({
+      Api.createTransactionAndUpdateAccount({
         ...data,
-        accountId,
+        value: parseFloat(data.value),
+        account_id: accountId,
+      }).then(() => {
+        onSuccess();
+        onClose();
       });
-      onClose();
     },
-    [onClose, accountId]
+    [onClose, accountId, onSuccess]
   );
 
   return (
@@ -129,7 +140,7 @@ const CreateTransactionModal: FC<Props> = ({ accountId = "" }) => {
             <div className={"flex gap-3"}>
               <FormField
                 control={form.control}
-                name={"transactionType"}
+                name={"type"}
                 rules={{
                   required: {
                     value: true,
@@ -153,8 +164,12 @@ const CreateTransactionModal: FC<Props> = ({ accountId = "" }) => {
                       <FormMessage />
 
                       <SelectContent>
-                        <SelectItem value="income">Income</SelectItem>
-                        <SelectItem value="expense">Expense</SelectItem>
+                        <SelectItem value={TransactionType.Income}>
+                          Income
+                        </SelectItem>
+                        <SelectItem value={TransactionType.Expense}>
+                          Expense
+                        </SelectItem>
                       </SelectContent>
                     </Select>
                   </FormItem>

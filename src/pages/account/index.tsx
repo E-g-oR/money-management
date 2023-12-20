@@ -1,19 +1,21 @@
 import { FC } from "react";
-import AccountPageHeader from "./account-page-header";
-import TransactionCard, { TransactionCardSkeleton } from "./transaction-card";
-import CardsList from "@/components/layout/cards-list";
-import { useParams } from "react-router-dom";
-import { useQuery } from "thin-backend-react";
-import { query } from "thin-backend";
-import CreateTransactionModal from "./create-transaction-modal";
 
-const AccountPage: FC = ({}) => {
+import { useParams } from "react-router-dom";
+
+import { Api } from "@/api";
+import { useRequest } from "@/lib/hooks/useRequest";
+import CardsList from "@/components/layout/cards-list";
+
+import AccountPageHeader from "./account-page-header";
+import CreateTransactionModal from "./create-transaction-modal";
+import TransactionCard, { TransactionCardSkeleton } from "./transaction-card";
+
+const AccountPage: FC = () => {
   const { accountId } = useParams<"accountId">();
 
-  const transactions = useQuery(
-    query("transactions")
-      .where("accountId", accountId ?? "")
-      .orderByDesc("createdAt")
+  const { data: transactions, run } = useRequest(
+    Api.getTransactionsForAccount,
+    accountId ?? ""
   );
 
   return (
@@ -21,7 +23,10 @@ const AccountPage: FC = ({}) => {
       <AccountPageHeader accountId={accountId} />
       <div className={"flex justify-between items-center"}>
         <p>Your recent transactions</p>
-        <CreateTransactionModal accountId={accountId} />
+        <CreateTransactionModal
+          accountId={accountId}
+          onSuccess={() => run(accountId ?? "")}
+        />
       </div>
       <CardsList
         data={transactions}
