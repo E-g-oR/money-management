@@ -1,9 +1,14 @@
+import { FC, useMemo } from "react";
+
+import { ChevronDown, ChevronUp } from "lucide-react";
+
+import { cn } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTranslation } from "@/lib/hooks/useTranslation";
-import { cn } from "@/lib/utils";
-import { ChevronDown, ChevronUp } from "lucide-react";
-import { FC, useMemo } from "react";
-import { Transaction } from "thin-backend";
+import {
+  TransactionType,
+  TTransaction,
+} from "@/types/transactions/transaction";
 
 const IncomeIcon: FC = () => (
   <div
@@ -25,12 +30,12 @@ const ExpenseIcon: FC = () => (
 );
 
 interface Props {
-  transaction: Transaction;
+  transaction: TTransaction;
 }
 const TransactionCard: FC<Props> = ({ transaction }) => {
   const t = useTranslation();
   const isIncome = useMemo(
-    () => transaction.transactionType === "income",
+    () => transaction.type === TransactionType.Income,
     [transaction]
   );
 
@@ -57,7 +62,7 @@ const TransactionCard: FC<Props> = ({ transaction }) => {
                 : "dark:text-red-500 text-red-700"
             )}
           >
-            {t.format.currency(parseFloat(transaction.value), "BYN")}
+            {t.format.currency(transaction.value, "BYN")}
           </p>
         </div>
         <div className={"flex items-center text-muted-foreground gap-3"}>
@@ -67,7 +72,7 @@ const TransactionCard: FC<Props> = ({ transaction }) => {
             </p>
           )}
           <p className={"text-sm ml-auto"}>
-            {t.format.date(transaction.createdAt)}
+            {t.format.date(transaction.created_at.toDate().toISOString())}
           </p>
         </div>
       </div>

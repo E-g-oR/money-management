@@ -1,4 +1,6 @@
-import { FC, ReactNode, createContext, useCallback, useState } from "react";
+import { createContext, FC, ReactNode, useCallback, useState } from "react";
+
+import { Button } from "./ui/button";
 import {
   Dialog,
   DialogContent,
@@ -6,7 +8,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "./ui/dialog";
-import { Button } from "./ui/button";
 
 interface IConfirmPayload {
   title: string;
@@ -29,7 +30,7 @@ interface Props {
 const ConfirmModal: FC<Props> = ({ children }) => {
   const [title, setTitle] = useState("Confirm");
   const [description, setDescription] = useState("Are you sure about this?");
-  const [onConfirm, setOnConfirm] = useState<()=> void>(() => {});
+  const [onConfirm, setOnConfirm] = useState<() => void>(() => {});
   const confirm = useCallback(
     (payload: IConfirmPayload) => {
       console.log(payload);

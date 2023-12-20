@@ -1,25 +1,28 @@
 import { FC, useContext, useMemo } from "react";
-import { Button } from "@/components/ui/button";
+
+import { Api } from "@/api";
+import { TDept } from "@/types/depts/dept";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { Pencil1Icon, TrashIcon } from "@radix-ui/react-icons";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTranslation } from "@/lib/hooks/useTranslation";
-import { Dept } from "thin-backend";
-import { calcProgress } from "./utils";
+import { Pencil1Icon, TrashIcon } from "@radix-ui/react-icons";
 import { confirmModalContext } from "@/components/confirm-modal";
-import { Api } from "@/api";
+
+import { calcProgress } from "./utils";
 import PayDeptNodal from "./pay-dept-modal";
 
 interface Props {
-  dept: Dept;
+  dept: TDept;
+  updateDepts: () => void;
 }
 
-const DeptCard: FC<Props> = ({ dept }) => {
+const DeptCard: FC<Props> = ({ dept, updateDepts }) => {
   const t = useTranslation();
   const { confirm } = useContext(confirmModalContext);
   const formattedValue = useMemo(
-    () => t.format.currency(parseFloat(dept.value), "BYN"),
+    () => t.format.currency(dept.value, "BYN"),
     [t.format, dept.value]
   );
 
@@ -27,7 +30,12 @@ const DeptCard: FC<Props> = ({ dept }) => {
     <div className={"flex gap-4 py-2 px-5 border rounded-lg"}>
       <div className={"flex flex-col items-center flex-0 justify-between"}>
         <span className={"text-2xl"}>{formattedValue}</span>
-        <PayDeptNodal dept={dept} />
+        <PayDeptNodal
+          dept={dept}
+          onSuccess={() => {
+            updateDepts();
+          }}
+        />
       </div>
       <div className={"flex-1"}>
         <div className={"flex items-center gap-5"}>
@@ -51,7 +59,10 @@ const DeptCard: FC<Props> = ({ dept }) => {
                   title: "Delete dept",
                   description:
                     "After deleting dept you wont be able to recover it.",
-                  onConfirm: () => Api.depts.crud.delete(dept.id),
+                  onConfirm: async () => {
+                    await Api.deleteDept(dept.id);
+                    updateDepts();
+                  },
                 });
               }}
             >
@@ -60,7 +71,7 @@ const DeptCard: FC<Props> = ({ dept }) => {
           </div>
         </div>
         <div className={"flex flex-col items-center"}>
-          <span>{t.format.currency(parseFloat(dept.coveredValue), "BYN")}</span>
+          <span>{t.format.currency(dept.coveredValue, "BYN")}</span>
           <Progress
             color={"primary"}
             value={calcProgress(dept.value, dept.coveredValue)}

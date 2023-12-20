@@ -1,9 +1,9 @@
-import { Account } from "thin-backend";
+import { TAccount } from "@/types/accounts/account";
 import { create } from "zustand";
 
 interface IDataStore {
-  accountsById: Map<string, Account>;
-  setAccountsById: (accountsById: Map<string, Account>) => void;
+  accountsById: Map<string, TAccount>;
+  setAccountsById: (accountsById: Map<string, TAccount>) => void;
   selectedAccountId: string;
   setSelectedAccountId: (selectedAccountId: string) => void;
 }

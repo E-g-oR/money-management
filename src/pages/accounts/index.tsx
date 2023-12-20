@@ -1,16 +1,25 @@
 import { FC } from "react";
-import PageLayout from "@/components/layout/page-layout";
-import AccountCard, { AccountCardSkeleton } from "./account-card";
+
+import { Api } from "@/api";
 import { Input } from "@/components/ui/input";
+import { useRequest } from "@/lib/hooks/useRequest";
 import CardsList from "@/components/layout/cards-list";
+import PageLayout from "@/components/layout/page-layout";
+
 import CreateAccountModal from "./create-account-modal";
-import { useAccountsSubscription } from "@/lib/hooks/useAccountsSubscription";
+import AccountCard, { AccountCardSkeleton } from "./account-card";
 
 const AccountsPage: FC = () => {
-  const accounts = useAccountsSubscription()
+  const { data: accounts, run: updateAccountsList } = useRequest(
+    Api.getAccounts,
+    undefined
+  );
 
   return (
-    <PageLayout title={"Your accounts"} action={<CreateAccountModal />}>
+    <PageLayout
+      title={"Your accounts"}
+      action={<CreateAccountModal onSuccess={() => updateAccountsList(undefined)} />}
+    >
       <Input placeholder={"Search accounts"} />
       <CardsList
         data={accounts}

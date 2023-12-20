@@ -1,5 +1,19 @@
 import { FC, useCallback, useState } from "react";
+
+import { PlusIcon } from "lucide-react";
+import { useForm } from "react-hook-form";
+
+import { Api } from "@/api";
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "@/lib/hooks/useTranslation";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/components/ui/form";
 import {
   Dialog,
   DialogContent,
@@ -8,32 +22,25 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { PlusIcon } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import {
-  Form,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormControl,
-} from "@/components/ui/form";
-import { useTranslation } from "@/lib/hooks/useTranslation";
-import { useForm } from "react-hook-form";
-import { Api } from "@/api";
 
 interface CreateDept {
   name: string;
-  description?: string;
+  description: string;
   value: string;
   coveredValue: string;
 }
 
-const CreateDeptModal: FC = () => {
+type Props = {
+  onSuccess: () => void;
+};
+const CreateDeptModal: FC<Props> = ({ onSuccess }) => {
   const t = useTranslation();
   const form = useForm<CreateDept>({
     defaultValues: {
       value: "0",
       coveredValue: "0",
+      description: "",
+      name: "",
     },
   });
   const [isOpen, setIsOpen] = useState(false);
@@ -46,10 +53,16 @@ const CreateDeptModal: FC = () => {
 
   const onSubmit = useCallback(
     async (data: CreateDept) => {
-      Api.depts.crud.create(data);
-      onClose();
+      Api.createDept({
+        ...data,
+        coveredValue: parseFloat(data.coveredValue),
+        value: parseFloat(data.value),
+      }).then(() => {
+        onSuccess();
+        onClose();
+      });
     },
-    [onClose]
+    [onClose, onSuccess]
   );
 
   return (
