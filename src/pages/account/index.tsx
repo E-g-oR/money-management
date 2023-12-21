@@ -13,19 +13,26 @@ import TransactionCard, { TransactionCardSkeleton } from "./transaction-card";
 const AccountPage: FC = () => {
   const { accountId } = useParams<"accountId">();
 
-  const { data: transactions, run } = useRequest(
+  const { data: transactions, run: updateTransactions } = useRequest(
     Api.getTransactionsForAccount,
+    accountId ?? ""
+  );
+  const { data: account, run: updateAccount } = useRequest(
+    Api.getAccount,
     accountId ?? ""
   );
 
   return (
     <>
-      <AccountPageHeader accountId={accountId} />
+      <AccountPageHeader account={account} updateAccount={updateAccount} />
       <div className={"flex justify-between items-center"}>
         <p>Your recent transactions</p>
         <CreateTransactionModal
           accountId={accountId}
-          onSuccess={() => run(accountId ?? "")}
+          onSuccess={() => {
+            updateTransactions(accountId ?? "");
+            updateAccount(accountId ?? "");
+          }}
         />
       </div>
       <CardsList
