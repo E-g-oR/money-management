@@ -12,7 +12,10 @@ import DeptCard, { DeptCardSkeleton } from "./dept-card";
 
 const DeptsPage: FC = () => {
   const t = useTranslation();
-  const { run: updateAccounts } = useRequest(Api.getAccounts, undefined);
+  const { run: updateAccounts } = useRequest(
+    Api.getAccounts,
+    undefined
+  );
   const { data: depts, run: updateDepts } = useRequest(Api.getDepts, undefined);
 
   return (
@@ -22,7 +25,6 @@ const DeptsPage: FC = () => {
         <CreateDeptModal
           onSuccess={() => {
             updateDepts(undefined);
-            updateAccounts(undefined);
           }}
         />
       }
@@ -38,7 +40,10 @@ const DeptsPage: FC = () => {
           <DeptCard
             key={index}
             dept={dept}
-            updateDepts={() => updateDepts(undefined)}
+            updateDepts={() => {
+              updateDepts(undefined)
+              updateAccounts(undefined)
+            }}
           />
         )}
         skeletonComponent={<DeptCardSkeleton />}

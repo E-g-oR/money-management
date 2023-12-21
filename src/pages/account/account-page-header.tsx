@@ -2,11 +2,10 @@ import { FC, lazy, Suspense, useState } from "react";
 
 import { PencilIcon } from "lucide-react";
 
-import { Api } from "@/api";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useRequest } from "@/lib/hooks/useRequest";
 import { useTranslation } from "@/lib/hooks/useTranslation";
+import { TAccount } from "@/types/accounts/account";
 
 const EditAccount = lazy(() => import("./edit-account"));
 
@@ -19,16 +18,11 @@ const AccountPageHeaderSkeleton: FC = () => (
 );
 
 interface Props {
-  accountId: string | undefined;
+  account: TAccount | null;
+  updateAccount: (accountId: string) => void;
 }
-const AccountPageHeader: FC<Props> = ({ accountId = "" }) => {
+const AccountPageHeader: FC<Props> = ({ account, updateAccount }) => {
   const t = useTranslation();
-
-  // TODO: доставать данные по аккаунту из стора по id
-  const { data: account, run: updateAccount } = useRequest(
-    Api.getAccount,
-    accountId
-  );  
 
   const [isEdit, setIsEdit] = useState(false);
 
@@ -43,7 +37,7 @@ const AccountPageHeader: FC<Props> = ({ accountId = "" }) => {
             cancel={() => {
               setIsEdit(false);
             }}
-            onSuccess={() => updateAccount(accountId)}
+            onSuccess={() => updateAccount(account.id)}
           />
         ) : (
           <div className={"flex justify-between"}>
