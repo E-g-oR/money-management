@@ -12,7 +12,7 @@ import DeptCard, { DeptCardSkeleton } from "./dept-card";
 
 const DeptsPage: FC = () => {
   const t = useTranslation();
-  const { run: updateAccounts, isLoading } = useRequest(
+  const { run: updateAccounts } = useRequest(
     Api.getAccounts,
     undefined
   );
