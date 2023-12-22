@@ -27,7 +27,7 @@ const DeptCard: FC<Props> = ({ dept, updateDepts }) => {
   );
 
   return (
-    <div className={"flex gap-4 py-2 px-5 border rounded-lg"}>
+    <Card className={"flex gap-4 py-2 px-5"}>
       <div className={"flex flex-col items-center flex-0 justify-between"}>
         <span className={"text-2xl"}>{formattedValue}</span>
         <PayDeptNodal
@@ -78,7 +78,7 @@ const DeptCard: FC<Props> = ({ dept, updateDepts }) => {
           />
         </div>
       </div>
-    </div>
+    </Card>
   );
 };
 

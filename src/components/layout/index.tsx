@@ -52,41 +52,59 @@ export const NewLayout: FC = () => {
 
   useEffect(() => {
     const auth = Api.getAuth();
-    auth.onAuthStateChanged(setUser)
+    auth.onAuthStateChanged(setUser);
   }, [setUser]);
 
   return !currentUser ? (
     <Navigate to={ROUTES.auth.login.path} />
   ) : (
-    <div
-      className={
-        " w-screen h-screen overflow-hidden grid grid-cols-layout grid-rows-layout p-6 gap-6"
-      }
-    >
-      <p className="text-3xl font-bold self-center">Monange</p>
-      <div className="flex justify-between items-center">
-        <p className="text-2xl font-bold">Welcome back, John.</p>
-        <p className="text-xl">Friday, December 22, 1:56 PM.</p>
-      </div>
-      <div className="flex gap-2 self-end items-center justify-end">
-        <span>John Wane</span>
-        <Avatar>
-          {/* <AvatarImage src="" alt="avatar" /> */}
-          <AvatarFallback>JN</AvatarFallback>
-        </Avatar>
-      </div>
-      <Aside />
-      <div className={"flex flex-col gap-6 overflow-hidden"}>
-        <Suspense fallback={"Loadin..."}>
-          <Outlet />
-        </Suspense>
-      </div>
-      <ScrollArea>
-        <div className="flex flex-col gap-6">
-          <ExchangeRates />
-          {/* <ExchangeRates /> */}
+    <>
+    {/* TODO: move to separeted component */}
+      <div
+        className={
+          "absolute w-32 h-32 bg-primary/50 left-64 top-16 rounded-full blur-3xl -z-10"
+        }
+      />
+      <div
+        className={
+          "absolute w-32 h-32 bg-primary/50 left-0 bottom-16 rounded-full blur-3xl -z-10"
+        }
+      />
+      <div
+        className={
+          "absolute w-56 h-56 bg-primary right-0 top-16 rounded-full blur-3xl -z-10"
+        }
+      />
+      <div
+        className={
+          " w-screen h-screen overflow-hidden grid grid-cols-layout grid-rows-layout p-6 gap-6"
+        }
+      >
+        <p className="text-3xl font-bold self-center">Monange</p>
+        <div className="flex justify-between items-center">
+          <p className="text-2xl font-bold">Welcome back, John.</p>
+          <p className="text-xl">Friday, December 22, 1:56 PM.</p>
         </div>
-      </ScrollArea>
-    </div>
+        <div className="flex gap-2 self-end items-center justify-end">
+          <span>John Wane</span>
+          <Avatar>
+            {/* <AvatarImage src="" alt="avatar" /> */}
+            <AvatarFallback>JN</AvatarFallback>
+          </Avatar>
+        </div>
+        <Aside />
+        <div className={"flex flex-col gap-6 overflow-hidden"}>
+          <Suspense fallback={"Loadin..."}>
+            <Outlet />
+          </Suspense>
+        </div>
+        <ScrollArea>
+          <div className="flex flex-col gap-6">
+            <ExchangeRates />
+            {/* <ExchangeRates /> */}
+          </div>
+        </ScrollArea>
+      </div>
+    </>
   );
 };

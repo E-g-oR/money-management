@@ -70,14 +70,15 @@ const NavigationMenu: FC = () => {
 
   return (
     <nav className="flex flex-col gap-2">
+      {/* TODO: move to separated component */}
       {navbarItems.map((key) => (
         <NavLink
           key={key}
           to={key}
           className={({ isActive }) =>
             cn(
-              "transition hover:bg-muted px-7 py-4 rounded-lg flex items-center gap-5",
-              isActive ? "bg-muted" : undefined
+              "transition hover:bg-primary/10 px-7 py-4 rounded-lg flex items-center gap-5 backdrop-blur-lg",
+              isActive ? "bg-primary/10" : undefined
             )
           }
         >
