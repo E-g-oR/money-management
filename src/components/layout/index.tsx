@@ -14,6 +14,7 @@ import { ScrollArea } from "../ui/scroll-area";
 import BottomNavigation from "../bottom-navigation";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import ExchangeRates from "../exchange-rates/ExchangeRates";
+import BgCircle from "../bg-circle";
 
 const Layout: FC = () => {
   const deviceSize = useResponsiveStore(getDeviceSize);
@@ -62,22 +63,9 @@ export const NewLayout: FC = () => {
       fallback={<Navigate to={ROUTES.auth.login.path} />}
     >
       <>
-        {/* TODO: move to separeted component */}
-        <div
-          className={
-            "absolute w-32 h-32 bg-primary/50 left-64 top-16 rounded-full blur-3xl -z-10"
-          }
-        />
-        <div
-          className={
-            "absolute w-32 h-32 bg-primary/50 left-0 bottom-16 rounded-full blur-3xl -z-10"
-          }
-        />
-        <div
-          className={
-            "absolute w-56 h-56 bg-primary right-0 top-16 rounded-full blur-3xl -z-10"
-          }
-        />
+        <BgCircle size={32} left={64} top={16} />
+        <BgCircle size={32} left={0} bottom={16} />
+        <BgCircle size={56} right={0} top={16} />
         <div
           className={
             " w-screen h-screen overflow-hidden grid grid-cols-layout grid-rows-layout p-6 gap-6"
