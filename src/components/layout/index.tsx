@@ -12,6 +12,7 @@ import Aside from "../ui/navigation-menu";
 import { ScrollArea } from "../ui/scroll-area";
 import BottomNavigation from "../bottom-navigation";
 import ExchangeRates from "../exchange-rates/ExchangeRates";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 const Layout: FC = () => {
   const deviceSize = useResponsiveStore(getDeviceSize);
@@ -67,7 +68,13 @@ export const NewLayout: FC = () => {
         <p className="text-2xl font-bold">Welcome back, John.</p>
         <p className="text-xl">Friday, December 22, 1:56 PM.</p>
       </div>
-      <p className="bg-stone-500">header right</p>
+      <div className="flex gap-2 self-end items-center justify-end">
+        <span>John Wane</span>
+        <Avatar>
+          {/* <AvatarImage src="" alt="avatar" /> */}
+          <AvatarFallback>JN</AvatarFallback>
+        </Avatar>
+      </div>
       <Aside />
       <div className={"flex flex-col gap-6 overflow-hidden"}>
         <Suspense fallback={"Loadin..."}>
