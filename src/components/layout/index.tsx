@@ -15,6 +15,7 @@ import BottomNavigation from "../bottom-navigation";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import ExchangeRates from "../exchange-rates/ExchangeRates";
 import BgCircle from "../bg-circle";
+import HeaderDate from "./components/date";
 
 const Layout: FC = () => {
   const deviceSize = useResponsiveStore(getDeviceSize);
@@ -74,7 +75,7 @@ export const NewLayout: FC = () => {
           <p className="text-3xl font-bold self-center">Monange</p>
           <div className="flex justify-between items-center">
             <p className="text-2xl font-bold">Welcome back, John.</p>
-            <p className="text-xl">Friday, December 22, 1:56 PM.</p>
+            <HeaderDate/>
           </div>
           <div className="flex gap-2 self-end items-center justify-end">
             <span>John Wane</span>

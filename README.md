@@ -27,6 +27,6 @@ If you are developing a production application, we recommend updating the config
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
 
 # TODO
-- компонент Show
-- рабочие элементы верхней панели
+- компонент Show | done
+- рабочие элементы верхней панели | partially done
 - адаптив

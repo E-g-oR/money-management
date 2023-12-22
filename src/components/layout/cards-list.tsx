@@ -20,7 +20,7 @@ function CardsList<T>({
   return (
     <>
       <Show when={isLoading || data === null}>
-        <div className={"grid grid-cols xl:grid-cols-2 2xl:grid-cols-3 gap-3"}>
+        <div className={"grid grid-cols xl:grid-cols-2 3xl:grid-cols-3 gap-3"}>
           {skeletonComponent}
           {skeletonComponent}
           {skeletonComponent}
@@ -29,7 +29,7 @@ function CardsList<T>({
       <Show when={!!data && data.length > 0} fallback={<i>{fallback}</i>}>
         <ScrollArea>
           <div
-            className={"grid grid-cols xl:grid-cols-2 2xl:grid-cols-3 gap-3"}
+            className={"grid grid-cols xl:grid-cols-2 3xl:grid-cols-3 gap-3"}
           >
             {data?.map(render)}
           </div>

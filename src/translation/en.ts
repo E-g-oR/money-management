@@ -1,6 +1,6 @@
 import format from "date-fns/format";
 import { Translation } from ".";
-import {enUS as locale} from "date-fns/locale"
+import { enUS as locale } from "date-fns/locale";
 
 export const en: Translation = {
   format: {
@@ -10,6 +10,9 @@ export const en: Translation = {
       ),
     date: (timestamp: string) =>
       format(Date.parse(timestamp), "LLL do, p", { locale }),
+    dateHeader: (date) => format(date, "eeee, do MMMM, p", { locale }),
+    weekAndMonthDay: (date) => format(date, "eeee, do MMMM", { locale }),
+    time: (date) => format(date, "p", { locale }),
   },
   common: {
     rates: "Rates",
