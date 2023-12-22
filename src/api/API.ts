@@ -37,6 +37,8 @@ export class API {
     return userCredential.user;
   };
 
+  public getAuth = () => getAuth()
+
   //! ------------------------- Accounts -------------------------
 
   private getAccountsQuery = () => {

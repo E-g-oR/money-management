@@ -1,20 +1,20 @@
-import { FC, Suspense } from "react";
+import { FC, Suspense, useEffect } from "react";
 
 import { Navigate, Outlet } from "react-router-dom";
 
+import { Api } from "@/api";
 import { ROUTES } from "@/router";
-import { getAuth } from "firebase/auth";
 import { checkDeviceSize } from "@/lib/hooks/useResponsive";
+import { getSetUser, getUser, useAuthStore } from "@/store/auth";
 import { getDeviceSize, useResponsiveStore } from "@/store/responsive";
 
 import Aside from "../ui/navigation-menu";
+import { ScrollArea } from "../ui/scroll-area";
 import BottomNavigation from "../bottom-navigation";
 import ExchangeRates from "../exchange-rates/ExchangeRates";
-import { ScrollArea } from "../ui/scroll-area";
 
 const Layout: FC = () => {
   const deviceSize = useResponsiveStore(getDeviceSize);
-  const auth = getAuth();
   // TODO: добавить обработчик событий на изменение состояния auth
 
   return !auth.currentUser ? (
@@ -46,7 +46,17 @@ const Layout: FC = () => {
 export default Layout;
 
 export const NewLayout: FC = () => {
-  return (
+  const currentUser = useAuthStore(getUser);
+  const setUser = useAuthStore(getSetUser);
+
+  useEffect(() => {
+    const auth = Api.getAuth();
+    auth.onAuthStateChanged(setUser)
+  }, [setUser]);
+
+  return !currentUser ? (
+    <Navigate to={ROUTES.auth.login.path} />
+  ) : (
     <div
       className={
         " w-screen h-screen overflow-hidden grid grid-cols-layout grid-rows-layout p-6 gap-6"
@@ -59,7 +69,7 @@ export const NewLayout: FC = () => {
       </div>
       <p className="bg-stone-500">header right</p>
       <Aside />
-      <div>
+      <div className={"flex flex-col gap-6 overflow-hidden"}>
         <Suspense fallback={"Loadin..."}>
           <Outlet />
         </Suspense>

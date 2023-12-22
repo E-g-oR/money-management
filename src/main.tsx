@@ -3,7 +3,7 @@ import React, { lazy } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import ReactDOM from "react-dom/client";
-import Layout, { NewLayout } from "@/components/layout/index.tsx";
+import { NewLayout } from "@/components/layout/index.tsx";
 import ThemeProvider from "@/components/layout/theme-provider.tsx";
 
 import { ROUTES } from "./router/index.ts";
@@ -12,6 +12,7 @@ import ConfirmModal from "./components/confirm-modal.tsx";
 import ResponsiveObserver from "./components/layout/responsive-observer.tsx";
 
 import "./index.css";
+// import { Api } from "./api/index.ts";
 
 const DeptsPage = lazy(() => import("@/pages/depts/index.tsx")),
   AuthLayout = lazy(() => import("./pages/auth/Layout.tsx")),
