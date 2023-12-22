@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import ReactDOM from "react-dom/client";
 import DeptsPage from "@/pages/depts/index.tsx";
-import Layout from "@/components/layout/index.tsx";
+import Layout, { NewLayout } from "@/components/layout/index.tsx";
 import AccountPage from "@/pages/account/index.tsx";
 import AccountsPage from "@/pages/accounts/index.tsx";
 import ThemeProvider from "@/components/layout/theme-provider.tsx";
@@ -24,7 +24,7 @@ import "./index.css";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: <NewLayout />,
     errorElement: <ErrorBoundary />,
     children: [
       {

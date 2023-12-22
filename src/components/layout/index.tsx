@@ -10,6 +10,7 @@ import { getDeviceSize, useResponsiveStore } from "@/store/responsive";
 import Aside from "../ui/navigation-menu";
 import BottomNavigation from "../bottom-navigation";
 import ExchangeRates from "../exchange-rates/ExchangeRates";
+import { ScrollArea } from "../ui/scroll-area";
 
 const Layout: FC = () => {
   const deviceSize = useResponsiveStore(getDeviceSize);
@@ -41,3 +42,30 @@ const Layout: FC = () => {
 };
 
 export default Layout;
+
+export const NewLayout: FC = () => {
+  return (
+    <div
+      className={
+        " w-screen h-screen overflow-hidden grid grid-cols-layout grid-rows-layout p-6 gap-6"
+      }
+    >
+      <p className="text-3xl font-bold self-center">Monange</p>
+      <div className="flex justify-between items-center">
+        <p className="text-2xl font-bold">Welcome back, John.</p>
+        <p className="text-xl">Friday, December 22, 1:56 PM.</p>
+      </div>
+      <p className="bg-stone-500">header right</p>
+      <Aside />
+      <div>
+        <Outlet />
+      </div>
+      <ScrollArea>
+        <div className="flex flex-col gap-6">
+          <ExchangeRates />
+          {/* <ExchangeRates /> */}
+        </div>
+      </ScrollArea>
+    </div>
+  );
+};
