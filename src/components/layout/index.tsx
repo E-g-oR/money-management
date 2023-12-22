@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, Suspense } from "react";
 
 import { Navigate, Outlet } from "react-router-dom";
 
@@ -32,7 +32,9 @@ const Layout: FC = () => {
             "flex-1 flex flex-col gap-5 mt-5 mx-5 sm:mx-0 sm:mr-5 md:mr-0"
           }
         >
-          <Outlet />
+          <Suspense fallback={"Loadin..."}>
+            <Outlet />
+          </Suspense>
         </div>
         {!checkDeviceSize(deviceSize, "md") && <ExchangeRates />}
       </div>
@@ -58,7 +60,9 @@ export const NewLayout: FC = () => {
       <p className="bg-stone-500">header right</p>
       <Aside />
       <div>
-        <Outlet />
+        <Suspense fallback={"Loadin..."}>
+          <Outlet />
+        </Suspense>
       </div>
       <ScrollArea>
         <div className="flex flex-col gap-6">
