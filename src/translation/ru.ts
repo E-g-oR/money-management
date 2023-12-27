@@ -1,4 +1,4 @@
-import format from "date-fns/format";
+import { format } from "date-fns/format";
 import { Translation } from ".";
 import { ru as locale } from "date-fns/locale";
 

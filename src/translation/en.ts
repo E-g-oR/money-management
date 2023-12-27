@@ -1,4 +1,4 @@
-import format from "date-fns/format";
+import { format } from "date-fns";
 import { Translation } from ".";
 import { enUS as locale } from "date-fns/locale";
 
