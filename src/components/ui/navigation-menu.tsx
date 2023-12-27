@@ -77,8 +77,8 @@ const NavigationMenu: FC = () => {
           to={key}
           className={({ isActive }) =>
             cn(
-              "transition hover:bg-primary/10 px-7 py-4 rounded-lg flex items-center gap-5 backdrop-blur-lg",
-              isActive ? "bg-primary/10" : undefined
+              "transition hover:bg-primary/20 px-7 py-4 rounded-lg flex items-center gap-5 backdrop-blur-lg",
+              isActive ? "bg-primary/20" : undefined
             )
           }
         >

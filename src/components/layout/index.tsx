@@ -77,7 +77,7 @@ export const NewLayout: FC = () => {
             <p className="text-2xl font-bold">Welcome back, John.</p>
             <HeaderDate/>
           </div>
-          <div className="flex gap-2 self-end items-center justify-end">
+          <div className="flex gap-2 items-center justify-end">
             <span>John Wane</span>
             <Avatar>
               {/* <AvatarImage src="" alt="avatar" /> */}

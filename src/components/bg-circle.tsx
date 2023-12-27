@@ -19,7 +19,7 @@ const BgCircle: FC<Props> = ({
   top,
   left,
   size = 32,
-  opacity = 50,
+  opacity = 90,
 }) => {
   return (
     <div

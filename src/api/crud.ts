@@ -10,7 +10,9 @@ import {
   getDocs,
   query,
   QueryConstraint,
+  serverTimestamp,
   setDoc,
+  Timestamp,
 } from "firebase/firestore";
 
 import { normalizeData, normalizeDataArray, TId } from "./utils/normalizeData";
@@ -19,8 +21,12 @@ type TUId = {
   user_id: string;
 };
 
+export type TCreatedAt = {
+  created_at?: Date;
+};
+
 export class Crud<
-  CreateType,
+  CreateType extends TCreatedAt,
   NewType extends TUId & CreateType,
   NormalType extends TId
 > {
@@ -34,13 +40,13 @@ export class Crud<
     this.collectionRef = collection(firestore, collectionName);
   }
 
-  public read = async (docId: string) => {    
+  public read = async (docId: string) => {
     const docRaw = await getDoc(
       doc(this.firestore, this.collectionName, docId)
-    );    
+    );
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const docData = normalizeData<NormalType>(docRaw);    
+    const docData = normalizeData<NormalType>(docRaw);
     return docData;
   };
   public readAll = async (...queryConstrains: QueryConstraint[]) => {
@@ -55,12 +61,15 @@ export class Crud<
 
   public create = async (createBody: CreateType) => {
     const auth = getAuth();
-    // TODO: Продумать как добавить поле created_at, чтобы можно было передавать
+    // Продумать как добавить поле created_at, чтобы можно было передавать
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const newThing: NewType = {
       user_id: auth.currentUser?.uid ?? "",
       ...createBody,
+      created_at: createBody.created_at
+        ? Timestamp.fromDate(createBody.created_at)
+        : serverTimestamp(),
     };
     const newDocRef = await addDoc(this.collectionRef, newThing);
     const createdDoc = await this.read(newDocRef.id);

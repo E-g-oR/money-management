@@ -11,6 +11,7 @@ export type TCreateTransaction = {
   description?: string;
   account_id: string;
   type: TransactionType;
+  created_at: Date;
 };
 
 export type TNewTransaction = TCreateTransaction & {

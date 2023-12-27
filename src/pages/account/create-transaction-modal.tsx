@@ -1,6 +1,6 @@
 import { FC, useCallback, useState } from "react";
 
-import { Plus } from "lucide-react";
+import { CalendarIcon, Plus } from "lucide-react";
 import { useForm } from "react-hook-form";
 
 import { Api } from "@/api";
@@ -30,26 +30,41 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { TransactionType } from "@/types/transactions/transaction";
+import {
+  TCreateTransaction,
+  TransactionType,
+} from "@/types/transactions/transaction";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
+import { format } from "date-fns";
+import { Calendar } from "@/components/ui/calendar";
 
-interface CreateTransaction {
-  title: string;
-  description?: string;
-  type: TransactionType;
-  value: string;
-}
+// interface CreateTransaction {
+//   title: string;
+//   description?: string;
+//   type: TransactionType;
+//   value: string;
+//   date: Date;
+// }
 interface Props {
   accountId: string | undefined;
   onSuccess: () => void;
 }
 const CreateTransactionModal: FC<Props> = ({ accountId = "", onSuccess }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const form = useForm<CreateTransaction>({defaultValues: {
-    description: "",
-    title: "",
-    type: TransactionType.Expense,
-    value: "0"
-  }});
+  const form = useForm<TCreateTransaction>({
+    defaultValues: {
+      description: "",
+      title: "",
+      type: TransactionType.Expense,
+      value: 0,
+      created_at: new Date(),
+    },
+  });
 
   const t = useTranslation();
 
@@ -60,10 +75,12 @@ const CreateTransactionModal: FC<Props> = ({ accountId = "", onSuccess }) => {
   }, [setIsOpen, form]);
 
   const onSubmit = useCallback(
-    (data: CreateTransaction) => {
+    (data: TCreateTransaction) => {
+      console.log(data.created_at);
+
       Api.createTransactionAndUpdateAccount({
         ...data,
-        value: parseFloat(data.value),
+        value: parseFloat(data.value.toString()),
         account_id: accountId,
       }).then(() => {
         onSuccess();
@@ -180,7 +197,7 @@ const CreateTransactionModal: FC<Props> = ({ accountId = "", onSuccess }) => {
                 name={"value"}
                 rules={{
                   min: {
-                    value: 0,
+                    value: 0.001,
                     message: t.common.fieldMessages.minValue(0),
                   },
                 }}
@@ -196,6 +213,43 @@ const CreateTransactionModal: FC<Props> = ({ accountId = "", onSuccess }) => {
                       />
                     </FormControl>
                     <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name={"created_at"}
+                render={({ field }) => (
+                  <FormItem className={"flex-1"}>
+                    <FormLabel>{"Выберите дату"}</FormLabel>
+                    <FormControl>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant={"outline"}
+                            className={cn(
+                              "w-[240px] justify-start text-left font-normal",
+                              !field.value && "text-muted-foreground"
+                            )}
+                          >
+                            <CalendarIcon className="mr-2 h-4 w-4" />
+                            {field.value ? (
+                              format(field.value, "PPP")
+                            ) : (
+                              <span>Pick a date</span>
+                            )}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0" align="start">
+                          <Calendar
+                            mode="single"
+                            selected={field.value}
+                            onSelect={field.onChange}
+                            initialFocus
+                          />
+                        </PopoverContent>
+                      </Popover>
+                    </FormControl>
                   </FormItem>
                 )}
               />
