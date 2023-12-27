@@ -26,6 +26,7 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -76,11 +77,11 @@ const CreateTransactionModal: FC<Props> = ({ accountId = "", onSuccess }) => {
 
   const onSubmit = useCallback(
     (data: TCreateTransaction) => {
-      console.log(data.created_at);
-
       Api.createTransactionAndUpdateAccount({
         ...data,
-        value: parseFloat(data.value.toString()),
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        value: parseFloat(data.value),
         account_id: accountId,
       }).then(() => {
         onSuccess();
@@ -154,7 +155,7 @@ const CreateTransactionModal: FC<Props> = ({ accountId = "", onSuccess }) => {
               )}
             />
 
-            <div className={"flex gap-3"}>
+            <div className={"flex gap-3 flex-wrap"}>
               <FormField
                 control={form.control}
                 name={"type"}
@@ -228,7 +229,7 @@ const CreateTransactionModal: FC<Props> = ({ accountId = "", onSuccess }) => {
                           <Button
                             variant={"outline"}
                             className={cn(
-                              "w-[240px] justify-start text-left font-normal",
+                              "min-w-[200px] w-full justify-start text-left font-normal",
                               !field.value && "text-muted-foreground"
                             )}
                           >
@@ -254,9 +255,9 @@ const CreateTransactionModal: FC<Props> = ({ accountId = "", onSuccess }) => {
                 )}
               />
             </div>
-            <Button type={"submit"} className={"self-end"}>
-              {t.common.actions.submit}
-            </Button>
+            <DialogFooter>
+              <Button type={"submit"}>{t.common.actions.submit}</Button>
+            </DialogFooter>
           </form>
         </Form>
       </DialogContent>

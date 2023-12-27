@@ -93,6 +93,7 @@ export const theme = {
     },
     gridTemplateRows: {
       layout: "50px 1fr",
+      layoutSm: "1fr 56px"
     },
   },
 };
