@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 
 import { cn } from "@/lib/utils";
 import { dictionaries } from "@/translation";
-import { SunIcon } from "@radix-ui/react-icons";
+import { Sun } from "lucide-react";
 import { navbarIcons, navbarItems } from "@/lib/constants";
 import { useTranslation } from "@/lib/hooks/useTranslation";
 import { checkDeviceSize } from "@/lib/hooks/useResponsive";
@@ -40,7 +40,7 @@ const AsideSettings: FC = () => {
   const deviceSize = useResponsiveStore(getDeviceSize);
 
   return (
-    !checkDeviceSize(deviceSize, "md") && (
+    !checkDeviceSize(deviceSize, "lg") && (
       <div className="flex justify-between gap-4">
         <Select value={appLanguage} onValueChange={setLanguage}>
           <SelectTrigger>
@@ -56,8 +56,8 @@ const AsideSettings: FC = () => {
             </SelectGroup>
           </SelectContent>
         </Select>
-        <Button size={"icon"} onClick={() => setIsDark(!isDark)}>
-          <SunIcon />
+        <Button className="flex-0" size={"icon"} onClick={() => setIsDark(!isDark)}>
+          <Sun />
         </Button>
       </div>
     )
@@ -77,13 +77,13 @@ const NavigationMenu: FC = () => {
           to={key}
           className={({ isActive }) =>
             cn(
-              "transition hover:bg-primary/20 px-7 py-4 rounded-lg flex items-center gap-5 backdrop-blur-lg",
+              "transition hover:bg-primary/20 px-4 xl:px-7 py-3 xl:py-4 rounded-lg flex items-center gap-5 backdrop-blur-lg",
               isActive ? "bg-primary/20" : undefined
             )
           }
         >
           {navbarIcons[key]}
-          {!checkDeviceSize(deviceSize, "md") && t.navbar[key]}
+          {!checkDeviceSize(deviceSize, "lg") && t.navbar[key]}
         </NavLink>
       ))}
     </nav>

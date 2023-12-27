@@ -52,6 +52,7 @@ export default Layout;
 export const NewLayout: FC = () => {
   const currentUser = useAuthStore(getUser);
   const setUser = useAuthStore(getSetUser);
+  const deviceSize = useResponsiveStore(getDeviceSize);
 
   useEffect(() => {
     const auth = Api.getAuth();
@@ -69,13 +70,19 @@ export const NewLayout: FC = () => {
         <BgCircle size={56} right={0} top={16} />
         <div
           className={
-            " w-screen h-screen overflow-hidden grid grid-cols-layout grid-rows-layout p-6 gap-6"
+            "w-screen h-screen overflow-hidden grid grid-cols-layoutLg lg:grid-cols-layout grid-rows-layout p-6 gap-6"
           }
         >
-          <p className="text-3xl font-bold self-center">Monange</p>
+          <p className="text-3xl font-bold self-center">
+            <Show when={!checkDeviceSize(deviceSize, "lg")} fallback={"Mm"}>
+              Monange
+            </Show>
+          </p>
           <div className="flex justify-between items-center">
-            <p className="text-2xl font-bold">Welcome back, John.</p>
-            <HeaderDate/>
+            <Show when={!checkDeviceSize(deviceSize, "md")}>
+              <p className="text-2xl font-bold">Welcome back, John.</p>
+            </Show>
+            <HeaderDate />
           </div>
           <div className="flex gap-2 items-center justify-end">
             <span>John Wane</span>

@@ -18,7 +18,7 @@ const HeaderDate: FC = () => {
   }, [date]);
 
   return (
-    <span>
+    <span className="ml-auto">
       {t.format.weekAndMonthDay(date)}
       {", "}
       <span className="text-xl">{t.format.time(date)}</span>
