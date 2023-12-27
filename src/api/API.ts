@@ -1,12 +1,13 @@
-import { useDataStore, transormListToMap } from "@/store/data";
-import { TCreateAccount, TNewAccount, TAccount } from "@/types/accounts/account";
-import { TCreateDept, TNewDept, TDept } from "@/types/depts/dept";
-import { TCreateTransaction, TNewTransaction, TTransaction, TransactionType } from "@/types/transactions/transaction";
 import { FirebaseApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { Firestore, getFirestore, serverTimestamp, where } from "firebase/firestore";
-import { Crud } from "./crud";
 import { Auth } from "@/pages/auth/LoginForm";
+import { transormListToMap, useDataStore } from "@/store/data";
+import { TCreateDept, TDept, TNewDept } from "@/types/depts/dept";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { Firestore, getFirestore, where } from "firebase/firestore";
+import { TAccount, TCreateAccount, TNewAccount } from "@/types/accounts/account";
+import { TCreateTransaction, TNewTransaction, TransactionType, TTransaction } from "@/types/transactions/transaction";
+
+import { Crud } from "./crud";
 
 export class API {
   private fireStore: Firestore;
@@ -36,6 +37,8 @@ export class API {
     );
     return userCredential.user;
   };
+
+  public getAuth = () => getAuth()
 
   //! ------------------------- Accounts -------------------------
 
@@ -75,14 +78,7 @@ export class API {
    * @param createAccount account body to create new account
    */
   public createAccount = async (createAccount: TCreateAccount) => {
-    // TODO: придумать как настроить created_at через функ create в Crud
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const newAccountPrepeared: TNewAccount = {
-      created_at: serverTimestamp(),
-      ...createAccount,
-    };
-    const newAccountResponse = await this.accounts.create(newAccountPrepeared);
+    const newAccountResponse = await this.accounts.create(createAccount);
     return newAccountResponse;
   };
 
@@ -108,13 +104,7 @@ export class API {
   };
 
   public createTransaction = async (transactionBody: TCreateTransaction) => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const newTransactionPrepeared: TNewTransaction = {
-      created_at: serverTimestamp(),
-      ...transactionBody,
-    };
-    const transaction = await this.transactions.create(newTransactionPrepeared);
+    const transaction = await this.transactions.create(transactionBody);
     return transaction;
   };
 
@@ -157,6 +147,7 @@ export class API {
       description: dept.description ?? "",
       type: TransactionType.Expense,
       value,
+      created_at: new Date() // TODO: сделать выбор даты когда был оплачен долг
     });
     const updatedDept = await this.depts_.update(dept.id, {
       coveredValue: newDeptCoveredValue,

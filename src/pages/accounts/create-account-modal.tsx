@@ -1,14 +1,12 @@
 import { FC, useCallback, useState } from "react";
+
+import { PlusIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
+
+import { Api } from "@/api";
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { useTranslation } from "@/lib/hooks/useTranslation";
 import {
   Form,
   FormControl,
@@ -16,10 +14,15 @@ import {
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { PlusIcon } from "lucide-react";
-import { useTranslation } from "@/lib/hooks/useTranslation";
-import { Api } from "@/api";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 interface AccountCreate {
   account_name: string;
@@ -27,9 +30,9 @@ interface AccountCreate {
   account_value: string;
 }
 type Props = {
-  onSuccess: () => void
-}
-const CreateAccountModal: FC<Props> = ({onSuccess}) => {
+  onSuccess: () => void;
+};
+const CreateAccountModal: FC<Props> = ({ onSuccess }) => {
   const t = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -44,17 +47,15 @@ const CreateAccountModal: FC<Props> = ({onSuccess}) => {
 
   const onSubmit = useCallback(
     (data: AccountCreate) => {
-      
       Api.createAccount({
-          name: data.account_name,
-          description: data.account_description,
-          value: parseFloat(data?.account_value),
-        })
-        .then(() => {
-          onSuccess()
-          setIsOpen(false);
-          form.reset();
-        });
+        name: data.account_name,
+        description: data.account_description,
+        value: parseFloat(data?.account_value),
+      }).then(() => {
+        onSuccess();
+        setIsOpen(false);
+        form.reset();
+      });
     },
     [form, onSuccess]
   );
@@ -83,7 +84,10 @@ const CreateAccountModal: FC<Props> = ({onSuccess}) => {
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className={"space-y-3"}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className={"flex flex-col gap-4"}
+          >
             <FormField
               control={form.control}
               rules={{
@@ -147,7 +151,9 @@ const CreateAccountModal: FC<Props> = ({onSuccess}) => {
                 </FormItem>
               )}
             />
-            <Button type={"submit"}>{t.common.actions.submit}</Button>
+            <DialogFooter>
+              <Button type={"submit"}>{t.common.actions.submit}</Button>
+            </DialogFooter>
           </form>
         </Form>
       </DialogContent>

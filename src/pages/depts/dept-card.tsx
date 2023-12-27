@@ -1,6 +1,9 @@
-import { FC, useContext, useMemo } from "react";
+import {
+  FC,
+  // useContext,
+  useMemo,
+} from "react";
 
-import { Api } from "@/api";
 import { TDept } from "@/types/depts/dept";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -8,10 +11,11 @@ import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTranslation } from "@/lib/hooks/useTranslation";
 import { Pencil1Icon, TrashIcon } from "@radix-ui/react-icons";
-import { confirmModalContext } from "@/components/confirm-modal";
+// import { confirmModalContext } from "@/components/confirm-modal";
 
 import { calcProgress } from "./utils";
 import PayDeptNodal from "./pay-dept-modal";
+import { MoreVertical } from "lucide-react";
 
 interface Props {
   dept: TDept;
@@ -20,24 +24,53 @@ interface Props {
 
 const DeptCard: FC<Props> = ({ dept, updateDepts }) => {
   const t = useTranslation();
-  const { confirm } = useContext(confirmModalContext);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // const { confirm } = useContext(confirmModalContext);
   const formattedValue = useMemo(
     () => t.format.currency(dept.value, "BYN"),
     [t.format, dept.value]
   );
 
   return (
-    <div className={"flex gap-4 py-2 px-5 border rounded-lg"}>
-      <div className={"flex flex-col items-center flex-0 justify-between"}>
-        <span className={"text-2xl"}>{formattedValue}</span>
+    <Card className={"flex flex-col gap-2 py-3 px-4"}>
+      <div className="flex gap-2 justify-between">
+        <h2 className={"text-lg font-semibold line-clamp-1 text-ellipsis"}>
+          {dept.name}
+        </h2>
+        <span className={"text-xl"}>{formattedValue}</span>
+      </div>
+      <div className={"flex gap-2 justify-between items-center"}>
+        <span className={"line-clamp-1 text-ellipsis text-muted-foreground"}>
+          {dept.description}
+        </span>
+        <div className="flex gap-2">
+          <PayDeptNodal
+            dept={dept}
+            onSuccess={() => {
+              updateDepts();
+            }}
+          />
+          <Button variant={"ghost"} size={"icon"} onClick={() => {}}>
+            <MoreVertical />
+          </Button>
+        </div>
+      </div>
+      <div className={"flex flex-col items-center"}>
+        <span>{t.format.currency(dept.coveredValue, "BYN")}</span>
+        <Progress
+          color={"primary"}
+          value={calcProgress(dept.value, dept.coveredValue)}
+        />
+      </div>
+      {/* <div className={"flex flex-col items-center flex-0 justify-between"}>
         <PayDeptNodal
           dept={dept}
           onSuccess={() => {
             updateDepts();
           }}
         />
-      </div>
-      <div className={"flex-1"}>
+      </div> */}
+      {/* <div className={"flex-1"}>
         <div className={"flex items-center gap-5"}>
           <div className={"flex-1"}>
             <h2 className={"text-lg font-semibold line-clamp-1 text-ellipsis"}>
@@ -77,8 +110,8 @@ const DeptCard: FC<Props> = ({ dept, updateDepts }) => {
             value={calcProgress(dept.value, dept.coveredValue)}
           />
         </div>
-      </div>
-    </div>
+      </div> */}
+    </Card>
   );
 };
 

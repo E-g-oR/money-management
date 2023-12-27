@@ -31,6 +31,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { ArrowUpFromLine } from "lucide-react";
+import { useTranslation } from "@/lib/hooks/useTranslation";
 
 interface IPayDept {
   value: string;
@@ -42,8 +44,8 @@ interface Props {
   onSuccess: () => void;
 }
 const PayDeptNodal: FC<Props> = ({ dept, onSuccess }) => {
+  const t = useTranslation();
   const [open, setOpen] = useState(false);
-
   const accountsById = useDataStore(getAccountsById);
 
   const form = useForm<IPayDept>();
@@ -70,20 +72,26 @@ const PayDeptNodal: FC<Props> = ({ dept, onSuccess }) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button>pay</Button>
+        <Button size={"icon"}>
+          <ArrowUpFromLine />
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Pay dept</DialogTitle>
-          <DialogDescription>{`Pay ${dept.name}`}</DialogDescription>
+          <DialogTitle>Pay {dept.name}</DialogTitle>
+          <DialogDescription>{dept.description}</DialogDescription>
         </DialogHeader>
-        <p>Needs to pay {dept.value - dept.coveredValue} to close the dept.</p>
+        <p>
+          Needs to pay{" "}
+          <b>{t.format.currency(dept.value - dept.coveredValue, "BYN")}</b> to
+          close the dept.
+        </p>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
-            <div className="flex gap-2">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
+            <div className={"flex gap-2"}>
               <FormField
                 control={form.control}
-                name="value"
+                name={"value"}
                 rules={{
                   required: {
                     value: true,
@@ -95,10 +103,10 @@ const PayDeptNodal: FC<Props> = ({ dept, onSuccess }) => {
                   },
                 }}
                 render={({ field }) => (
-                  <FormItem className="flex-1">
-                    <FormLabel>value</FormLabel>
+                  <FormItem className={"flex-1"}>
+                    <FormLabel>Value</FormLabel>
                     <FormControl>
-                      <Input placeholder="13" {...field} />
+                      <Input placeholder={"13"} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -108,7 +116,7 @@ const PayDeptNodal: FC<Props> = ({ dept, onSuccess }) => {
                 control={form.control}
                 name={"accountId"}
                 render={({ field }) => (
-                  <FormItem className="flex-1">
+                  <FormItem className={"flex-1"}>
                     <FormLabel>Account</FormLabel>
                     <Select onValueChange={field.onChange}>
                       <FormControl>

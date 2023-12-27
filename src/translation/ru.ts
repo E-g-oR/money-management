@@ -1,6 +1,6 @@
-import format from "date-fns/format";
+import { format } from "date-fns/format";
 import { Translation } from ".";
-import {ru as locale} from "date-fns/locale"
+import { ru as locale } from "date-fns/locale";
 
 export const ru: Translation = {
   format: {
@@ -8,7 +8,11 @@ export const ru: Translation = {
       new Intl.NumberFormat("ru-RU", { style: "currency", currency }).format(
         value
       ),
-    date: (timestamp: string) => format(Date.parse(timestamp), "LLL do, p", {locale}),
+    date: (timestamp: string) =>
+      format(Date.parse(timestamp), "LLL do, p", { locale }),
+    dateHeader: (date) => format(date, "eeee, do MMMM, p", { locale }),
+    weekAndMonthDay: (date) => format(date, "eeee, do MMMM", { locale }),
+    time: (date) => format(date, "p", { locale }),
   },
   common: {
     rates: "Курсы",
@@ -31,7 +35,7 @@ export const ru: Translation = {
     name: "Название",
     description: "Описание",
     value: "Значение",
-    coveredValue: "Покрытое значение"
+    coveredValue: "Покрытое значение",
   },
   navbar: {
     accounts: "Счета",
@@ -52,9 +56,9 @@ export const ru: Translation = {
       description: `Создайте запись долга здесь. Нажмите "подтвердить", когда закончите.`,
       fields: {
         namePlaceholder: "Айфон",
-        descriptionPlaceholder: "Кредит за Айфон в А1"
-      }
-    }
+        descriptionPlaceholder: "Кредит за Айфон в А1",
+      },
+    },
   },
   accounts: {
     createAccountModal: {
