@@ -21,6 +21,7 @@ export const ru: Translation = {
     transactionType: "Тип транзакции",
     rate: "Курс",
     greeting: "С возвращением",
+    account: "Счет",
     actions: {
       pay: "Заплатить",
       edit: "Изменить",
@@ -51,6 +52,7 @@ export const ru: Translation = {
   },
   depts: {
     title: "Ваши долги",
+    noDeptsFallback: "У вас пока нет никаких долгов. Поздравляем!",
     badges: {
       totalCount: "Количество долгов",
       totalAmount: "Общее значение долгов",

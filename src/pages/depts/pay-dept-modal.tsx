@@ -78,7 +78,7 @@ const PayDeptNodal: FC<Props> = ({ dept, onSuccess }) => {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Pay {dept.name}</DialogTitle>
+          <DialogTitle>{t.common.actions.pay} {dept.name}</DialogTitle>
           <DialogDescription>{dept.description}</DialogDescription>
         </DialogHeader>
         <p>
@@ -104,7 +104,7 @@ const PayDeptNodal: FC<Props> = ({ dept, onSuccess }) => {
                 }}
                 render={({ field }) => (
                   <FormItem className={"flex-1"}>
-                    <FormLabel>Value</FormLabel>
+                    <FormLabel>{t.common.value}</FormLabel>
                     <FormControl>
                       <Input placeholder={"13"} {...field} />
                     </FormControl>
@@ -117,7 +117,7 @@ const PayDeptNodal: FC<Props> = ({ dept, onSuccess }) => {
                 name={"accountId"}
                 render={({ field }) => (
                   <FormItem className={"flex-1"}>
-                    <FormLabel>Account</FormLabel>
+                    <FormLabel>{t.common.account}</FormLabel>
                     <Select onValueChange={field.onChange}>
                       <FormControl>
                         <SelectTrigger>
@@ -138,7 +138,7 @@ const PayDeptNodal: FC<Props> = ({ dept, onSuccess }) => {
               />
             </div>
             <DialogFooter>
-              <Button type="submit">submit</Button>
+              <Button type="submit">{t.common.actions.pay}</Button>
             </DialogFooter>
           </form>
         </Form>

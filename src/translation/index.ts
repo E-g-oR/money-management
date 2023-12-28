@@ -23,6 +23,7 @@ export interface Translation {
     currency: string;
     transactionType: string;
     greeting: string;
+    account: string;
     actions: {
       pay: string;
       edit: string;
@@ -45,6 +46,7 @@ export interface Translation {
   navbar: Record<NavigationItemKey, string>;
   depts: {
     title: string;
+    noDeptsFallback: string;
     badges: {
       totalCount: string;
       totalAmount: string;

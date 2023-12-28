@@ -21,6 +21,7 @@ export const en: Translation = {
     transactionType: "Transaction Type",
     rate: "Rate",
     greeting: "Welcome back",
+    account: "Account",
     actions: {
       pay: "Pay",
       edit: "Edit",
@@ -50,6 +51,7 @@ export const en: Translation = {
   },
   depts: {
     title: "Your depts",
+    noDeptsFallback: "You have no any depts yet. Congratulations!",
     badges: {
       totalCount: "Depts count",
       totalAmount: "Total depts amount",

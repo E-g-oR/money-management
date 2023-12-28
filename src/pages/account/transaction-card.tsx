@@ -47,7 +47,7 @@ const TransactionCard: FC<Props> = ({ transaction }) => {
       <div className="flex flex-col gap-0.5 flex-1">
         <div className={"flex items-baseline flex-1 gap-3"}>
           <p
-            className={"text-base sm:text-lg md:text-2xl flex-1 line-clamp-1 text-ellipsis"}
+            className={"text-base sm:text-lg  flex-1 line-clamp-1 text-ellipsis"}
           >
             {transaction.title}
           </p>

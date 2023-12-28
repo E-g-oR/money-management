@@ -11,11 +11,12 @@ import DeptCard, { DeptCardSkeleton } from "./dept-card";
 
 const DeptsPage: FC = () => {
   const t = useTranslation();
-  const { run: updateAccounts } = useRequest(
-    Api.getAccounts,
-    undefined
-  );
-  const { data: depts, run: updateDepts } = useRequest(Api.getDepts, undefined);
+  const { run: updateAccounts } = useRequest(Api.getAccounts, undefined);
+  const {
+    data: depts,
+    run: updateDepts,
+    isLoading,
+  } = useRequest(Api.getDepts, undefined);
 
   return (
     <PageLayout
@@ -34,19 +35,20 @@ const DeptsPage: FC = () => {
         <DeptsBadgeSkeleton />
       </div> */}
       <CardsList
+        isLoading={isLoading}
         data={depts}
         render={(dept, index) => (
           <DeptCard
             key={index}
             dept={dept}
             updateDepts={() => {
-              updateDepts(undefined)
-              updateAccounts(undefined)
+              updateDepts(undefined);
+              updateAccounts(undefined);
             }}
           />
         )}
         skeletonComponent={<DeptCardSkeleton />}
-        fallback={"You dont have any depts. Congratulations!"}
+        fallback={t.depts.noDeptsFallback}
       />
     </PageLayout>
   );

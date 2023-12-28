@@ -12,13 +12,14 @@ import TransactionCard, { TransactionCardSkeleton } from "./transaction-card";
 import { useTranslation } from "@/lib/hooks/useTranslation";
 
 const AccountPage: FC = () => {
-  const t = useTranslation()
+  const t = useTranslation();
   const { accountId } = useParams<"accountId">();
 
-  const { data: transactions, run: updateTransactions } = useRequest(
-    Api.getTransactionsForAccount,
-    accountId ?? ""
-  );
+  const {
+    data: transactions,
+    run: updateTransactions,
+    isLoading: isLoadingTransactions,
+  } = useRequest(Api.getTransactionsForAccount, accountId ?? "");
   const { data: account, run: updateAccount } = useRequest(
     Api.getAccount,
     accountId ?? ""
@@ -38,6 +39,7 @@ const AccountPage: FC = () => {
         />
       </div>
       <CardsList
+        isLoading={isLoadingTransactions}
         data={transactions}
         render={(transaction, i) => (
           <TransactionCard key={i} transaction={transaction} />
