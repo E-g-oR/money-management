@@ -7,7 +7,6 @@ import PageLayout from "@/components/layout/page-layout";
 import { useTranslation } from "@/lib/hooks/useTranslation";
 
 import CreateDeptModal from "./create-dept-modal";
-import { DeptsBadgeSkeleton } from "./depts-badge";
 import DeptCard, { DeptCardSkeleton } from "./dept-card";
 
 const DeptsPage: FC = () => {
@@ -29,11 +28,11 @@ const DeptsPage: FC = () => {
         />
       }
     >
-      <div className={"flex gap-2 flex-wrap"}>
+      {/* <div className={"flex gap-2 flex-wrap"}>
         <DeptsBadgeSkeleton />
         <DeptsBadgeSkeleton />
         <DeptsBadgeSkeleton />
-      </div>
+      </div> */}
       <CardsList
         data={depts}
         render={(dept, index) => (

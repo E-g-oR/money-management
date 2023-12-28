@@ -18,6 +18,7 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -87,7 +88,10 @@ const CreateDeptModal: FC<Props> = ({ onSuccess }) => {
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className={"space-y-3"}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className={"flex flex-col gap-4"}
+          >
             <FormField
               control={form.control}
               name={"name"}
@@ -173,7 +177,9 @@ const CreateDeptModal: FC<Props> = ({ onSuccess }) => {
                 )}
               />
             </div>
-            <Button type={"submit"}>{t.common.actions.submit}</Button>
+            <DialogFooter>
+              <Button type={"submit"}>{t.common.actions.submit}</Button>
+            </DialogFooter>
           </form>
         </Form>
       </DialogContent>

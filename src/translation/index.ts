@@ -7,6 +7,9 @@ export interface Translation {
   format: {
     currency: (value: number, currency?: string) => string;
     date: (timestamp: string) => string;
+    dateHeader: (date: Date) => string;
+    weekAndMonthDay: (date: Date) => string,
+    time: (date: Date) => string 
   };
   common: {
     rates: string;

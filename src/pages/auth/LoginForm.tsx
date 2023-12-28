@@ -22,11 +22,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import Show from "@/components/show";
+import { Auth } from "@/types/auth";
 
-export interface Auth {
-  email: string;
-  password: string;
-}
+
 
 const LoginForm: FC = () => {
   const form = useForm<Auth>();
@@ -86,7 +85,9 @@ const LoginForm: FC = () => {
               )}
             />
             <Button type={"submit"} disabled={isLoading}>
-              {isLoading ? "Loading..." : "Log in"}
+              <Show when={isLoading} fallback={"Log In"}>
+                {"Loading..."}
+              </Show>
             </Button>
           </form>
         </Form>

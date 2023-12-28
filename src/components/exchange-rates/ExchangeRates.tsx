@@ -1,13 +1,8 @@
 import { FC, useState } from "react";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
+
 import { RatesResponse } from "@/types/rates-response";
+import { useTranslation } from "@/lib/hooks/useTranslation";
+
 import {
   Table,
   TableBody,
@@ -16,7 +11,21 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
-import { useTranslation } from "@/lib/hooks/useTranslation";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../ui/card";
 
 const currencies = ["EUR", "USD", "BYN", "RUB"] as const;
 const ratesResponse: RatesResponse = {
@@ -34,10 +43,14 @@ const ExchangeRates: FC = () => {
   const t = useTranslation();
   const [currency, setCurrency] = useState<string>(currencies[0]);
   return (
-    <div className="bg-primary-foreground rounded-md px-5 py-3 self-start flex flex-col gap-2 w-60">
-      <p className="text-2xl">{t.common.rates}</p>
-      {/* <div className={"flex flex-col gap-2"}> */}
-        <p>Select base currency</p>
+    <Card
+    // className=" px-5 py-3 self-start flex flex-col gap-2"
+    >
+      <CardHeader>
+        <CardTitle>{t.common.rates}</CardTitle>
+        <CardDescription>Select base currency</CardDescription>
+      </CardHeader>
+      <CardContent className="flex flex-col gap-3">
         <Select value={currency} onValueChange={setCurrency}>
           <SelectTrigger>
             <SelectValue placeholder={"select currency"} />
@@ -52,25 +65,24 @@ const ExchangeRates: FC = () => {
             </SelectGroup>
           </SelectContent>
         </Select>
-      {/* </div> */}
-
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>{t.common.currency}</TableHead>
-            <TableHead>{t.common.rate}</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {Object.keys(ratesResponse.rates).map((key) => (
-            <TableRow key={key}>
-              <TableCell>{key}</TableCell>
-              <TableCell>{ratesResponse.rates[key]}</TableCell>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>{t.common.currency}</TableHead>
+              <TableHead>{t.common.rate}</TableHead>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </div>
+          </TableHeader>
+          <TableBody>
+            {Object.keys(ratesResponse.rates).map((key) => (
+              <TableRow key={key}>
+                <TableCell>{key}</TableCell>
+                <TableCell>{ratesResponse.rates[key]}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </CardContent>
+    </Card>
   );
 };
 

@@ -1,6 +1,7 @@
+import { TCreatedAt } from "@/api/crud";
 import { FieldValue, Timestamp } from "firebase/firestore";
 
-export type TCreateDept = {
+export type TCreateDept = TCreatedAt & {
   name: string;
   description: string;
   coveredValue: number;

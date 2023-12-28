@@ -9,6 +9,7 @@ import {
   TransactionType,
   TTransaction,
 } from "@/types/transactions/transaction";
+import { Card } from "@/components/ui/card";
 
 const IncomeIcon: FC = () => (
   <div
@@ -40,12 +41,12 @@ const TransactionCard: FC<Props> = ({ transaction }) => {
   );
 
   return (
-    <div
+    <Card
       className={cn(
-        "flex gap-4 px-4 py-2 border rounded-xl",
-        isIncome
-          ? "border-green-700/50 dark:border-green-500/30"
-          : "dark:border-red-500/30 border-red-700/50"
+        "flex gap-4 px-4 py-2",
+        // isIncome
+        //   ? "border-green-700/50 dark:border-green-500/30"
+        //   : "dark:border-red-500/30 border-red-700/50"
       )}
     >
       {isIncome ? <IncomeIcon /> : <ExpenseIcon />}
@@ -76,7 +77,7 @@ const TransactionCard: FC<Props> = ({ transaction }) => {
           </p>
         </div>
       </div>
-    </div>
+    </Card>
   );
 };
 
