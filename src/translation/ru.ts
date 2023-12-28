@@ -17,6 +17,8 @@ export const ru: Translation = {
   common: {
     rates: "Курсы",
     currency: "Валюта",
+    selectCurrency: "Выберите валюту",
+    transactionType: "Тип транзакции",
     rate: "Курс",
     actions: {
       pay: "Заплатить",
@@ -24,6 +26,8 @@ export const ru: Translation = {
       save: "Сохранить",
       submit: "Подтвердить",
       delete: "Удалить",
+      close: "Закрыть",
+      pickDate: "Выбрать дату",
     },
     fieldMessages: {
       required: "Это поле обязательно для заполнения.",
@@ -61,6 +65,10 @@ export const ru: Translation = {
     },
   },
   accounts: {
+    noAccounts: "",
+    noTransactions: "",
+    searchPlaceholder: "Поиск счета",
+    title: "",
     createAccountModal: {
       title: "Создать счет",
       description:
@@ -74,6 +82,21 @@ export const ru: Translation = {
         },
         value: {
           placeholder: "0",
+        },
+      },
+    },
+  },
+  accountPage: {
+    title: "string",
+    createTransactionModal: {
+      title: "Создайте транзакцию",
+      description: "Создайте запись расходов или доходов по вашему счету",
+      fields: {
+        title: {
+          placeholder: "Продукты",
+        },
+        description: {
+          placeholder: "Творог, яйца, куриное филе",
         },
       },
     },

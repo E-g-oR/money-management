@@ -108,9 +108,11 @@ const CreateTransactionModal: FC<Props> = ({ accountId = "", onSuccess }) => {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{t.accounts.createAccountModal.title}</DialogTitle>
+          <DialogTitle>
+            {t.accountPage.createTransactionModal.title}
+          </DialogTitle>
           <DialogDescription>
-            {t.accounts.createAccountModal.description}
+            {t.accountPage.createTransactionModal.description}
           </DialogDescription>
         </DialogHeader>
 
@@ -136,7 +138,13 @@ const CreateTransactionModal: FC<Props> = ({ accountId = "", onSuccess }) => {
                 <FormItem>
                   <FormLabel>{t.common.name}</FormLabel>
                   <FormControl>
-                    <Input placeholder={"Grocery"} {...field} />
+                    <Input
+                      placeholder={
+                        t.accountPage.createTransactionModal.fields.title
+                          .placeholder
+                      }
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -149,7 +157,13 @@ const CreateTransactionModal: FC<Props> = ({ accountId = "", onSuccess }) => {
                 <FormItem>
                   <FormLabel>{t.common.description}</FormLabel>
                   <FormControl>
-                    <Input placeholder={"Coke, eggs, pasta"} {...field} />
+                    <Input
+                      placeholder={
+                        t.accountPage.createTransactionModal.fields.description
+                          .placeholder
+                      }
+                      {...field}
+                    />
                   </FormControl>
                 </FormItem>
               )}
@@ -167,7 +181,7 @@ const CreateTransactionModal: FC<Props> = ({ accountId = "", onSuccess }) => {
                 }}
                 render={({ field }) => (
                   <FormItem className="flex-1">
-                    <FormLabel>Type</FormLabel>
+                    <FormLabel>{t.common.transactionType}</FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
@@ -222,7 +236,7 @@ const CreateTransactionModal: FC<Props> = ({ accountId = "", onSuccess }) => {
                 name={"created_at"}
                 render={({ field }) => (
                   <FormItem className={"flex-1"}>
-                    <FormLabel>{"Выберите дату"}</FormLabel>
+                    <FormLabel>{t.common.actions.pickDate}</FormLabel>
                     <FormControl>
                       <Popover>
                         <PopoverTrigger asChild>
@@ -237,11 +251,14 @@ const CreateTransactionModal: FC<Props> = ({ accountId = "", onSuccess }) => {
                             {field.value ? (
                               format(field.value, "PPP")
                             ) : (
-                              <span>Pick a date</span>
+                              <span>{t.common.actions.pickDate}</span>
                             )}
                           </Button>
                         </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0" align="start">
+                        <PopoverContent
+                          className={"w-auto p-0"}
+                          align={"start"}
+                        >
                           <Calendar
                             mode="single"
                             selected={field.value}

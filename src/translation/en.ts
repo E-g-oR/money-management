@@ -17,6 +17,8 @@ export const en: Translation = {
   common: {
     rates: "Rates",
     currency: "Currency",
+    selectCurrency: "Select Currency",
+    transactionType: "Transaction Type",
     rate: "Rate",
     actions: {
       pay: "Pay",
@@ -24,6 +26,8 @@ export const en: Translation = {
       save: "Save",
       submit: "Submit",
       delete: "Delete",
+      close: "Close",
+      pickDate: "Pick A Date",
     },
     fieldMessages: {
       required: "This field is required.",
@@ -60,6 +64,10 @@ export const en: Translation = {
     },
   },
   accounts: {
+    title: "Your accounts",
+    noTransactions: "No transactions",
+    noAccounts: "No accounts",
+    searchPlaceholder: "Search accounts",
     createAccountModal: {
       title: "Create account",
       description: "Create your new account here. Click save when you're done.",
@@ -72,6 +80,21 @@ export const en: Translation = {
         },
         value: {
           placeholder: "0",
+        },
+      },
+    },
+  },
+  accountPage: {
+    title: "string",
+    createTransactionModal: {
+      title: "Create transaction",
+      description: "Create a transaction of income or expense on your account",
+      fields: {
+        title: {
+          placeholder: "Grocery",
+        },
+        description: {
+          placeholder: "Cottage cheese, chic eggs, chicken breasts",
         },
       },
     },
