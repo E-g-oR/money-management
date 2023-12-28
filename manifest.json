@@ -1,0 +1,31 @@
+{
+  "name": "Monange",
+  "short_name": "Mm",
+  "description": "An app for managing your money.",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/src/assets/monange-white.svg",
+      "sizes": "48x48 72x72 80x80 96x96 128x128 144x144 256x256",
+      "type": "image/svg+xml"
+    }
+  ],
+  "display_override": ["fullscreen", "minimal-ui"],
+  "display": "standalone",
+  "background_color": "hsl(224 71.4% 4.1%)",
+  "theme_color": "hsl(263.4 70% 50.4%)",
+  "screenshots": [
+    {
+      "src": "/src/assets/screenshots/account-iPhone-12-Pro.jpg",
+      "type": "image/jpg",
+      "sizes": "390x844",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "/src/assets/screenshots/depts-iPad-mini.jpg",
+      "type": "image/jpg",
+      "sizes": "768x1024",
+      "form_factor": "wide"
+    }
+  ]
+}
