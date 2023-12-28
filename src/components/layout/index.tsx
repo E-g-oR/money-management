@@ -16,6 +16,7 @@ import { Avatar, AvatarFallback } from "../ui/avatar";
 import ExchangeRates from "../exchange-rates/ExchangeRates";
 import BgCircle from "../bg-circle";
 import HeaderDate from "./components/date";
+import Greeting from "./components/greeting";
 
 export const NewLayout: FC = () => {
   const currentUser = useAuthStore(getUser);
@@ -49,7 +50,7 @@ export const NewLayout: FC = () => {
             </p>
             <div className="flex justify-between items-center">
               <Show when={!checkDeviceSize(deviceSize, "md")}>
-                <p className="text-2xl font-bold">Welcome back, John.</p>
+                <Greeting/>
               </Show>
               <HeaderDate />
             </div>

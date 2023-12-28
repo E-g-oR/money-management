@@ -1,7 +1,12 @@
 import { en } from "./en";
 import { ru } from "./ru";
 
-export type NavigationItemKey = "accounts" | "dashboard" | "depts" | "categories" | "settings"
+export type NavigationItemKey =
+  | "accounts"
+  | "dashboard"
+  | "depts"
+  | "categories"
+  | "settings";
 
 export interface Translation {
   format: {
@@ -17,6 +22,7 @@ export interface Translation {
     rate: string;
     currency: string;
     transactionType: string;
+    greeting: string;
     actions: {
       pay: string;
       edit: string;
@@ -55,8 +61,7 @@ export interface Translation {
   };
   accounts: {
     title: string;
-    noTransactions: string;
-    noAccounts: string;
+    noAccountsFallback: string;
     searchPlaceholder: string;
     createAccountModal: {
       title: string;
@@ -66,9 +71,6 @@ export interface Translation {
           placeholder: string;
         };
         description: {
-          placeholder: string;
-        };
-        value: {
           placeholder: string;
         };
       };
@@ -88,9 +90,16 @@ export interface Translation {
         };
       };
     };
+    recentTransactions: string;
+    noTransactionsFallback: string;
   };
   categories: {};
   settings: {};
+  inProgressPage: {
+    title: string;
+    description: string;
+    secondDescription: string;
+  }
 }
 
 export const dictionaries = {

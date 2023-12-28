@@ -19,21 +19,27 @@ function CardsList<T>({
 }: Props<T>) {
   return (
     <>
-      <Show when={isLoading || data === null}>
-        <div className={"grid grid-cols xl:grid-cols-2 3xl:grid-cols-3 gap-3"}>
-          {skeletonComponent}
-          {skeletonComponent}
-          {skeletonComponent}
-        </div>
-      </Show>
-      <Show when={!!data && data.length > 0} fallback={<i>{fallback}</i>}>
-        <ScrollArea>
+      <Show
+        when={!isLoading}
+        fallback={
           <div
             className={"grid grid-cols xl:grid-cols-2 3xl:grid-cols-3 gap-3"}
           >
-            {data?.map(render)}
+            {skeletonComponent}
+            {skeletonComponent}
+            {skeletonComponent}
           </div>
-        </ScrollArea>
+        }
+      >
+        <Show when={!!data && data.length > 0} fallback={<i>{fallback}</i>}>
+          <ScrollArea>
+            <div
+              className={"grid grid-cols xl:grid-cols-2 3xl:grid-cols-3 gap-3"}
+            >
+              {data?.map(render)}
+            </div>
+          </ScrollArea>
+        </Show>
       </Show>
     </>
   );

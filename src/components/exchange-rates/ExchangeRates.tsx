@@ -43,17 +43,15 @@ const ExchangeRates: FC = () => {
   const t = useTranslation();
   const [currency, setCurrency] = useState<string>(currencies[0]);
   return (
-    <Card
-    // className=" px-5 py-3 self-start flex flex-col gap-2"
-    >
+    <Card>
       <CardHeader>
         <CardTitle>{t.common.rates}</CardTitle>
-        <CardDescription>Select base currency</CardDescription>
+        <CardDescription>{t.common.selectCurrency}</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-3">
         <Select value={currency} onValueChange={setCurrency}>
           <SelectTrigger>
-            <SelectValue placeholder={"select currency"} />
+            <SelectValue placeholder={t.common.selectCurrency} />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>

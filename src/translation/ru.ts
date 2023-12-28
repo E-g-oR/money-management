@@ -20,6 +20,7 @@ export const ru: Translation = {
     selectCurrency: "Выберите валюту",
     transactionType: "Тип транзакции",
     rate: "Курс",
+    greeting: "С возвращением",
     actions: {
       pay: "Заплатить",
       edit: "Изменить",
@@ -65,10 +66,9 @@ export const ru: Translation = {
     },
   },
   accounts: {
-    noAccounts: "",
-    noTransactions: "",
+    noAccountsFallback: "У вас пока нет ни одного счета.",
     searchPlaceholder: "Поиск счета",
-    title: "",
+    title: "Ваши счета",
     createAccountModal: {
       title: "Создать счет",
       description:
@@ -79,9 +79,6 @@ export const ru: Translation = {
         },
         description: {
           placeholder: "Главный счет, куда приходит зарплата.",
-        },
-        value: {
-          placeholder: "0",
         },
       },
     },
@@ -100,7 +97,14 @@ export const ru: Translation = {
         },
       },
     },
+    recentTransactions: "Ваши недавние транзакции",
+    noTransactionsFallback: "У вас пока нет тразакций для данного аккаунта.",
   },
   categories: {},
   settings: {},
+  inProgressPage: {
+    title: "В разработке...",
+    description: "Приносим извинения, эта страница еще находится в стадии разработки.",
+    secondDescription: "Пожалуйста, возвращайтесь на эту страницу позже.",
+  },
 };

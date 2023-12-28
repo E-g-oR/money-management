@@ -20,6 +20,7 @@ export const en: Translation = {
     selectCurrency: "Select Currency",
     transactionType: "Transaction Type",
     rate: "Rate",
+    greeting: "Welcome back",
     actions: {
       pay: "Pay",
       edit: "Edit",
@@ -65,8 +66,7 @@ export const en: Translation = {
   },
   accounts: {
     title: "Your accounts",
-    noTransactions: "No transactions",
-    noAccounts: "No accounts",
+    noAccountsFallback: "You dont have any accounts yet.",
     searchPlaceholder: "Search accounts",
     createAccountModal: {
       title: "Create account",
@@ -77,9 +77,6 @@ export const en: Translation = {
         },
         description: {
           placeholder: "Main account where i get salary.",
-        },
-        value: {
-          placeholder: "0",
         },
       },
     },
@@ -98,7 +95,16 @@ export const en: Translation = {
         },
       },
     },
+    recentTransactions: "Your recent transactions",
+    noTransactionsFallback:
+      "You don't have any recent transactions for this account yet.",
   },
   categories: {},
   settings: {},
+  inProgressPage: {
+    title: "In progress...",
+    description:
+      "Sorry, this page is currently in progress.",
+    secondDescription: "Please come back to this page later.",
+  },
 };
