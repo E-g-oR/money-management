@@ -16,6 +16,7 @@ import { Avatar, AvatarFallback } from "../ui/avatar";
 import ExchangeRates from "../exchange-rates/ExchangeRates";
 import BgCircle from "../bg-circle";
 import HeaderDate from "./components/date";
+import Greeting from "./components/greeting";
 
 export const NewLayout: FC = () => {
   const currentUser = useAuthStore(getUser);
@@ -33,9 +34,11 @@ export const NewLayout: FC = () => {
       fallback={<Navigate to={ROUTES.auth.login.path} />}
     >
       <>
-        <BgCircle size={32} left={64} top={16} />
-        <BgCircle size={32} left={0} bottom={16} />
-        <BgCircle size={56} right={0} top={16} />
+        <BgCircle className="w-36 h-36 left-1/4 top-16" />
+        <BgCircle className="w-20 h-20 left-0 bottom-16" />
+        <BgCircle className="w-56 h-56 right-0 top-16" />
+        {/* <BgCircle size={32} left={0} bottom={16} /> */}
+        {/* <BgCircle size={56} right={0} top={16} /> */}
         <div
           className={
             "w-screen h-screen overflow-hidden grid grid-cols-1 sm:grid-cols-layoutLg lg:grid-cols-layout grid-rows-layoutSm sm:grid-rows-layout p-4 md:p-6 gap-3 md:gap-6"
@@ -49,7 +52,7 @@ export const NewLayout: FC = () => {
             </p>
             <div className="flex justify-between items-center">
               <Show when={!checkDeviceSize(deviceSize, "md")}>
-                <p className="text-2xl font-bold">Welcome back, John.</p>
+                <Greeting/>
               </Show>
               <HeaderDate />
             </div>

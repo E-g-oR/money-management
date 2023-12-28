@@ -8,24 +8,30 @@ import PageLayout from "@/components/layout/page-layout";
 
 import CreateAccountModal from "./create-account-modal";
 import AccountCard, { AccountCardSkeleton } from "./account-card";
+import { useTranslation } from "@/lib/hooks/useTranslation";
 
 const AccountsPage: FC = () => {
-  const { data: accounts, run: updateAccountsList } = useRequest(
-    Api.getAccounts,
-    undefined
-  );
+  const t = useTranslation();
+  const {
+    data: accounts,
+    run: updateAccountsList,
+    isLoading,
+  } = useRequest(Api.getAccounts, undefined);
 
   return (
     <PageLayout
-      title={"Your accounts"}
-      action={<CreateAccountModal onSuccess={() => updateAccountsList(undefined)} />}
+      title={t.accounts.title}
+      action={
+        <CreateAccountModal onSuccess={() => updateAccountsList(undefined)} />
+      }
     >
       <Input placeholder={"Search accounts"} />
       <CardsList
+        isLoading={isLoading}
         data={accounts}
         render={(account) => <AccountCard key={account.id} account={account} />}
         skeletonComponent={<AccountCardSkeleton />}
-        fallback={"You dont have any accounts yet."}
+        fallback={t.accounts.noAccountsFallback}
       />
     </PageLayout>
   );

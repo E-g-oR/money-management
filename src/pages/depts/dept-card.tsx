@@ -10,12 +10,10 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTranslation } from "@/lib/hooks/useTranslation";
-import { Pencil1Icon, TrashIcon } from "@radix-ui/react-icons";
-// import { confirmModalContext } from "@/components/confirm-modal";
 
 import { calcProgress } from "./utils";
 import PayDeptNodal from "./pay-dept-modal";
-import { MoreVertical } from "lucide-react";
+import { ArrowUpFromLine, MoreVertical } from "lucide-react";
 
 interface Props {
   dept: TDept;
@@ -118,32 +116,26 @@ const DeptCard: FC<Props> = ({ dept, updateDepts }) => {
 export default DeptCard;
 
 export const DeptCardSkeleton: FC = () => {
-  const t = useTranslation();
   return (
-    <Card className={"flex gap-4 py-2 px-5"}>
-      <div className={"flex flex-col items-center flex-0 justify-between"}>
-        <Skeleton className={"w-16 h-7"} />
-        <Button disabled>{t.common.actions.pay}</Button>
+    <Card className={"flex flex-col gap-2 py-3 px-4"}>
+      <div className="flex gap-2 justify-between">
+        <Skeleton className={"h-7 w-36"} />
+        <Skeleton className={"h-7 w-24"} />
       </div>
-      <div className={"flex-1"}>
-        <div className={"flex items-center gap-5"}>
-          <div className={"flex-1"}>
-            <Skeleton className={"w-24 h-7"} />
-            <Skeleton className={"mw-48 h-5 mt-2"} />
-          </div>
-          <div className={"flex gap-2"}>
-            <Button variant={"outline"} size={"icon"} disabled>
-              <Pencil1Icon className={"h-4 w-4"} />
-            </Button>
-            <Button variant={"destructive"} size={"icon"} disabled>
-              <TrashIcon className={"h-4 w-4"} />
-            </Button>
-          </div>
+      <div className={"flex gap-2 justify-between items-center"}>
+        <Skeleton className={"h-6 w-44"} />
+        <div className="flex gap-2">
+          <Button size={"icon"} disabled>
+            <ArrowUpFromLine />
+          </Button>
+          <Button variant={"ghost"} size={"icon"} onClick={() => {}} disabled>
+            <MoreVertical />
+          </Button>
         </div>
-        <div className={"flex flex-col items-center mt-2"}>
-          <Skeleton className={"w-12 h-6"} />
-          <Skeleton className={"w-full h-3 mt-2"} />
-        </div>
+      </div>
+      <div className={"flex flex-col items-center gap-2"}>
+        <Skeleton className="h-6 w-16" />
+        <Progress color={"primary"} value={40} />
       </div>
     </Card>
   );

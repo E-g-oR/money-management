@@ -17,13 +17,19 @@ export const ru: Translation = {
   common: {
     rates: "Курсы",
     currency: "Валюта",
+    selectCurrency: "Выберите валюту",
+    transactionType: "Тип транзакции",
     rate: "Курс",
+    greeting: "С возвращением",
+    account: "Счет",
     actions: {
       pay: "Заплатить",
       edit: "Изменить",
       save: "Сохранить",
       submit: "Подтвердить",
       delete: "Удалить",
+      close: "Закрыть",
+      pickDate: "Выбрать дату",
     },
     fieldMessages: {
       required: "Это поле обязательно для заполнения.",
@@ -46,6 +52,7 @@ export const ru: Translation = {
   },
   depts: {
     title: "Ваши долги",
+    noDeptsFallback: "У вас пока нет никаких долгов. Поздравляем!",
     badges: {
       totalCount: "Количество долгов",
       totalAmount: "Общее значение долгов",
@@ -61,6 +68,9 @@ export const ru: Translation = {
     },
   },
   accounts: {
+    noAccountsFallback: "У вас пока нет ни одного счета.",
+    searchPlaceholder: "Поиск счета",
+    title: "Ваши счета",
     createAccountModal: {
       title: "Создать счет",
       description:
@@ -72,12 +82,31 @@ export const ru: Translation = {
         description: {
           placeholder: "Главный счет, куда приходит зарплата.",
         },
-        value: {
-          placeholder: "0",
-        },
       },
     },
   },
+  accountPage: {
+    title: "string",
+    createTransactionModal: {
+      title: "Создайте транзакцию",
+      description: "Создайте запись расходов или доходов по вашему счету",
+      fields: {
+        title: {
+          placeholder: "Продукты",
+        },
+        description: {
+          placeholder: "Творог, яйца, куриное филе",
+        },
+      },
+    },
+    recentTransactions: "Ваши недавние транзакции",
+    noTransactionsFallback: "У вас пока нет тразакций для данного аккаунта.",
+  },
   categories: {},
   settings: {},
+  inProgressPage: {
+    title: "В разработке...",
+    description: "Приносим извинения, эта страница еще находится в стадии разработки.",
+    secondDescription: "Пожалуйста, возвращайтесь на эту страницу позже.",
+  },
 };
