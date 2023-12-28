@@ -1,11 +1,20 @@
+import { Auth } from "@/types/auth";
 import { FirebaseApp } from "firebase/app";
-import { Auth } from "@/pages/auth/LoginForm";
 import { transormListToMap, useDataStore } from "@/store/data";
 import { TCreateDept, TDept, TNewDept } from "@/types/depts/dept";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { Firestore, getFirestore, where } from "firebase/firestore";
-import { TAccount, TCreateAccount, TNewAccount } from "@/types/accounts/account";
-import { TCreateTransaction, TNewTransaction, TransactionType, TTransaction } from "@/types/transactions/transaction";
+import {
+  TAccount,
+  TCreateAccount,
+  TNewAccount,
+} from "@/types/accounts/account";
+import {
+  TCreateTransaction,
+  TNewTransaction,
+  TransactionType,
+  TTransaction,
+} from "@/types/transactions/transaction";
 
 import { Crud } from "./crud";
 
@@ -38,7 +47,7 @@ export class API {
     return userCredential.user;
   };
 
-  public getAuth = () => getAuth()
+  public getAuth = () => getAuth();
 
   //! ------------------------- Accounts -------------------------
 
@@ -58,7 +67,7 @@ export class API {
   };
 
   public getAccount = async (accountId: string) => {
-    const account = await this.accounts.read(accountId);    
+    const account = await this.accounts.read(accountId);
     return account;
   };
 
@@ -147,7 +156,7 @@ export class API {
       description: dept.description ?? "",
       type: TransactionType.Expense,
       value,
-      created_at: new Date() // TODO: сделать выбор даты когда был оплачен долг
+      created_at: new Date(), // TODO: сделать выбор даты когда был оплачен долг
     });
     const updatedDept = await this.depts_.update(dept.id, {
       coveredValue: newDeptCoveredValue,

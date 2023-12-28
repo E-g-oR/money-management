@@ -23,11 +23,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Show from "@/components/show";
+import { Auth } from "@/types/auth";
 
-export interface Auth {
-  email: string;
-  password: string;
-}
+
 
 const LoginForm: FC = () => {
   const form = useForm<Auth>();
