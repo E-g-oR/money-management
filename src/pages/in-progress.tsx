@@ -4,7 +4,7 @@ import { FC } from "react";
 const InProgress: FC = () => {
   const t = useTranslation();
   return (
-    <div className={"flex flex-col gap-3 justify-center items-center"}>
+    <div className={"flex flex-col gap-3 justify-center items-center text-center"}>
       <h1 className={"text-4xl font-bold text-center"}>
         {t.inProgressPage.title}
       </h1>

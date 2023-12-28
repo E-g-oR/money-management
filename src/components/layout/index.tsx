@@ -34,9 +34,11 @@ export const NewLayout: FC = () => {
       fallback={<Navigate to={ROUTES.auth.login.path} />}
     >
       <>
-        <BgCircle size={32} left={64} top={16} />
-        <BgCircle size={32} left={0} bottom={16} />
-        <BgCircle size={56} right={0} top={16} />
+        <BgCircle className="w-36 h-36 left-1/4 top-16" />
+        <BgCircle className="w-20 h-20 left-0 bottom-16" />
+        <BgCircle className="w-56 h-56 right-0 top-16" />
+        {/* <BgCircle size={32} left={0} bottom={16} /> */}
+        {/* <BgCircle size={56} right={0} top={16} /> */}
         <div
           className={
             "w-screen h-screen overflow-hidden grid grid-cols-1 sm:grid-cols-layoutLg lg:grid-cols-layout grid-rows-layoutSm sm:grid-rows-layout p-4 md:p-6 gap-3 md:gap-6"
