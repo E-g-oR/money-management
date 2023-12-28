@@ -88,7 +88,7 @@ export const theme = {
       "accordion-up": "accordion-up 0.2s ease-out",
     },
     gridTemplateColumns: {
-      layout: "minmax(200px, 250px) minmax(490px, 1fr) minmax(200px, 300px)",
+      layout: "minmax(200px, 250px) minmax(490px, 1fr) minmax(200px, 280px)",
       layoutLg: "56px 1fr 200px"
     },
     gridTemplateRows: {

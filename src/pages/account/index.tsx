@@ -9,14 +9,17 @@ import CardsList from "@/components/layout/cards-list";
 import AccountPageHeader from "./account-page-header";
 import CreateTransactionModal from "./create-transaction-modal";
 import TransactionCard, { TransactionCardSkeleton } from "./transaction-card";
+import { useTranslation } from "@/lib/hooks/useTranslation";
 
 const AccountPage: FC = () => {
+  const t = useTranslation();
   const { accountId } = useParams<"accountId">();
 
-  const { data: transactions, run: updateTransactions } = useRequest(
-    Api.getTransactionsForAccount,
-    accountId ?? ""
-  );
+  const {
+    data: transactions,
+    run: updateTransactions,
+    isLoading: isLoadingTransactions,
+  } = useRequest(Api.getTransactionsForAccount, accountId ?? "");
   const { data: account, run: updateAccount } = useRequest(
     Api.getAccount,
     accountId ?? ""
@@ -26,7 +29,7 @@ const AccountPage: FC = () => {
     <>
       <AccountPageHeader account={account} updateAccount={updateAccount} />
       <div className={"flex justify-between items-center"}>
-        <p>Your recent transactions</p>
+        <p>{t.accountPage.recentTransactions}</p>
         <CreateTransactionModal
           accountId={accountId}
           onSuccess={() => {
@@ -36,12 +39,13 @@ const AccountPage: FC = () => {
         />
       </div>
       <CardsList
+        isLoading={isLoadingTransactions}
         data={transactions}
         render={(transaction, i) => (
           <TransactionCard key={i} transaction={transaction} />
         )}
         skeletonComponent={<TransactionCardSkeleton />}
-        fallback={"You dont have recent transactions on this account."}
+        fallback={t.accountPage.noTransactionsFallback}
       />
     </>
   );

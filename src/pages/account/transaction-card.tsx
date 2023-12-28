@@ -10,6 +10,7 @@ import {
   TTransaction,
 } from "@/types/transactions/transaction";
 import { Card } from "@/components/ui/card";
+import Show from "@/components/show";
 
 const IncomeIcon: FC = () => (
   <div
@@ -41,18 +42,13 @@ const TransactionCard: FC<Props> = ({ transaction }) => {
   );
 
   return (
-    <Card
-      className={cn(
-        "flex gap-4 px-4 py-2",
-        // isIncome
-        //   ? "border-green-700/50 dark:border-green-500/30"
-        //   : "dark:border-red-500/30 border-red-700/50"
-      )}
-    >
+    <Card className={cn("flex gap-4 px-4 py-2")}>
       {isIncome ? <IncomeIcon /> : <ExpenseIcon />}
       <div className="flex flex-col gap-0.5 flex-1">
         <div className={"flex items-baseline flex-1 gap-3"}>
-          <p className={"text-2xl flex-1 line-clamp-1 text-ellipsis"}>
+          <p
+            className={"text-base sm:text-lg  flex-1 line-clamp-1 text-ellipsis"}
+          >
             {transaction.title}
           </p>
           <p
@@ -66,12 +62,13 @@ const TransactionCard: FC<Props> = ({ transaction }) => {
             {t.format.currency(transaction.value, "BYN")}
           </p>
         </div>
+
         <div className={"flex items-center text-muted-foreground gap-3"}>
-          {transaction?.description && (
-            <p className={"line-clamp-1 text-ellipsis flex-1"}>
+          <Show when={!!transaction?.description}>
+            <p className={"line-clamp-1 text-ellipsis flex-1 text-sm md:text-base"}>
               {transaction.description}
             </p>
-          )}
+          </Show>
           <p className={"text-sm ml-auto"}>
             {t.format.date(transaction.created_at.toDate().toISOString())}
           </p>
