@@ -1,26 +1,24 @@
-import React, { lazy } from "react";
+import { lazy, StrictMode } from "react";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import ReactDOM from "react-dom/client";
+import { ROUTES } from "@/router/index.ts";
+import ErrorBoundary from "@/pages/error-boundary.tsx";
 import { NewLayout } from "@/components/layout/index.tsx";
+import ConfirmModal from "@/components/confirm-modal.tsx";
 import ThemeProvider from "@/components/layout/theme-provider.tsx";
-
-import { ROUTES } from "./router/index.ts";
-import ErrorBoundary from "./pages/error-boundary.tsx";
-import ConfirmModal from "./components/confirm-modal.tsx";
-import ResponsiveObserver from "./components/layout/responsive-observer.tsx";
+import ResponsiveObserver from "@/components/layout/responsive-observer.tsx";
 
 import "./index.css";
-// import { Api } from "./api/index.ts";
 
 const DeptsPage = lazy(() => import("@/pages/depts/index.tsx")),
-  AuthLayout = lazy(() => import("./pages/auth/Layout.tsx")),
-  InProgress = lazy(() => import("./pages/in-progress.tsx")),
-  LoginForm = lazy(() => import("./pages/auth/LoginForm.tsx")),
+  AuthLayout = lazy(() => import("@/pages/auth/Layout.tsx")),
+  InProgress = lazy(() => import("@/pages/in-progress.tsx")),
+  LoginForm = lazy(() => import("@/pages/auth/LoginForm.tsx")),
   AccountPage = lazy(() => import("@/pages/account/index.tsx")),
   AccountsPage = lazy(() => import("@/pages/accounts/index.tsx")),
-  RegisterForm = lazy(() => import("./pages/auth/RegisterForm.tsx"));
+  RegisterForm = lazy(() => import("@/pages/auth/RegisterForm.tsx"));
 
 const router = createBrowserRouter([
   {
@@ -87,7 +85,7 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
+  <StrictMode>
     <ThemeProvider>
       <ResponsiveObserver>
         <ConfirmModal>
@@ -95,5 +93,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         </ConfirmModal>
       </ResponsiveObserver>
     </ThemeProvider>
-  </React.StrictMode>
+  </StrictMode>
 );

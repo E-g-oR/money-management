@@ -20,8 +20,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Auth } from "@/types/auth";
 
-import { Auth } from "./LoginForm";
 
 const RegisterForm: FC = () => {
   const form = useForm<Auth>();
