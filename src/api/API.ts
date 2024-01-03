@@ -121,17 +121,22 @@ export class API {
     transactionBody: TCreateTransaction
   ) => {
     // TODO: переписать все на batch или transaction, чтобы выполнять все записи за один запрос
-    // TODO: добавить проверку на отрицательное число (нельзя потратить больше, чем есть на счету)
     const account = await this.getAccount(transactionBody.account_id);
     const newAccountValue =
       transactionBody.type === TransactionType.Income
         ? account.value + transactionBody.value
         : account.value - transactionBody.value;
 
-    const transaction = await this.createTransaction(transactionBody);
-    await this.updateAccount(transactionBody.account_id, {
-      value: newAccountValue,
-    });
+    if (newAccountValue < 0) {
+      throw new Error("Cannot create transaction with negative value");
+    }
+
+    const [transaction] = await Promise.all([
+      this.createTransaction(transactionBody),
+      this.updateAccount(transactionBody.account_id, {
+        value: newAccountValue,
+      }),
+    ]);
     return transaction;
   };
   //* ------------------------- -------------------------
