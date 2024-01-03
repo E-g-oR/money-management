@@ -1,11 +1,13 @@
 import { TCreatedAt } from "@/api/crud";
 import { FieldValue, Timestamp } from "firebase/firestore";
+// import { Currencies } from "../currency";
 
 export type TCreateDept = TCreatedAt & {
   name: string;
   description: string;
   coveredValue: number;
   value: number;
+  // currency: Currencies
 };
 
 export type TNewDept = TCreateDept & {
