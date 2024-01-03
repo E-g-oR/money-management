@@ -92,10 +92,22 @@ export class API {
   };
 
   /**
-   * TODO: Delete account
+   * Delete account
+   *
+   * Deletes account itself and all associated transactions
    * @param accountId<string> string
    */
-  public deleteAccount = async () => {};
+  public deleteAccount = async (account_id: string) => {
+    await this.accounts.delete(account_id);
+
+    // delete all transactions for this account
+    this.getTransactionsForAccount(account_id).then((allTransactions) => {
+      allTransactions.forEach((transaction) =>
+        this.transactions.delete(transaction.id)
+      );
+    });
+    return;
+  };
 
   //* ------------------------- -------------------------
 
