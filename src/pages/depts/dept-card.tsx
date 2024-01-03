@@ -1,7 +1,7 @@
 import {
   FC,
-  // useContext,
   useMemo,
+  // useContext,
 } from "react";
 
 import { TDept } from "@/types/depts/dept";
@@ -14,6 +14,8 @@ import { useTranslation } from "@/lib/hooks/useTranslation";
 import { calcProgress } from "./utils";
 import PayDeptNodal from "./pay-dept-modal";
 import { ArrowUpFromLine, MoreVertical } from "lucide-react";
+import { cn } from "@/lib/utils";
+import Show from "@/components/show";
 
 interface Props {
   dept: TDept;
@@ -24,50 +26,49 @@ const DeptCard: FC<Props> = ({ dept, updateDepts }) => {
   const t = useTranslation();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   // const { confirm } = useContext(confirmModalContext);
-  const formattedValue = useMemo(
-    () => t.format.currency(dept.value, "BYN"),
-    [t.format, dept.value]
+
+  const isClosed = useMemo(
+    () => dept.coveredValue === dept.value,
+    [dept.coveredValue, dept.value]
   );
 
   return (
-    <Card className={"flex flex-col gap-2 py-3 px-4"}>
+    <Card
+      className={cn("flex flex-col gap-2 py-3 px-4", isClosed && "saturate-50 brightness-75")}
+    >
       <div className="flex gap-2 justify-between">
         <h2 className={"text-lg font-semibold line-clamp-1 text-ellipsis"}>
           {dept.name}
         </h2>
-        <span className={"text-xl"}>{formattedValue}</span>
+        <span className={"text-xl"}>
+          {t.format.currency(dept.value, dept.currency)}
+        </span>
       </div>
       <div className={"flex gap-2 justify-between items-center"}>
         <span className={"line-clamp-1 text-ellipsis text-muted-foreground"}>
           {dept.description}
         </span>
         <div className="flex gap-2">
-          <PayDeptNodal
-            dept={dept}
-            onSuccess={() => {
-              updateDepts();
-            }}
-          />
+          <Show when={!isClosed}>
+            <PayDeptNodal
+              dept={dept}
+              onSuccess={() => {
+                updateDepts();
+              }}
+            />
+          </Show>
           <Button variant={"ghost"} size={"icon"} onClick={() => {}}>
             <MoreVertical />
           </Button>
         </div>
       </div>
       <div className={"flex flex-col items-center"}>
-        <span>{t.format.currency(dept.coveredValue, "BYN")}</span>
+        <span>{t.format.currency(dept.coveredValue, dept.currency)}</span>
         <Progress
           color={"primary"}
           value={calcProgress(dept.value, dept.coveredValue)}
         />
       </div>
-      {/* <div className={"flex flex-col items-center flex-0 justify-between"}>
-        <PayDeptNodal
-          dept={dept}
-          onSuccess={() => {
-            updateDepts();
-          }}
-        />
-      </div> */}
       {/* <div className={"flex-1"}>
         <div className={"flex items-center gap-5"}>
           <div className={"flex-1"}>

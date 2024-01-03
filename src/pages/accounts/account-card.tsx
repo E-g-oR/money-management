@@ -22,7 +22,7 @@ const AccountCard: FC<Props> = ({ account }) => {
         <h2 className={"text-lg font-bold line-clamp-1 text-ellipsis"}>
           {account.name}
         </h2>
-        <p className={"text-2xl flex-0"}>{t.format.currency(account.value, "BYN")}</p>
+        <p className={"text-2xl flex-0"}>{t.format.currency(account.value, account.currency)}</p>
         <p className={"line-clamp-1 text-ellipsis text-muted-foreground"}>
           {account.description}
         </p>

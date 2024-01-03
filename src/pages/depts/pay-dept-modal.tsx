@@ -78,16 +78,23 @@ const PayDeptNodal: FC<Props> = ({ dept, onSuccess }) => {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{t.common.actions.pay} {dept.name}</DialogTitle>
+          <DialogTitle>
+            {t.common.actions.pay} {dept.name}
+          </DialogTitle>
           <DialogDescription>{dept.description}</DialogDescription>
         </DialogHeader>
         <p>
           Needs to pay{" "}
-          <b>{t.format.currency(dept.value - dept.coveredValue, "BYN")}</b> to
-          close the dept.
+          <b>
+            {t.format.currency(dept.value - dept.coveredValue, dept.currency)}
+          </b>{" "}
+          to close the dept.
         </p>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="flex flex-col gap-4"
+          >
             <div className={"flex gap-2"}>
               <FormField
                 control={form.control}
@@ -126,11 +133,18 @@ const PayDeptNodal: FC<Props> = ({ dept, onSuccess }) => {
                       </FormControl>
                       <FormMessage />
                       <SelectContent>
-                        {Array.from(accountsById).map(([, account]) => (
-                          <SelectItem value={account.id}>
-                            {account.name}: {account.value}
-                          </SelectItem>
-                        ))}
+                        {/* TODO: extract logic to separated functions */}
+                        {Array.from(accountsById)
+                          .filter(([, acc]) => acc.currency === dept.currency)
+                          .map(([, account]) => (
+                            <SelectItem value={account.id}>
+                              {account.name}:{" "}
+                              {t.format.currency(
+                                account.value,
+                                account.currency
+                              )}
+                            </SelectItem>
+                          ))}
                       </SelectContent>
                     </Select>
                   </FormItem>

@@ -42,7 +42,7 @@ const AccountPage: FC = () => {
         isLoading={isLoadingTransactions}
         data={transactions}
         render={(transaction, i) => (
-          <TransactionCard key={i} transaction={transaction} />
+          <TransactionCard key={i} transaction={transaction} currency={account?.currency} />
         )}
         skeletonComponent={<TransactionCardSkeleton />}
         fallback={t.accountPage.noTransactionsFallback}
