@@ -77,6 +77,10 @@ const CreateTransactionModal: FC<Props> = ({ accountId = "", onSuccess }) => {
 
   const onSubmit = useCallback(
     (data: TCreateTransaction) => {
+      const now = new Date();
+      data.created_at.setHours(now.getHours())
+      data.created_at.setMinutes(now.getMinutes())
+      
       Api.createTransactionAndUpdateAccount({
         ...data,
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment

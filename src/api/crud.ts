@@ -87,4 +87,6 @@ export class Crud<
     const docRef = doc(this.firestore, this.collectionName, docId);
     await deleteDoc(docRef);
   };
+
+  
 }
