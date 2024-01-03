@@ -167,6 +167,9 @@ export class API {
 
   public payDept = async (dept: TDept, value: number, account: TAccount) => {
     const newDeptCoveredValue = dept.coveredValue + value;
+    if (newDeptCoveredValue > dept.value) {
+      throw new Error("You can not pay dept more than needed.");
+    }
     await this.createTransactionAndUpdateAccount({
       account_id: account.id,
       title: dept.name,
