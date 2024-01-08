@@ -22,6 +22,7 @@ const AccountPage: FC = () => {
     run: updateTransactions,
     isLoading: isLoadingTransactions,
   } = useRequest(Api.getTransactionsForAccount, accountId ?? "");
+
   const { data: account, run: updateAccount } = useRequest(
     Api.getAccount,
     accountId ?? ""
@@ -73,7 +74,7 @@ const AccountPage: FC = () => {
           value={t.accountPage.tabs.chart}
           className={"overflow-hidden m-0 h-full"}
         >
-          <AreaChart transactions={transactions} />
+          <AreaChart transactions={transactions} currency={account?.currency ?? "BYN"} />
         </TabsContent>
       </Tabs>
     </>

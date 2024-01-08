@@ -12,6 +12,8 @@ export const en: Translation = {
       ),
     date: (timestamp: string) =>
       format(Date.parse(timestamp), "LLL do, p", { locale }),
+    dateShort: (timestamp: string) =>
+      format(Date.parse(timestamp), "MM.dd.yy", { locale }),
     dateHeader: (date) => format(date, "eeee, do MMMM, p", { locale }),
     weekAndMonthDay: (date) => format(date, "eeee, do MMMM", { locale }),
     time: (date) => format(date, "p", { locale }),
@@ -43,6 +45,8 @@ export const en: Translation = {
     description: "Description",
     value: "Value",
     coveredValue: "Covered value",
+    income: "Icnome",
+    expence: "Expense",
   },
   navbar: {
     accounts: "Accounts",

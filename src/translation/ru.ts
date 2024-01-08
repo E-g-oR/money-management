@@ -11,6 +11,8 @@ export const ru: Translation = {
       ),
     date: (timestamp: string) =>
       format(Date.parse(timestamp), "LLL do, p", { locale }),
+    dateShort: (timestamp: string) =>
+      format(Date.parse(timestamp), "dd.MM.yy", { locale }),
     dateHeader: (date) => format(date, "eeee, do MMMM, p", { locale }),
     weekAndMonthDay: (date) => format(date, "eeee, do MMMM", { locale }),
     time: (date) => format(date, "p", { locale }),
@@ -43,6 +45,8 @@ export const ru: Translation = {
     description: "Описание",
     value: "Значение",
     coveredValue: "Покрытое значение",
+    income: "Доход",
+    expence: "Расходы",
   },
   navbar: {
     accounts: "Счета",
