@@ -43,6 +43,18 @@ const router = createBrowserRouter([
             path: ROUTES.accounts.account.relative,
             element: <AccountPage />,
             errorElement: <ErrorBoundary />,
+            // children: [
+            //   {
+            //     index: true,
+            //     element: <p>Transactions here</p>,
+            //     errorElement: <ErrorBoundary />,
+            //   },
+            //   {
+            //     path: Pages.Chart,
+            //     element: <AreaChart_/>,
+            //     errorElement: <ErrorBoundary />,
+            //   },
+            // ],
           },
         ],
       },

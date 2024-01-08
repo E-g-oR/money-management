@@ -1,6 +1,8 @@
 import { format } from "date-fns";
-import { Translation } from ".";
+
 import { enUS as locale } from "date-fns/locale";
+
+import { Translation } from ".";
 
 export const en: Translation = {
   format: {
@@ -100,13 +102,16 @@ export const en: Translation = {
     recentTransactions: "Your recent transactions",
     noTransactionsFallback:
       "You don't have any recent transactions for this account yet.",
+    tabs: {
+      transactions: "Transactions",
+      chart: "Chart",
+    },
   },
   categories: {},
   settings: {},
   inProgressPage: {
     title: "In progress...",
-    description:
-      "Sorry, this page is currently in progress.",
+    description: "Sorry, this page is currently in progress.",
     secondDescription: "Please come back to this page later.",
   },
 };

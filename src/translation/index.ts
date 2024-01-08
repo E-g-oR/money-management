@@ -94,6 +94,10 @@ export interface Translation {
     };
     recentTransactions: string;
     noTransactionsFallback: string;
+    tabs: {
+      transactions: string;
+      chart: string;
+    }
   };
   categories: {};
   settings: {};

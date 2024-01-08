@@ -48,6 +48,7 @@ const CreateAccountModal: FC<Props> = ({ onSuccess }) => {
   const onSubmit = useCallback(
     (data: AccountCreate) => {
       Api.createAccount({
+        created_at: new Date(),
         name: data.account_name,
         description: data.account_description,
         value: parseFloat(data?.account_value),
