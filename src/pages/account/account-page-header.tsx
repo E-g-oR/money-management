@@ -61,7 +61,7 @@ const AccountPageHeader: FC<Props> = ({ account, updateAccount }) => {
               <h1 className={"text-4xl font-bold"}>{account?.name}</h1>
               <p className={"text-muted-foreground"}>{account?.description}</p>
               <p className={"text-3xl"}>
-                {t.format.currency(account?.value ?? 0, "BYN")}
+                {t.format.currency(account?.value ?? 0, account?.currency)}
               </p>
             </div>
             <div className="flex flex-col gap-2">

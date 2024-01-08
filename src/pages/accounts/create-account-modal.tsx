@@ -23,11 +23,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Currencies } from "@/types/currency";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface AccountCreate {
   account_name: string;
   account_description?: string;
   account_value: string;
+  account_currency: Currencies;
 }
 type Props = {
   onSuccess: () => void;
@@ -42,6 +45,7 @@ const CreateAccountModal: FC<Props> = ({ onSuccess }) => {
       account_name: "",
       account_description: "",
       account_value: "0",
+      account_currency: Currencies.BYN,
     },
   });
 
@@ -52,6 +56,7 @@ const CreateAccountModal: FC<Props> = ({ onSuccess }) => {
         name: data.account_name,
         description: data.account_description,
         value: parseFloat(data?.account_value),
+        currency: data.account_currency,
       }).then(() => {
         onSuccess();
         setIsOpen(false);
@@ -134,24 +139,54 @@ const CreateAccountModal: FC<Props> = ({ onSuccess }) => {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              rules={{
-                min: {
-                  value: 0,
-                  message: t.common.fieldMessages.minValue(0),
-                },
-              }}
-              name={"account_value"}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t.common.value}</FormLabel>
-                  <FormControl>
-                    <Input placeholder={"0"} type={"number"} {...field} />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
+            <div className="flex flex-wrap gap-4">
+              <FormField
+                control={form.control}
+                rules={{
+                  min: {
+                    value: 0,
+                    message: t.common.fieldMessages.minValue(0),
+                  },
+                }}
+                name={"account_value"}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t.common.value}</FormLabel>
+                    <FormControl>
+                      <Input placeholder={"0"} type={"number"} {...field} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name={"account_currency"}
+                render={({ field }) => (
+                  <FormItem className={"flex-1"}>
+                    <FormLabel>{t.common.currency}</FormLabel>
+                    <FormControl>
+                      <Select
+                        value={field.value}
+                        onValueChange={field.onChange}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder={t.common.selectCurrency} />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            {Object.keys(Currencies).map((curr) => (
+                              <SelectItem value={curr} key={curr}>
+                                {curr}
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </div>
             <DialogFooter>
               <Button type={"submit"}>{t.common.actions.submit}</Button>
             </DialogFooter>

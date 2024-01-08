@@ -11,6 +11,7 @@ import {
 } from "@/types/transactions/transaction";
 import { Card } from "@/components/ui/card";
 import Show from "@/components/show";
+import { Currencies } from "@/types/currency";
 
 const IncomeIcon: FC = () => (
   <div
@@ -33,8 +34,9 @@ const ExpenseIcon: FC = () => (
 
 interface Props {
   transaction: TTransaction;
+  currency?: Currencies
 }
-const TransactionCard: FC<Props> = ({ transaction }) => {
+const TransactionCard: FC<Props> = ({ transaction, currency = Currencies.BYN }) => {
   const t = useTranslation();
   const isIncome = useMemo(
     () => transaction.type === TransactionType.Income,
@@ -59,7 +61,7 @@ const TransactionCard: FC<Props> = ({ transaction }) => {
                 : "dark:text-red-500 text-red-700"
             )}
           >
-            {t.format.currency(transaction.value, "BYN")}
+            {t.format.currency(transaction.value, currency)}
           </p>
         </div>
 
