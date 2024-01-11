@@ -12,6 +12,7 @@ export interface Translation {
   format: {
     currency: (value: number, currency?: string) => string;
     date: (timestamp: string) => string;
+    dateShort: (timestamp: string) => string;
     dateHeader: (date: Date) => string;
     weekAndMonthDay: (date: Date) => string;
     time: (date: Date) => string;
@@ -42,6 +43,8 @@ export interface Translation {
     description: string;
     value: string;
     coveredValue: string;
+    income: string;
+    expence: string;
   };
   navbar: Record<NavigationItemKey, string>;
   depts: {
@@ -94,6 +97,10 @@ export interface Translation {
     };
     recentTransactions: string;
     noTransactionsFallback: string;
+    tabs: {
+      transactions: string;
+      chart: string;
+    };
   };
   categories: {};
   settings: {};
@@ -101,7 +108,7 @@ export interface Translation {
     title: string;
     description: string;
     secondDescription: string;
-  }
+  };
 }
 
 export const dictionaries = {

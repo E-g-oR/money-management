@@ -1,6 +1,7 @@
 import { format } from "date-fns/format";
-import { Translation } from ".";
 import { ru as locale } from "date-fns/locale";
+
+import { Translation } from ".";
 
 export const ru: Translation = {
   format: {
@@ -10,6 +11,8 @@ export const ru: Translation = {
       ),
     date: (timestamp: string) =>
       format(Date.parse(timestamp), "LLL do, p", { locale }),
+    dateShort: (timestamp: string) =>
+      format(Date.parse(timestamp), "dd.MM.yy", { locale }),
     dateHeader: (date) => format(date, "eeee, do MMMM, p", { locale }),
     weekAndMonthDay: (date) => format(date, "eeee, do MMMM", { locale }),
     time: (date) => format(date, "p", { locale }),
@@ -42,6 +45,8 @@ export const ru: Translation = {
     description: "Описание",
     value: "Значение",
     coveredValue: "Покрытое значение",
+    income: "Доход",
+    expence: "Расходы",
   },
   navbar: {
     accounts: "Счета",
@@ -101,12 +106,17 @@ export const ru: Translation = {
     },
     recentTransactions: "Ваши недавние транзакции",
     noTransactionsFallback: "У вас пока нет тразакций для данного аккаунта.",
+    tabs: {
+      transactions: "Операции",
+      chart: "График",
+    },
   },
   categories: {},
   settings: {},
   inProgressPage: {
     title: "В разработке...",
-    description: "Приносим извинения, эта страница еще находится в стадии разработки.",
+    description:
+      "Приносим извинения, эта страница еще находится в стадии разработки.",
     secondDescription: "Пожалуйста, возвращайтесь на эту страницу позже.",
   },
 };

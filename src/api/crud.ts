@@ -22,7 +22,7 @@ type TUId = {
 };
 
 export type TCreatedAt = {
-  created_at?: Date;
+  created_at: Date;
 };
 
 export class Crud<
@@ -87,4 +87,6 @@ export class Crud<
     const docRef = doc(this.firestore, this.collectionName, docId);
     await deleteDoc(docRef);
   };
+
+  
 }

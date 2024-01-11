@@ -17,6 +17,7 @@ import {
 } from "@/types/transactions/transaction";
 
 import { Crud } from "./crud";
+import { orderByCreatedAt } from "./utils/order-transactions";
 
 export class API {
   private fireStore: Firestore;
@@ -92,10 +93,22 @@ export class API {
   };
 
   /**
-   * TODO: Delete account
+   * Delete account
+   *
+   * Deletes account itself and all associated transactions
    * @param accountId<string> string
    */
-  public deleteAccount = async () => {};
+  public deleteAccount = async (account_id: string) => {
+    await this.accounts.delete(account_id);
+
+    // delete all transactions for this account
+    this.getTransactionsForAccount(account_id).then((allTransactions) => {
+      allTransactions.forEach((transaction) =>
+        this.transactions.delete(transaction.id)
+      );
+    });
+    return;
+  };
 
   //* ------------------------- -------------------------
 
@@ -103,13 +116,15 @@ export class API {
 
   private getTransactionsQuery = (accountId: string) => {
     const q = where("account_id", "==", accountId);
-    return q;
+    // const order = orderBy("created_at");
+    return [q];
   };
 
   public getTransactionsForAccount = async (accountId: string) => {
     const q = this.getTransactionsQuery(accountId);
-    const transactions = await this.transactions.readAll(q);
-    return transactions;
+    const transactions = await this.transactions.readAll(...q);
+    const orderedTransactions = orderByCreatedAt(transactions);
+    return orderedTransactions;
   };
 
   public createTransaction = async (transactionBody: TCreateTransaction) => {
@@ -121,17 +136,22 @@ export class API {
     transactionBody: TCreateTransaction
   ) => {
     // TODO: переписать все на batch или transaction, чтобы выполнять все записи за один запрос
-    // TODO: добавить проверку на отрицательное число (нельзя потратить больше, чем есть на счету)
     const account = await this.getAccount(transactionBody.account_id);
     const newAccountValue =
       transactionBody.type === TransactionType.Income
         ? account.value + transactionBody.value
         : account.value - transactionBody.value;
 
-    const transaction = await this.createTransaction(transactionBody);
-    await this.updateAccount(transactionBody.account_id, {
-      value: newAccountValue,
-    });
+    if (newAccountValue < 0) {
+      throw new Error("Cannot create transaction with negative value");
+    }
+
+    const [transaction] = await Promise.all([
+      this.createTransaction(transactionBody),
+      this.updateAccount(transactionBody.account_id, {
+        value: newAccountValue,
+      }),
+    ]);
     return transaction;
   };
   //* ------------------------- -------------------------
@@ -150,6 +170,9 @@ export class API {
 
   public payDept = async (dept: TDept, value: number, account: TAccount) => {
     const newDeptCoveredValue = dept.coveredValue + value;
+    if (newDeptCoveredValue > dept.value) {
+      throw new Error("You can not pay dept more than needed.");
+    }
     await this.createTransactionAndUpdateAccount({
       account_id: account.id,
       title: dept.name,

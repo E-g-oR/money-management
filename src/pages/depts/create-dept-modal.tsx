@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 
 import { Api } from "@/api";
 import { Input } from "@/components/ui/input";
+import { Currencies } from "@/types/currency";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/lib/hooks/useTranslation";
 import {
@@ -14,6 +15,14 @@ import {
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   Dialog,
   DialogContent,
@@ -29,6 +38,7 @@ interface CreateDept {
   description: string;
   value: string;
   coveredValue: string;
+  currency: Currencies;
 }
 
 type Props = {
@@ -42,6 +52,7 @@ const CreateDeptModal: FC<Props> = ({ onSuccess }) => {
       coveredValue: "0",
       description: "",
       name: "",
+      currency: Currencies.BYN,
     },
   });
   const [isOpen, setIsOpen] = useState(false);
@@ -56,6 +67,7 @@ const CreateDeptModal: FC<Props> = ({ onSuccess }) => {
     async (data: CreateDept) => {
       Api.createDept({
         ...data,
+        created_at: new Date(),
         coveredValue: parseFloat(data.coveredValue),
         value: parseFloat(data.value),
       }).then(() => {
@@ -135,7 +147,7 @@ const CreateDeptModal: FC<Props> = ({ onSuccess }) => {
                 </FormItem>
               )}
             />
-            <div className={"flex gap-5"}>
+            <div className={"flex gap-5 justify-between"}>
               <FormField
                 control={form.control}
                 name={"value"}
@@ -145,7 +157,7 @@ const CreateDeptModal: FC<Props> = ({ onSuccess }) => {
                     message: t.common.fieldMessages.required,
                   },
                   min: {
-                    value: 0,
+                    value: 0.001,
                     message: t.common.fieldMessages.minValue(0),
                   },
                 }}
@@ -172,6 +184,34 @@ const CreateDeptModal: FC<Props> = ({ onSuccess }) => {
                     <FormLabel>{t.common.coveredValue}</FormLabel>
                     <FormControl>
                       <Input placeholder={"0"} type={"number"} {...field} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name={"currency"}
+                render={({ field }) => (
+                  <FormItem className={"flex-1 w-full"}>
+                    <FormLabel>{t.common.currency}</FormLabel>
+                    <FormControl>
+                      <Select
+                        value={field.value}
+                        onValueChange={field.onChange}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder={t.common.selectCurrency} />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            {Object.keys(Currencies).map((curr) => (
+                              <SelectItem value={curr} key={curr}>
+                                {curr}
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
                     </FormControl>
                   </FormItem>
                 )}

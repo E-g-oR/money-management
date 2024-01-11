@@ -1,12 +1,16 @@
-import { FC, lazy, Suspense, useState } from "react";
+import { FC, lazy, Suspense, useCallback, useContext, useState } from "react";
 
-import { PencilIcon } from "lucide-react";
+import { PencilIcon, Trash } from "lucide-react";
 
 import Show from "@/components/show";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { TAccount } from "@/types/accounts/account";
 import { useTranslation } from "@/lib/hooks/useTranslation";
+import { Api } from "@/api";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "@/router";
+import { confirmModalContext } from "@/components/confirm-modal";
 
 const EditAccount = lazy(() => import("./edit-account"));
 
@@ -24,8 +28,16 @@ interface Props {
 }
 const AccountPageHeader: FC<Props> = ({ account, updateAccount }) => {
   const t = useTranslation();
+  const navigate = useNavigate();
 
   const [isEdit, setIsEdit] = useState(false);
+  const { confirm } = useContext(confirmModalContext);
+
+  const deleteAccount = useCallback(() => {
+    Api.deleteAccount(account?.id ?? "").then(() =>
+      navigate(ROUTES.accounts.index.path)
+    );
+  }, [navigate, account?.id]);
 
   return (
     <Suspense fallback={<AccountPageHeaderSkeleton />}>
@@ -49,16 +61,32 @@ const AccountPageHeader: FC<Props> = ({ account, updateAccount }) => {
               <h1 className={"text-4xl font-bold"}>{account?.name}</h1>
               <p className={"text-muted-foreground"}>{account?.description}</p>
               <p className={"text-3xl"}>
-                {t.format.currency(account?.value ?? 0, "BYN")}
+                {t.format.currency(account?.value ?? 0, account?.currency)}
               </p>
             </div>
-            <Button
-              variant={"ghost"}
-              size={"icon"}
-              onClick={() => setIsEdit(true)}
-            >
-              <PencilIcon />
-            </Button>
+            <div className="flex flex-col gap-2">
+              <Button
+                variant={"ghost"}
+                size={"icon"}
+                onClick={() => setIsEdit(true)}
+              >
+                <PencilIcon />
+              </Button>
+              <Button
+                variant={"destructive"}
+                size={"icon"}
+                onClick={() =>
+                  confirm({
+                    // TODO: add translation to confirm dialog
+                    title: "Delete account",
+                    description: "Are you sure about that ?",
+                    onConfirm: deleteAccount,
+                  })
+                }
+              >
+                <Trash />
+              </Button>
+            </div>
           </div>
         </Show>
       </Show>
