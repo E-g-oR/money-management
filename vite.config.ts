@@ -29,6 +29,11 @@ export default defineConfig({
             sizes: "48x48 72x72 80x80 96x96 128x128 144x144 256x256 512x512",
             type: "image/svg+xml",
           },
+          {
+            src: "monange-white.png",
+            sizes: "512x512",
+            type: "image/png",
+          },
         ],
         start_url: "/",
         display_override: ["fullscreen", "minimal-ui"],
