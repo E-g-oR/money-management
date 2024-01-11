@@ -17,6 +17,7 @@ import {
 } from "@/types/transactions/transaction";
 
 import { Crud } from "./crud";
+import { orderByCreatedAt } from "./utils/order-transactions";
 
 export class API {
   private fireStore: Firestore;
@@ -115,13 +116,15 @@ export class API {
 
   private getTransactionsQuery = (accountId: string) => {
     const q = where("account_id", "==", accountId);
-    return q;
+    // const order = orderBy("created_at");
+    return [q];
   };
 
   public getTransactionsForAccount = async (accountId: string) => {
     const q = this.getTransactionsQuery(accountId);
-    const transactions = await this.transactions.readAll(q);
-    return transactions;
+    const transactions = await this.transactions.readAll(...q);
+    const orderedTransactions = orderByCreatedAt(transactions);
+    return orderedTransactions;
   };
 
   public createTransaction = async (transactionBody: TCreateTransaction) => {

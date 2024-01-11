@@ -19,6 +19,8 @@ export enum Pages {
   Register = "register",
   Dashboard = "dashboard",
   Categories = "categories",
+  Transactions = "transactions",
+  Chart = "chart",
 }
 export enum PathParams {
   AccountId = ":accountId",
@@ -29,6 +31,8 @@ interface Routes {
   accounts: {
     index: Route;
     account: RouteDynamic;
+    transactions: RouteDynamic;
+    chart: RouteDynamic;
   };
   depts: Route;
   profile: Route;
@@ -36,10 +40,10 @@ interface Routes {
   dashboard: Route;
   categories: Route;
   auth: {
-    index: string,
-    login: Route,
-    register: Route,
-  }
+    index: string;
+    login: Route;
+    register: Route;
+  };
 }
 export const ROUTES: Routes = {
   home: {
@@ -54,7 +58,24 @@ export const ROUTES: Routes = {
     account: {
       path: buildPath([Pages.Accounts, PathParams.AccountId]),
       relative: PathParams.AccountId,
-      builder: (accountId: number | string) => buildPath([Pages.Accounts, accountId]),
+      builder: (accountId: number | string) =>
+        buildPath([Pages.Accounts, accountId]),
+    },
+    transactions: {
+      path: buildPath([
+        Pages.Accounts,
+        PathParams.AccountId,
+        Pages.Transactions,
+      ]),
+      relative: Pages.Transactions,
+      builder: (accountId: number | string) =>
+        buildPath([Pages.Accounts, accountId, Pages.Transactions]),
+    },
+    chart: {
+      path: buildPath([Pages.Accounts, PathParams.AccountId, Pages.Chart]),
+      relative: Pages.Chart,
+      builder: (accountId: number | string) =>
+        buildPath([Pages.Accounts, accountId, Pages.Chart]),
     },
   },
   categories: {
@@ -81,11 +102,11 @@ export const ROUTES: Routes = {
     index: Pages.Auth,
     login: {
       path: buildPath([Pages.Auth, Pages.Login]),
-      relative: Pages.Login
+      relative: Pages.Login,
     },
     register: {
       path: buildPath([Pages.Auth, Pages.Register]),
-      relative: Pages.Register
-    }
-  }
+      relative: Pages.Register,
+    },
+  },
 };

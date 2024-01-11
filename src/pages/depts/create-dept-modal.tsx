@@ -67,6 +67,7 @@ const CreateDeptModal: FC<Props> = ({ onSuccess }) => {
     async (data: CreateDept) => {
       Api.createDept({
         ...data,
+        created_at: new Date(),
         coveredValue: parseFloat(data.coveredValue),
         value: parseFloat(data.value),
       }).then(() => {

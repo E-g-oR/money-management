@@ -5,7 +5,7 @@ import path from "path";
 
 function manualChunks(id: string) {
   if (id.includes("node_modules")) {
-    return "vendor";
+    return id.toString().split("node_modules/")[1].split("/")[0].toString();
   }
 }
 
@@ -28,6 +28,11 @@ export default defineConfig({
             src: "monange-white.svg",
             sizes: "48x48 72x72 80x80 96x96 128x128 144x144 256x256 512x512",
             type: "image/svg+xml",
+          },
+          {
+            src: "monange-white.png",
+            sizes: "512x512",
+            type: "image/png",
           },
         ],
         start_url: "/",

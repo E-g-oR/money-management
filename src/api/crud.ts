@@ -22,7 +22,7 @@ type TUId = {
 };
 
 export type TCreatedAt = {
-  created_at?: Date;
+  created_at: Date;
 };
 
 export class Crud<

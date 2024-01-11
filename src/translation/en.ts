@@ -1,6 +1,8 @@
 import { format } from "date-fns";
-import { Translation } from ".";
+
 import { enUS as locale } from "date-fns/locale";
+
+import { Translation } from ".";
 
 export const en: Translation = {
   format: {
@@ -10,6 +12,8 @@ export const en: Translation = {
       ),
     date: (timestamp: string) =>
       format(Date.parse(timestamp), "LLL do, p", { locale }),
+    dateShort: (timestamp: string) =>
+      format(Date.parse(timestamp), "MM.dd.yy", { locale }),
     dateHeader: (date) => format(date, "eeee, do MMMM, p", { locale }),
     weekAndMonthDay: (date) => format(date, "eeee, do MMMM", { locale }),
     time: (date) => format(date, "p", { locale }),
@@ -41,6 +45,8 @@ export const en: Translation = {
     description: "Description",
     value: "Value",
     coveredValue: "Covered value",
+    income: "Icnome",
+    expence: "Expense",
   },
   navbar: {
     accounts: "Accounts",
@@ -100,13 +106,16 @@ export const en: Translation = {
     recentTransactions: "Your recent transactions",
     noTransactionsFallback:
       "You don't have any recent transactions for this account yet.",
+    tabs: {
+      transactions: "Transactions",
+      chart: "Chart",
+    },
   },
   categories: {},
   settings: {},
   inProgressPage: {
     title: "In progress...",
-    description:
-      "Sorry, this page is currently in progress.",
+    description: "Sorry, this page is currently in progress.",
     secondDescription: "Please come back to this page later.",
   },
 };
