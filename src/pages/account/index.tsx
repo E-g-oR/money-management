@@ -4,14 +4,14 @@ import { useParams } from "react-router-dom";
 
 import { Api } from "@/api";
 import { useRequest } from "@/lib/hooks/useRequest";
-import CardsList from "@/components/layout/cards-list";
 import { useTranslation } from "@/lib/hooks/useTranslation";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import AreaChart from "./area-chart";
+import TransactionsView from "./transactions-view";
 import AccountPageHeader from "./account-page-header";
+import { groupTransactions } from "./utils/group-transactions";
 import CreateTransactionModal from "./create-transaction-modal";
-import TransactionCard, { TransactionCardSkeleton } from "./transaction-card";
 
 const AccountPage: FC = () => {
   const t = useTranslation();
@@ -20,8 +20,10 @@ const AccountPage: FC = () => {
   const {
     data: transactions,
     run: updateTransactions,
-    isLoading: isLoadingTransactions,
   } = useRequest(Api.getTransactionsForAccount, accountId ?? "");
+
+  const grouped = groupTransactions(transactions ?? []);
+  console.log(grouped);
 
   const { data: account, run: updateAccount } = useRequest(
     Api.getAccount,
@@ -44,7 +46,7 @@ const AccountPage: FC = () => {
       </div>
       <Tabs
         defaultValue={t.accountPage.tabs.transactions}
-        className={"flex flex-col gap-4 2xl:gap-6 overflow-hidden h-full"}
+        className={"flex flex-col gap-4 2xl:gap-6 h-full overflow-hidden"}
       >
         <TabsList className={"sm:max-w-xs grid grid-cols-2"}>
           {Object.keys(t.accountPage.tabs).map((key) => (
@@ -60,21 +62,16 @@ const AccountPage: FC = () => {
           value={t.accountPage.tabs.transactions}
           className={"overflow-hidden m-0"}
         >
-          <CardsList
-            data={transactions}
-            isLoading={isLoadingTransactions}
-            render={(transaction) => (
-              <TransactionCard key={transaction.id} transaction={transaction} />
-            )}
-            skeletonComponent={<TransactionCardSkeleton />}
-            fallback={t.accountPage.noTransactionsFallback}
-          />
+          <TransactionsView transactions={transactions} />
         </TabsContent>
         <TabsContent
           value={t.accountPage.tabs.chart}
           className={"overflow-hidden m-0 h-full"}
         >
-          <AreaChart transactions={transactions} currency={account?.currency ?? "BYN"} />
+          <AreaChart
+            transactions={transactions}
+            currency={account?.currency ?? "BYN"}
+          />
         </TabsContent>
       </Tabs>
     </>
