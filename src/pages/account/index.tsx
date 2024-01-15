@@ -22,9 +22,6 @@ const AccountPage: FC = () => {
     run: updateTransactions,
   } = useRequest(Api.getTransactionsForAccount, accountId ?? "");
 
-  const grouped = groupTransactions(transactions ?? []);
-  console.log(grouped);
-
   const { data: account, run: updateAccount } = useRequest(
     Api.getAccount,
     accountId ?? ""

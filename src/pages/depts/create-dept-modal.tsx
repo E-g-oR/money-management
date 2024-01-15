@@ -7,6 +7,7 @@ import { Api } from "@/api";
 import { Input } from "@/components/ui/input";
 import { Currencies } from "@/types/currency";
 import { Button } from "@/components/ui/button";
+import { useRequestTrigger } from "@/lib/hooks/useRequest";
 import { useTranslation } from "@/lib/hooks/useTranslation";
 import {
   Form,
@@ -57,6 +58,8 @@ const CreateDeptModal: FC<Props> = ({ onSuccess }) => {
   });
   const [isOpen, setIsOpen] = useState(false);
 
+  const { run: createDept, isLoading } = useRequestTrigger(Api.createDept);
+
   const onClose = useCallback(() => {
     setIsOpen(false);
     form.reset();
@@ -65,7 +68,7 @@ const CreateDeptModal: FC<Props> = ({ onSuccess }) => {
 
   const onSubmit = useCallback(
     async (data: CreateDept) => {
-      Api.createDept({
+      createDept({
         ...data,
         created_at: new Date(),
         coveredValue: parseFloat(data.coveredValue),
@@ -75,7 +78,7 @@ const CreateDeptModal: FC<Props> = ({ onSuccess }) => {
         onClose();
       });
     },
-    [onClose, onSuccess]
+    [onClose, onSuccess, createDept]
   );
 
   return (
@@ -218,7 +221,9 @@ const CreateDeptModal: FC<Props> = ({ onSuccess }) => {
               />
             </div>
             <DialogFooter>
-              <Button type={"submit"}>{t.common.actions.submit}</Button>
+              <Button type={"submit"} isLoading={isLoading}>
+                {t.common.actions.submit}
+              </Button>
             </DialogFooter>
           </form>
         </Form>

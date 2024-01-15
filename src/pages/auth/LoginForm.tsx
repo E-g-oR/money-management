@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { Api } from "@/api";
 import { ROUTES } from "@/router";
+import { Auth } from "@/types/auth";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useRequestTrigger } from "@/lib/hooks/useRequest";
@@ -22,10 +23,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import Show from "@/components/show";
-import { Auth } from "@/types/auth";
-
-
 
 const LoginForm: FC = () => {
   const form = useForm<Auth>();
@@ -84,10 +81,8 @@ const LoginForm: FC = () => {
                 </FormItem>
               )}
             />
-            <Button type={"submit"} disabled={isLoading}>
-              <Show when={isLoading} fallback={"Log In"}>
-                {"Loading..."}
-              </Show>
+            <Button type={"submit"} isLoading={isLoading}>
+              Log in
             </Button>
           </form>
         </Form>

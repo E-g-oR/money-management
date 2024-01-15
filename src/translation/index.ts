@@ -18,6 +18,7 @@ export interface Translation {
     time: (date: Date) => string;
   };
   common: {
+    loading: string;
     rates: string;
     selectCurrency: string;
     rate: string;

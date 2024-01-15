@@ -18,8 +18,6 @@ const TransactionsView: FC<Props> = ({ transactions }) => {
     [transactions]
   );
 
-  console.log(groupedTransactions);
-
   return (
     <ScrollArea className="h-full">
       <div className="grid gap-3 md:gap-6">

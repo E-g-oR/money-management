@@ -18,6 +18,7 @@ export const ru: Translation = {
     time: (date) => format(date, "p", { locale }),
   },
   common: {
+    loading: "Загрузка",
     rates: "Курсы",
     currency: "Валюта",
     selectCurrency: "Выберите валюту",

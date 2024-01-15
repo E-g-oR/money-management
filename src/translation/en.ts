@@ -19,6 +19,7 @@ export const en: Translation = {
     time: (date) => format(date, "p", { locale }),
   },
   common: {
+    loading: "Loading",
     rates: "Rates",
     currency: "Currency",
     selectCurrency: "Select Currency",
