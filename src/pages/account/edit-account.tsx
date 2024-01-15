@@ -91,11 +91,11 @@ const EditAccount: FC<Props> = ({
         />
       </div>
       <div className="flex flex-col gap-2">
-        <Button size={"icon"} type="submit">
-          <Save />{" "}
-        </Button>
         <Button size={"icon"} type="reset" variant={"outline"} onClick={cancel}>
           <Undo2 />
+        </Button>
+        <Button size={"icon"} type="submit">
+          <Save />
         </Button>
       </div>
     </form>

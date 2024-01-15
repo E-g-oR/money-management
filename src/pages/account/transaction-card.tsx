@@ -44,7 +44,7 @@ const TransactionCard: FC<Props> = ({ transaction, currency = Currencies.BYN }) 
   );
 
   return (
-    <Card className={cn("flex gap-4 px-4 py-2")}>
+    <Card className={cn("flex gap-4 px-4 py-2.5")}>
       {isIncome ? <IncomeIcon /> : <ExpenseIcon />}
       <div className="flex flex-col gap-0.5 flex-1">
         <div className={"flex items-baseline flex-1 gap-3"}>
@@ -71,9 +71,9 @@ const TransactionCard: FC<Props> = ({ transaction, currency = Currencies.BYN }) 
               {transaction.description}
             </p>
           </Show>
-          <p className={"text-sm ml-auto"}>
+          {/* <p className={"text-sm ml-auto"}>
             {t.format.date(transaction.created_at.toDate().toISOString())}
-          </p>
+          </p> */}
         </div>
       </div>
     </Card>
