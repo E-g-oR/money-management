@@ -52,7 +52,7 @@ const EditAccount: FC<Props> = ({
   return (
     <form
       onSubmit={form.handleSubmit(onSubmit)}
-      className={"flex gap-5 items-center"}
+      className={"flex gap-5 items-center animate-in fade-in-0 zoom-in-95"}
     >
       <div className={"flex flex-col gap-2 flex-1"}>
         <Controller
@@ -91,11 +91,11 @@ const EditAccount: FC<Props> = ({
         />
       </div>
       <div className="flex flex-col gap-2">
-        <Button size={"icon"} type="submit">
-          <Save />{" "}
-        </Button>
         <Button size={"icon"} type="reset" variant={"outline"} onClick={cancel}>
           <Undo2 />
+        </Button>
+        <Button size={"icon"} type="submit">
+          <Save />
         </Button>
       </div>
     </form>
