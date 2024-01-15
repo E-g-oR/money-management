@@ -1,21 +1,21 @@
 import { FC, lazy, Suspense, useCallback, useContext, useState } from "react";
 
+import { useNavigate } from "react-router-dom";
 import { PencilIcon, Trash } from "lucide-react";
 
+import { Api } from "@/api";
+import { ROUTES } from "@/router";
 import Show from "@/components/show";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { TAccount } from "@/types/accounts/account";
 import { useTranslation } from "@/lib/hooks/useTranslation";
-import { Api } from "@/api";
-import { useNavigate } from "react-router-dom";
-import { ROUTES } from "@/router";
 import { confirmModalContext } from "@/components/confirm-modal";
 
 const EditAccount = lazy(() => import("./edit-account"));
 
 const AccountPageHeaderSkeleton: FC = () => (
-  <div className={"flex flex-col gap-3"}>
+  <div className={"flex flex-col gap-3 animate-in fade-in-0 zoom-in-95"}>
     <Skeleton className={"w-32 h-10"} />
     <Skeleton className={"w-56 h-5"} />
     <Skeleton className={"w-24 h-7"} />
@@ -56,7 +56,9 @@ const AccountPageHeader: FC<Props> = ({ account, updateAccount }) => {
             />
           }
         >
-          <div className={"flex justify-between"}>
+          <div
+            className={"flex justify-between animate-in fade-in-0 zoom-in-95"}
+          >
             <div className={"flex flex-col gap-3"}>
               <h1 className={"text-4xl font-bold"}>{account?.name}</h1>
               <p className={"text-muted-foreground"}>{account?.description}</p>
