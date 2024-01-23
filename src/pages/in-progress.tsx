@@ -1,4 +1,4 @@
-import { useTranslation } from "@/lib/hooks/useTranslation";
+import { useTranslation } from "@/hooks/useTranslation";
 import { FC } from "react";
 
 const InProgress: FC = () => {

@@ -32,7 +32,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { ArrowUpFromLine } from "lucide-react";
-import { useTranslation } from "@/lib/hooks/useTranslation";
+import { useTranslation } from "@/hooks/useTranslation";
 
 interface IPayDept {
   value: string;

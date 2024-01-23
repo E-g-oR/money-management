@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { Api } from "@/api";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useTranslation } from "@/lib/hooks/useTranslation";
+import { useTranslation } from "@/hooks/useTranslation";
 import {
   Form,
   FormControl,
@@ -43,7 +43,7 @@ import {
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
-import { useRequestTrigger } from "@/lib/hooks/useRequest";
+import { useRequestTrigger } from "@/hooks/useRequest";
 
 interface Props {
   accountId: string | undefined;

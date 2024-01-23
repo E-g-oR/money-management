@@ -9,7 +9,7 @@ import Show from "@/components/show";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { TAccount } from "@/types/accounts/account";
-import { useTranslation } from "@/lib/hooks/useTranslation";
+import { useTranslation } from "@/hooks/useTranslation";
 import { confirmModalContext } from "@/components/confirm-modal";
 
 const EditAccount = lazy(() => import("./edit-account"));

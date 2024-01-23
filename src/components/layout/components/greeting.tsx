@@ -1,4 +1,4 @@
-import { useTranslation } from "@/lib/hooks/useTranslation";
+import { useTranslation } from "@/hooks/useTranslation";
 import { getUser, useAuthStore } from "@/store/auth";
 import { FC } from "react";
 

@@ -2,10 +2,10 @@ import { FC } from "react";
 
 import { Api } from "@/api";
 import { Input } from "@/components/ui/input";
-import { useRequest } from "@/lib/hooks/useRequest";
+import { useRequest } from "@/hooks/useRequest";
 import CardsList from "@/components/layout/cards-list";
 import PageLayout from "@/components/layout/page-layout";
-import { useTranslation } from "@/lib/hooks/useTranslation";
+import { useTranslation } from "@/hooks/useTranslation";
 import {
   AccountCard,
   AccountCardSkeleton,

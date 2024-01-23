@@ -8,7 +8,7 @@ import { ROUTES } from "@/router";
 import { Auth } from "@/types/auth";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useRequestTrigger } from "@/lib/hooks/useRequest";
+import { useRequestTrigger } from "@/hooks/useRequest";
 import {
   Form,
   FormControl,

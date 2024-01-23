@@ -11,7 +11,7 @@ import {
 } from "recharts";
 
 import { Card } from "@/components/ui/card";
-import { useTranslation } from "@/lib/hooks/useTranslation";
+import { useTranslation } from "@/hooks/useTranslation";
 import { TTransaction } from "@/types/transactions/transaction";
 
 import { processChartData } from "../account/utils/process-chart-data";

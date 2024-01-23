@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { Pages, ROUTES } from "@/router";
 import { Card } from "@/components/ui/card";
 import { Translation } from "@/translation/index";
-import { useTranslation } from "@/lib/hooks/useTranslation";
+import { useTranslation } from "@/hooks/useTranslation";
 
 type TTab = {
   url: string;

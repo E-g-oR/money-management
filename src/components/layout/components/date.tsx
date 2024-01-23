@@ -1,4 +1,4 @@
-import { useTranslation } from "@/lib/hooks/useTranslation";
+import { useTranslation } from "@/hooks/useTranslation";
 import { FC, useEffect, useState } from "react";
 
 const HeaderDate: FC = () => {

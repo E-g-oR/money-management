@@ -1,4 +1,5 @@
-import { NavigationItemKey } from "@/translation";
+import { ReactNode } from "react";
+
 import {
   Cog,
   CreditCard,
@@ -6,7 +7,8 @@ import {
   Layers,
   LayoutDashboard,
 } from "lucide-react";
-import { ReactNode } from "react";
+
+import { NavigationItemKey } from "@/translation";
 
 export const navbarIcons: Record<NavigationItemKey, ReactNode> = {
   accounts: <Landmark />,

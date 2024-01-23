@@ -2,7 +2,7 @@ import { FC, useMemo } from "react";
 
 import CardsList from "@/components/layout/cards-list";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useTranslation } from "@/lib/hooks/useTranslation";
+import { useTranslation } from "@/hooks/useTranslation";
 import { TTransaction } from "@/types/transactions/transaction";
 
 import { groupTransactions } from "../account/utils/group-transactions";

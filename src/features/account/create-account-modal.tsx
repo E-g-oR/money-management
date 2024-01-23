@@ -7,8 +7,8 @@ import { Api } from "@/api";
 import { Input } from "@/components/ui/input";
 import { Currencies } from "@/types/currency";
 import { Button } from "@/components/ui/button";
-import { useRequestTrigger } from "@/lib/hooks/useRequest";
-import { useTranslation } from "@/lib/hooks/useTranslation";
+import { useRequestTrigger } from "@/hooks/useRequest";
+import { useTranslation } from "@/hooks/useTranslation";
 import {
   Form,
   FormControl,

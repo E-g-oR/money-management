@@ -3,9 +3,9 @@ import { FC } from "react";
 import { useParams } from "react-router-dom";
 
 import { Api } from "@/api";
-import { useRequest } from "@/lib/hooks/useRequest";
+import { useRequest } from "@/hooks/useRequest";
 import { AccountPageHeader } from "@/features/account";
-import { useTranslation } from "@/lib/hooks/useTranslation";
+import { useTranslation } from "@/hooks/useTranslation";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   CreateTransactionModal,
