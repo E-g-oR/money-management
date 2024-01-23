@@ -18,6 +18,7 @@ export const ru: Translation = {
     time: (date) => format(date, "p", { locale }),
   },
   common: {
+    loading: "Загрузка",
     rates: "Курсы",
     currency: "Валюта",
     selectCurrency: "Выберите валюту",
@@ -110,6 +111,10 @@ export const ru: Translation = {
       transactions: "Операции",
       chart: "График",
     },
+    transeferToAnotherAccountModal: {
+      title: "Перевод на другой счет",
+      description: "Здесь вы можете отметить перевод денег на другой счет",
+    }
   },
   categories: {},
   settings: {},

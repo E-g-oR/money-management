@@ -19,6 +19,7 @@ export const en: Translation = {
     time: (date) => format(date, "p", { locale }),
   },
   common: {
+    loading: "Loading",
     rates: "Rates",
     currency: "Currency",
     selectCurrency: "Select Currency",
@@ -109,6 +110,10 @@ export const en: Translation = {
     tabs: {
       transactions: "Transactions",
       chart: "Chart",
+    },
+    transeferToAnotherAccountModal: {
+      title: "Transfer to another account",
+      description: "Here you can note the transfer of money to another account",
     },
   },
   categories: {},

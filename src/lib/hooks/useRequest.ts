@@ -9,7 +9,7 @@ export const useRequestTrigger = <D, P>(
 
   const run = useCallback((props: P) => {
     setIsLoading(true);
-    request(props)
+    return request(props)
       .then(setData)
       .catch(setError)
       .finally(() => setIsLoading(false));

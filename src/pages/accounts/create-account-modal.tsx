@@ -5,7 +5,9 @@ import { useForm } from "react-hook-form";
 
 import { Api } from "@/api";
 import { Input } from "@/components/ui/input";
+import { Currencies } from "@/types/currency";
 import { Button } from "@/components/ui/button";
+import { useRequestTrigger } from "@/lib/hooks/useRequest";
 import { useTranslation } from "@/lib/hooks/useTranslation";
 import {
   Form,
@@ -15,6 +17,14 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
   Dialog,
   DialogContent,
   DialogDescription,
@@ -23,8 +33,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Currencies } from "@/types/currency";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface AccountCreate {
   account_name: string;
@@ -38,7 +46,6 @@ type Props = {
 const CreateAccountModal: FC<Props> = ({ onSuccess }) => {
   const t = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
-
   // TODO: maybe extract all this logic into custom hoook
   const form = useForm<AccountCreate>({
     defaultValues: {
@@ -49,9 +56,13 @@ const CreateAccountModal: FC<Props> = ({ onSuccess }) => {
     },
   });
 
+  const { run: createAccount, isLoading } = useRequestTrigger(
+    Api.createAccount
+  );
+
   const onSubmit = useCallback(
     (data: AccountCreate) => {
-      Api.createAccount({
+      createAccount({
         created_at: new Date(),
         name: data.account_name,
         description: data.account_description,
@@ -63,7 +74,7 @@ const CreateAccountModal: FC<Props> = ({ onSuccess }) => {
         form.reset();
       });
     },
-    [form, onSuccess]
+    [form, onSuccess, createAccount]
   );
 
   return (
@@ -188,7 +199,9 @@ const CreateAccountModal: FC<Props> = ({ onSuccess }) => {
               />
             </div>
             <DialogFooter>
-              <Button type={"submit"}>{t.common.actions.submit}</Button>
+              <Button type={"submit"} isLoading={isLoading}>
+                {t.common.actions.submit}
+              </Button>
             </DialogFooter>
           </form>
         </Form>

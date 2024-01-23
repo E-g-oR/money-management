@@ -43,20 +43,17 @@ import {
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
+import { useRequestTrigger } from "@/lib/hooks/useRequest";
 
-// interface CreateTransaction {
-//   title: string;
-//   description?: string;
-//   type: TransactionType;
-//   value: string;
-//   date: Date;
-// }
 interface Props {
   accountId: string | undefined;
   onSuccess: () => void;
 }
 const CreateTransactionModal: FC<Props> = ({ accountId = "", onSuccess }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const { run: createTransaction, isLoading: isCreatingTransaction } =
+    useRequestTrigger(Api.createTransactionAndUpdateAccount);
+
   const form = useForm<TCreateTransaction>({
     defaultValues: {
       description: "",
@@ -78,10 +75,10 @@ const CreateTransactionModal: FC<Props> = ({ accountId = "", onSuccess }) => {
   const onSubmit = useCallback(
     (data: TCreateTransaction) => {
       const now = new Date();
-      data.created_at.setHours(now.getHours())
-      data.created_at.setMinutes(now.getMinutes())
-      
-      Api.createTransactionAndUpdateAccount({
+      data.created_at.setHours(now.getHours());
+      data.created_at.setMinutes(now.getMinutes());
+
+      createTransaction({
         ...data,
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
@@ -92,7 +89,7 @@ const CreateTransactionModal: FC<Props> = ({ accountId = "", onSuccess }) => {
         onClose();
       });
     },
-    [onClose, accountId, onSuccess]
+    [onClose, accountId, onSuccess, createTransaction]
   );
 
   return (
@@ -106,7 +103,7 @@ const CreateTransactionModal: FC<Props> = ({ accountId = "", onSuccess }) => {
       }}
     >
       <DialogTrigger asChild>
-        <Button onClick={() => setIsOpen(true)} size={"icon"}>
+        <Button onClick={() => setIsOpen(true)} size={"icon"} isLoading={isCreatingTransaction}>
           <Plus />
         </Button>
       </DialogTrigger>
@@ -277,7 +274,9 @@ const CreateTransactionModal: FC<Props> = ({ accountId = "", onSuccess }) => {
               />
             </div>
             <DialogFooter>
-              <Button type={"submit"}>{t.common.actions.submit}</Button>
+              <Button type={"submit"} isLoading={isCreatingTransaction}>
+                {t.common.actions.submit}
+              </Button>
             </DialogFooter>
           </form>
         </Form>

@@ -18,6 +18,7 @@ import {
 
 import { Crud } from "./crud";
 import { orderByCreatedAt } from "./utils/order-transactions";
+import { TTransferToAnotherAccount } from "@/pages/account/transer-to-account-modal";
 
 export class API {
   private fireStore: Firestore;
@@ -153,6 +154,34 @@ export class API {
       }),
     ]);
     return transaction;
+  };
+
+  public transferToAnotherAccount = async (
+    payload: TTransferToAnotherAccount
+  ) => {
+    // TODO: сделать мультиязычные комментарии для перевода с одного счета на другой
+    const newExpense: TCreateTransaction = {
+      value: payload.value,
+      title: payload.toAccountId.name,
+      description: payload.toAccountId.description,
+      account_id: payload.fromAccountId.id,
+      type: TransactionType.Expense,
+      created_at: new Date(),
+    };
+    const newIncome: TCreateTransaction = {
+      value: payload.value,
+      title: payload.fromAccountId.name,
+      description: payload.fromAccountId.description,
+      account_id: payload.toAccountId.id,
+      type: TransactionType.Income,
+      created_at: new Date(),
+    };
+
+    const [, incomeTransaction] = await Promise.all([
+      this.createTransactionAndUpdateAccount(newExpense),
+      this.createTransactionAndUpdateAccount(newIncome),
+    ]);
+    return incomeTransaction;
   };
   //* ------------------------- -------------------------
 
