@@ -43,7 +43,7 @@ interface Props {
   dept: TDept;
   onSuccess: () => void;
 }
-const PayDeptNodal: FC<Props> = ({ dept, onSuccess }) => {
+export const PayDeptNodal: FC<Props> = ({ dept, onSuccess }) => {
   const t = useTranslation();
   const [open, setOpen] = useState(false);
   const accountsById = useDataStore(getAccountsById);

@@ -11,7 +11,7 @@ import { useTranslation } from "@/lib/hooks/useTranslation";
 interface Props {
   account: TAccount;
 }
-const AccountCard: FC<Props> = ({ account }) => {
+export const AccountCard: FC<Props> = ({ account }) => {
   const t = useTranslation()
   return (
     <Link

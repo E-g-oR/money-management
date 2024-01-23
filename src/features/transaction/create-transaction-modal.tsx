@@ -49,7 +49,7 @@ interface Props {
   accountId: string | undefined;
   onSuccess: () => void;
 }
-const CreateTransactionModal: FC<Props> = ({ accountId = "", onSuccess }) => {
+export const CreateTransactionModal: FC<Props> = ({ accountId = "", onSuccess }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { run: createTransaction, isLoading: isCreatingTransaction } =
     useRequestTrigger(Api.createTransactionAndUpdateAccount);
@@ -285,4 +285,3 @@ const CreateTransactionModal: FC<Props> = ({ accountId = "", onSuccess }) => {
   );
 };
 
-export default CreateTransactionModal;

@@ -50,7 +50,7 @@ type Props = {
   onSuccess: () => void;
   accountId: string;
 };
-const TransferToAccountModal: FC<Props> = ({ onSuccess, accountId }) => {
+export const TransferToAccountModal: FC<Props> = ({ onSuccess, accountId }) => {
   const t = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const accountsById = useDataStore(getAccountsById);

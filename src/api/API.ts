@@ -18,7 +18,7 @@ import {
 
 import { Crud } from "./crud";
 import { orderByCreatedAt } from "./utils/order-transactions";
-import { TTransferToAnotherAccount } from "@/pages/account/transer-to-account-modal";
+import { TTransferToAnotherAccount } from "@/features/transaction/transer-to-account-modal";
 
 export class API {
   private fireStore: Firestore;

@@ -19,7 +19,7 @@ interface Props extends AccountEdit {
   onSuccess: () => void;
 }
 
-const EditAccount: FC<Props> = ({
+export const EditAccount: FC<Props> = ({
   account_name,
   account_description,
   id,

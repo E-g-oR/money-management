@@ -11,18 +11,18 @@ import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTranslation } from "@/lib/hooks/useTranslation";
 
-import { calcProgress } from "./utils";
 import PayDeptNodal from "./pay-dept-modal";
 import { ArrowUpFromLine, MoreVertical } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Show from "@/components/show";
+import { calcProgress } from "./utils";
 
 interface Props {
   dept: TDept;
   updateDepts: () => void;
 }
 
-const DeptCard: FC<Props> = ({ dept, updateDepts }) => {
+export const DeptCard: FC<Props> = ({ dept, updateDepts }) => {
   const t = useTranslation();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   // const { confirm } = useContext(confirmModalContext);

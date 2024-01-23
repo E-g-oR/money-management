@@ -13,7 +13,7 @@ type TTab = {
   key: keyof Translation["accountPage"]["tabs"];
 };
 
-const AccountTabs: FC = () => {
+export const AccountTabs: FC = () => {
   const { accountId } = useParams<"accountId">();
   const t = useTranslation();
   const tabs: ReadonlyArray<TTab> = useMemo(

@@ -5,13 +5,13 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { useTranslation } from "@/lib/hooks/useTranslation";
 import { TTransaction } from "@/types/transactions/transaction";
 
-import { groupTransactions } from "./utils/group-transactions";
+import { groupTransactions } from "../account/utils/group-transactions";
 import TransactionCard, { TransactionCardSkeleton } from "./transaction-card";
 
 type Props = {
   transactions: ReadonlyArray<TTransaction> | null;
 };
-const TransactionsView: FC<Props> = ({ transactions }) => {
+export const TransactionsView: FC<Props> = ({ transactions }) => {
   const t = useTranslation();
   const groupedTransactions = useMemo(
     () => groupTransactions(transactions ?? []),

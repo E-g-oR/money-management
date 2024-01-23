@@ -34,72 +34,70 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-interface CreateDept {
-  name: string;
-  description: string;
-  value: string;
-  coveredValue: string;
-  currency: Currencies;
+interface AccountCreate {
+  account_name: string;
+  account_description?: string;
+  account_value: string;
+  account_currency: Currencies;
 }
-
 type Props = {
   onSuccess: () => void;
 };
-const CreateDeptModal: FC<Props> = ({ onSuccess }) => {
+export const CreateAccountModal: FC<Props> = ({ onSuccess }) => {
   const t = useTranslation();
-  const form = useForm<CreateDept>({
+  const [isOpen, setIsOpen] = useState(false);
+  // TODO: maybe extract all this logic into custom hoook
+  const form = useForm<AccountCreate>({
     defaultValues: {
-      value: "0",
-      coveredValue: "0",
-      description: "",
-      name: "",
-      currency: Currencies.BYN,
+      account_name: "",
+      account_description: "",
+      account_value: "0",
+      account_currency: Currencies.BYN,
     },
   });
-  const [isOpen, setIsOpen] = useState(false);
 
-  const { run: createDept, isLoading } = useRequestTrigger(Api.createDept);
-
-  const onClose = useCallback(() => {
-    setIsOpen(false);
-    form.reset();
-    form.clearErrors();
-  }, [form, setIsOpen]);
+  const { run: createAccount, isLoading } = useRequestTrigger(
+    Api.createAccount
+  );
 
   const onSubmit = useCallback(
-    async (data: CreateDept) => {
-      createDept({
-        ...data,
+    (data: AccountCreate) => {
+      createAccount({
         created_at: new Date(),
-        coveredValue: parseFloat(data.coveredValue),
-        value: parseFloat(data.value),
+        name: data.account_name,
+        description: data.account_description,
+        value: parseFloat(data?.account_value),
+        currency: data.account_currency,
       }).then(() => {
         onSuccess();
-        onClose();
+        setIsOpen(false);
+        form.reset();
       });
     },
-    [onClose, onSuccess, createDept]
+    [form, onSuccess, createAccount]
   );
 
   return (
     <Dialog
       open={isOpen}
       onOpenChange={(open) => {
-        if (open) {
-          setIsOpen(true);
-        } else onClose();
+        setIsOpen(open);
+        if (!open) {
+          form.reset();
+          form.clearErrors();
+        }
       }}
     >
       <DialogTrigger asChild>
-        <Button size={"icon"}>
+        <Button size={"icon"} onClick={() => setIsOpen(true)}>
           <PlusIcon />
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>{t.depts.createModal.title}</DialogTitle>
+          <DialogTitle>{t.accounts.createAccountModal.title}</DialogTitle>
           <DialogDescription>
-            {t.depts.createModal.description}
+            {t.accounts.createAccountModal.description}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -109,7 +107,6 @@ const CreateDeptModal: FC<Props> = ({ onSuccess }) => {
           >
             <FormField
               control={form.control}
-              name={"name"}
               rules={{
                 required: {
                   value: true,
@@ -120,12 +117,15 @@ const CreateDeptModal: FC<Props> = ({ onSuccess }) => {
                   message: t.common.fieldMessages.minLength(5),
                 },
               }}
+              name={"account_name"}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>{t.common.name}</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder={t.depts.createModal.fields.namePlaceholder}
+                      placeholder={
+                        t.accounts.createAccountModal.fields.name.placeholder
+                      }
                       {...field}
                     />
                   </FormControl>
@@ -134,7 +134,7 @@ const CreateDeptModal: FC<Props> = ({ onSuccess }) => {
             />
             <FormField
               control={form.control}
-              name={"description"}
+              name={"account_description"}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>{t.common.description}</FormLabel>
@@ -150,20 +150,16 @@ const CreateDeptModal: FC<Props> = ({ onSuccess }) => {
                 </FormItem>
               )}
             />
-            <div className={"flex gap-5 justify-between"}>
+            <div className="flex flex-wrap gap-4">
               <FormField
                 control={form.control}
-                name={"value"}
                 rules={{
-                  required: {
-                    value: true,
-                    message: t.common.fieldMessages.required,
-                  },
                   min: {
-                    value: 0.001,
+                    value: 0,
                     message: t.common.fieldMessages.minValue(0),
                   },
                 }}
+                name={"account_value"}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>{t.common.value}</FormLabel>
@@ -175,27 +171,9 @@ const CreateDeptModal: FC<Props> = ({ onSuccess }) => {
               />
               <FormField
                 control={form.control}
-                name={"coveredValue"}
-                rules={{
-                  min: {
-                    value: 0,
-                    message: t.common.fieldMessages.minValue(0),
-                  },
-                }}
+                name={"account_currency"}
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t.common.coveredValue}</FormLabel>
-                    <FormControl>
-                      <Input placeholder={"0"} type={"number"} {...field} />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name={"currency"}
-                render={({ field }) => (
-                  <FormItem className={"flex-1 w-full"}>
+                  <FormItem className={"flex-1"}>
                     <FormLabel>{t.common.currency}</FormLabel>
                     <FormControl>
                       <Select
@@ -232,4 +210,4 @@ const CreateDeptModal: FC<Props> = ({ onSuccess }) => {
   );
 };
 
-export default CreateDeptModal;
+export default CreateAccountModal;

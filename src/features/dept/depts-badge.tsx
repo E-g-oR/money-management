@@ -1,11 +1,12 @@
-import { Skeleton } from "@/components/ui/skeleton";
 import { FC } from "react";
+
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface Props {
   text: string;
   value: string;
 }
-const DeptsBadge: FC<Props> = ({ text, value }) => {
+export const DeptsBadge: FC<Props> = ({ text, value }) => {
   return (
     <div className="flex flex-col items-center font-bold bg-primary-foreground rounded py-2 px-5">
       <span>{text}</span>

@@ -5,9 +5,8 @@ import { useRequest } from "@/lib/hooks/useRequest";
 import CardsList from "@/components/layout/cards-list";
 import PageLayout from "@/components/layout/page-layout";
 import { useTranslation } from "@/lib/hooks/useTranslation";
-
-import CreateDeptModal from "./create-dept-modal";
-import DeptCard, { DeptCardSkeleton } from "./dept-card";
+import { CreateDeptModal, DeptCard } from "@/features/dept";
+import { DeptCardSkeleton } from "@/features/dept/dept-card";
 
 const DeptsPage: FC = () => {
   const t = useTranslation();
