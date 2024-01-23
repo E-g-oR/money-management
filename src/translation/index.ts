@@ -102,6 +102,10 @@ export interface Translation {
       transactions: string;
       chart: string;
     };
+    transeferToAnotherAccountModal: {
+      title: string;
+      description: string;
+    }
   };
   categories: {};
   settings: {};

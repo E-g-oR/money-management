@@ -111,6 +111,10 @@ export const ru: Translation = {
       transactions: "Операции",
       chart: "График",
     },
+    transeferToAnotherAccountModal: {
+      title: "Перевод на другой счет",
+      description: "Здесь вы можете отметить перевод денег на другой счет",
+    }
   },
   categories: {},
   settings: {},

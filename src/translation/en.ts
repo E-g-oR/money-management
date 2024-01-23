@@ -111,6 +111,10 @@ export const en: Translation = {
       transactions: "Transactions",
       chart: "Chart",
     },
+    transeferToAnotherAccountModal: {
+      title: "Transfer to another account",
+      description: "Here you can note the transfer of money to another account",
+    },
   },
   categories: {},
   settings: {},
