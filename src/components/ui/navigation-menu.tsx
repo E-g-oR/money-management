@@ -5,9 +5,9 @@ import { NavLink } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { dictionaries } from "@/translation";
 import { Sun } from "lucide-react";
-import { navbarIcons, navbarItems } from "@/lib/constants";
-import { useTranslation } from "@/lib/hooks/useTranslation";
-import { checkDeviceSize } from "@/lib/hooks/useResponsive";
+import { navbarIcons, navbarItems } from "@/data/constants";
+import { useTranslation } from "@/hooks/useTranslation";
+import { checkDeviceSize } from "@/hooks/useResponsive";
 import { getDeviceSize, useResponsiveStore } from "@/store/responsive";
 import {
   getIsDark,

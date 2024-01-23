@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 
 import { RatesResponse } from "@/types/rates-response";
-import { useTranslation } from "@/lib/hooks/useTranslation";
+import { useTranslation } from "@/hooks/useTranslation";
 
 import {
   Table,

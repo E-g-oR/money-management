@@ -1,5 +1,6 @@
-import { DeviceType } from "@/lib/hooks/useResponsive";
 import { create } from "zustand";
+
+import { DeviceType } from "@/hooks/useResponsive";
 
 interface ResponsiveStore {
   deviceSize: DeviceType;

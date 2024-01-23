@@ -4,7 +4,7 @@ import { Navigate, Outlet } from "react-router-dom";
 
 import { Api } from "@/api";
 import { ROUTES } from "@/router";
-import { checkDeviceSize } from "@/lib/hooks/useResponsive";
+import { checkDeviceSize } from "@/hooks/useResponsive";
 import { getSetUser, getUser, useAuthStore } from "@/store/auth";
 import { getDeviceSize, useResponsiveStore } from "@/store/responsive";
 

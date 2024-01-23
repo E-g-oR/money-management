@@ -3,15 +3,16 @@ import { FC } from "react";
 import { useParams } from "react-router-dom";
 
 import { Api } from "@/api";
-import { useRequest } from "@/lib/hooks/useRequest";
-import { useTranslation } from "@/lib/hooks/useTranslation";
+import { useRequest } from "@/hooks/useRequest";
+import { AccountPageHeader } from "@/features/account";
+import { useTranslation } from "@/hooks/useTranslation";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
-import AreaChart from "./area-chart";
-import TransactionsView from "./transactions-view";
-import AccountPageHeader from "./account-page-header";
-import CreateTransactionModal from "./create-transaction-modal";
-import TransferToAccountModal from "./transer-to-account-modal";
+import {
+  CreateTransactionModal,
+  TransactionsChart,
+  TransactionsView,
+  TransferToAccountModal,
+} from "@/features/transaction";
 
 const AccountPage: FC = () => {
   const t = useTranslation();
@@ -74,7 +75,7 @@ const AccountPage: FC = () => {
           value={t.accountPage.tabs.chart}
           className={"overflow-hidden m-0 h-full"}
         >
-          <AreaChart
+          <TransactionsChart
             transactions={transactions}
             currency={account?.currency ?? "BYN"}
           />

@@ -7,7 +7,7 @@ import { Api } from "@/api";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { useTranslation } from "@/lib/hooks/useTranslation";
+import { useTranslation } from "@/hooks/useTranslation";
 
 interface AccountEdit {
   account_name: string;
@@ -19,7 +19,7 @@ interface Props extends AccountEdit {
   onSuccess: () => void;
 }
 
-const EditAccount: FC<Props> = ({
+export const EditAccount: FC<Props> = ({
   account_name,
   account_description,
   id,

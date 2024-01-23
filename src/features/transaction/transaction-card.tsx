@@ -4,7 +4,7 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useTranslation } from "@/lib/hooks/useTranslation";
+import { useTranslation } from "@/hooks/useTranslation";
 import {
   TransactionType,
   TTransaction,
@@ -22,6 +22,7 @@ const IncomeIcon: FC = () => (
     <ChevronUp />
   </div>
 );
+
 const ExpenseIcon: FC = () => (
   <div
     className={
@@ -36,7 +37,8 @@ interface Props {
   transaction: TTransaction;
   currency?: Currencies
 }
-const TransactionCard: FC<Props> = ({ transaction, currency = Currencies.BYN }) => {
+
+export const TransactionCard: FC<Props> = ({ transaction, currency = Currencies.BYN }) => {
   const t = useTranslation();
   const isIncome = useMemo(
     () => transaction.type === TransactionType.Income,

@@ -1,6 +1,8 @@
-import { Card } from "@/components/ui/card";
 import { FC } from "react";
+
 import { Outlet } from "react-router-dom";
+
+import { Card } from "@/components/ui/card";
 
 const AuthLayout: FC = () => {
   return (

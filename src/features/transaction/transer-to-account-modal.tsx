@@ -7,8 +7,8 @@ import { Api } from "@/api";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { TAccount } from "@/types/accounts/account";
-import { useRequestTrigger } from "@/lib/hooks/useRequest";
-import { useTranslation } from "@/lib/hooks/useTranslation";
+import { useRequestTrigger } from "@/hooks/useRequest";
+import { useTranslation } from "@/hooks/useTranslation";
 import { getAccountsById, useDataStore } from "@/store/data";
 import {
   Form,
@@ -50,7 +50,7 @@ type Props = {
   onSuccess: () => void;
   accountId: string;
 };
-const TransferToAccountModal: FC<Props> = ({ onSuccess, accountId }) => {
+export const TransferToAccountModal: FC<Props> = ({ onSuccess, accountId }) => {
   const t = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const accountsById = useDataStore(getAccountsById);

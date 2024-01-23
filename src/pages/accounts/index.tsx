@@ -2,13 +2,15 @@ import { FC } from "react";
 
 import { Api } from "@/api";
 import { Input } from "@/components/ui/input";
-import { useRequest } from "@/lib/hooks/useRequest";
+import { useRequest } from "@/hooks/useRequest";
 import CardsList from "@/components/layout/cards-list";
 import PageLayout from "@/components/layout/page-layout";
-
-import CreateAccountModal from "./create-account-modal";
-import AccountCard, { AccountCardSkeleton } from "./account-card";
-import { useTranslation } from "@/lib/hooks/useTranslation";
+import { useTranslation } from "@/hooks/useTranslation";
+import {
+  AccountCard,
+  AccountCardSkeleton,
+  CreateAccountModal,
+} from "@/features/account";
 
 const AccountsPage: FC = () => {
   const t = useTranslation();
