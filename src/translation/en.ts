@@ -121,6 +121,7 @@ export const en: Translation = {
   },
   categories: {},
   settings: {
+    title: "Settings",
     darkMode: "Dark mode",
     appLanguage: "App language",
     colorSchemes: {

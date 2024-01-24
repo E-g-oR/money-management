@@ -111,6 +111,7 @@ export interface Translation {
   };
   categories: {};
   settings: {
+    title: string;
     darkMode: string;
     appLanguage: string;
     colorSchemes: Record<ColorSchemeKey, string>

@@ -121,6 +121,7 @@ export const ru: Translation = {
   },
   categories: {},
   settings: {
+    title: "Настройки",
     darkMode: "Темная тема",
     appLanguage: "Язык приложения",
     colorSchemes: {
