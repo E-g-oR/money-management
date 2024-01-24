@@ -6,9 +6,12 @@ import { Translation } from ".";
 export const ru: Translation = {
   format: {
     currency: (value: number, currency = "USD") =>
-      new Intl.NumberFormat("ru-RU", { style: "currency", currency }).format(
-        value
-      ),
+      new Intl.NumberFormat("ru-RU", {
+        style: "currency",
+        currency,
+        minimumFractionDigits: 1,
+        maximumFractionDigits: 2,
+      }).format(value),
     date: (timestamp: string) =>
       format(Date.parse(timestamp), "LLL do, p", { locale }),
     dateShort: (timestamp: string) =>
@@ -114,10 +117,18 @@ export const ru: Translation = {
     transeferToAnotherAccountModal: {
       title: "Перевод на другой счет",
       description: "Здесь вы можете отметить перевод денег на другой счет",
-    }
+    },
   },
   categories: {},
-  settings: {},
+  settings: {
+    darkMode: "Темная тема",
+    appLanguage: "Язык приложения",
+    colorSchemes: {
+      light: "Светлая",
+      dark: "Темная",
+      auto: "Авто",
+    },
+  },
   inProgressPage: {
     title: "В разработке...",
     description:

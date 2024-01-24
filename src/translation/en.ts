@@ -7,9 +7,12 @@ import { Translation } from ".";
 export const en: Translation = {
   format: {
     currency: (value: number, currency = "USD") =>
-      new Intl.NumberFormat("en-US", { style: "currency", currency }).format(
-        value
-      ),
+      new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency,
+        minimumFractionDigits: 1,
+        maximumFractionDigits: 2,
+      }).format(value),
     date: (timestamp: string) =>
       format(Date.parse(timestamp), "LLL do, p", { locale }),
     dateShort: (timestamp: string) =>
@@ -117,7 +120,15 @@ export const en: Translation = {
     },
   },
   categories: {},
-  settings: {},
+  settings: {
+    darkMode: "Dark mode",
+    appLanguage: "App language",
+    colorSchemes: {
+      light: "Light",
+      dark: "Dark",
+      auto: "Auto",
+    },
+  },
   inProgressPage: {
     title: "In progress...",
     description: "Sorry, this page is currently in progress.",

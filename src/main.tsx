@@ -11,6 +11,7 @@ import ThemeProvider from "@/components/layout/theme-provider.tsx";
 import ResponsiveObserver from "@/components/layout/responsive-observer.tsx";
 
 import "./index.css";
+import Settings from "./pages/settings";
 
 const DeptsPage = lazy(() => import("@/pages/depts/index.tsx")),
   AuthLayout = lazy(() => import("@/pages/auth/Layout.tsx")),
@@ -75,7 +76,7 @@ const router = createBrowserRouter([
       },
       {
         path: ROUTES.settings.path,
-        element: <InProgress />,
+        element: <Settings />,
         errorElement: <ErrorBoundary />,
       },
     ],

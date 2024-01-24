@@ -8,6 +8,8 @@ export type NavigationItemKey =
   | "categories"
   | "settings";
 
+export type ColorSchemeKey = "light" | "dark" | "auto";
+
 export interface Translation {
   format: {
     currency: (value: number, currency?: string) => string;
@@ -105,10 +107,14 @@ export interface Translation {
     transeferToAnotherAccountModal: {
       title: string;
       description: string;
-    }
+    };
   };
   categories: {};
-  settings: {};
+  settings: {
+    darkMode: string;
+    appLanguage: string;
+    colorSchemes: Record<ColorSchemeKey, string>
+  };
   inProgressPage: {
     title: string;
     description: string;
