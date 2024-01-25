@@ -66,6 +66,10 @@ export interface Translation {
         descriptionPlaceholder: string;
       };
     };
+    payModal: {
+      needsTo: string;
+      toCloseDept: string;
+    }
   };
   accounts: {
     title: string;

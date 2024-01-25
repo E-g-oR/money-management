@@ -93,7 +93,7 @@ export const CreateAccountModal: FC<Props> = ({ onSuccess }) => {
           <PlusIcon />
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className={"sm:max-w-[425px]"}>
         <DialogHeader>
           <DialogTitle>{t.accounts.createAccountModal.title}</DialogTitle>
           <DialogDescription>
@@ -150,7 +150,7 @@ export const CreateAccountModal: FC<Props> = ({ onSuccess }) => {
                 </FormItem>
               )}
             />
-            <div className="flex flex-wrap gap-4">
+            <div className={"flex flex-wrap gap-4"}>
               <FormField
                 control={form.control}
                 rules={{
@@ -164,7 +164,12 @@ export const CreateAccountModal: FC<Props> = ({ onSuccess }) => {
                   <FormItem>
                     <FormLabel>{t.common.value}</FormLabel>
                     <FormControl>
-                      <Input placeholder={"0"} type={"number"} {...field} />
+                      <Input
+                        placeholder={"0"}
+                        {...field}
+                        type={"number"}
+                        step={0.01}
+                      />
                     </FormControl>
                   </FormItem>
                 )}

@@ -75,6 +75,10 @@ export const ru: Translation = {
         descriptionPlaceholder: "Кредит за Айфон в А1",
       },
     },
+    payModal: {
+      needsTo: "Необходимо заплатить еще",
+      toCloseDept: "чтобы закрыть этот долг"
+    }
   },
   accounts: {
     noAccountsFallback: "У вас пока нет ни одного счета.",

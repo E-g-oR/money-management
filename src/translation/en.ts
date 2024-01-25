@@ -75,6 +75,10 @@ export const en: Translation = {
         descriptionPlaceholder: "Credit for iPhone",
       },
     },
+    payModal: {
+      needsTo: "Needs to pay",
+      toCloseDept: "to close this dept",
+    },
   },
   accounts: {
     title: "Your accounts",
