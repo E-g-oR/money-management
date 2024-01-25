@@ -4,6 +4,7 @@ import { Navigate, Outlet } from "react-router-dom";
 
 import { Api } from "@/api";
 import { ROUTES } from "@/router";
+import { onAuthStateChanged } from "firebase/auth";
 import { checkDeviceSize } from "@/hooks/useResponsive";
 import { getSetUser, getUser, useAuthStore } from "@/store/auth";
 import { getDeviceSize, useResponsiveStore } from "@/store/responsive";
@@ -25,7 +26,7 @@ export const NewLayout: FC = () => {
 
   useEffect(() => {
     const auth = Api.getAuth();
-    auth.onAuthStateChanged(setUser);
+    onAuthStateChanged(auth, setUser);
   }, [setUser]);
 
   return (

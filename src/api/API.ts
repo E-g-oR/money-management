@@ -2,7 +2,7 @@ import { Auth } from "@/types/auth";
 import { FirebaseApp } from "firebase/app";
 import { transormListToMap, useDataStore } from "@/store/data";
 import { TCreateDept, TDept, TNewDept } from "@/types/depts/dept";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { Firestore, getFirestore, where } from "firebase/firestore";
 import {
   TAccount,
@@ -19,6 +19,7 @@ import {
 import { Crud } from "./crud";
 import { orderByCreatedAt } from "./utils/order-transactions";
 import { TTransferToAnotherAccount } from "@/features/transaction/transer-to-account-modal";
+import { useAuthStore } from "@/store/auth";
 
 export class API {
   private fireStore: Firestore;
@@ -48,6 +49,12 @@ export class API {
     );
     return userCredential.user;
   };
+
+  public signOut = async () => {
+    useAuthStore.getState().setUser(null);
+    const auth = this.getAuth()
+    return await signOut(auth);
+  }
 
   public getAuth = () => getAuth();
 
