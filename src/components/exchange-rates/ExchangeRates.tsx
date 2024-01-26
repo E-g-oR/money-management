@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 
 import { RatesResponse } from "@/types/rates-response";
-import { useTranslation } from "@/lib/hooks/useTranslation";
+import { useTranslation } from "@/hooks/useTranslation";
 
 import {
   Table,
@@ -48,7 +48,7 @@ const ExchangeRates: FC = () => {
         <CardTitle>{t.common.rates}</CardTitle>
         <CardDescription>{t.common.selectCurrency}</CardDescription>
       </CardHeader>
-      <CardContent className="flex flex-col gap-3">
+      <CardContent className={"flex flex-col gap-3"}>
         <Select value={currency} onValueChange={setCurrency}>
           <SelectTrigger>
             <SelectValue placeholder={t.common.selectCurrency} />

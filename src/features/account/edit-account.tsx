@@ -7,7 +7,7 @@ import { Api } from "@/api";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { useTranslation } from "@/lib/hooks/useTranslation";
+import { useTranslation } from "@/hooks/useTranslation";
 
 interface AccountEdit {
   account_name: string;
@@ -19,7 +19,7 @@ interface Props extends AccountEdit {
   onSuccess: () => void;
 }
 
-const EditAccount: FC<Props> = ({
+export const EditAccount: FC<Props> = ({
   account_name,
   account_description,
   id,
@@ -52,7 +52,7 @@ const EditAccount: FC<Props> = ({
   return (
     <form
       onSubmit={form.handleSubmit(onSubmit)}
-      className={"flex gap-5 items-center animate-in fade-in-0 zoom-in-95"}
+      className={"flex gap-5  animate-in fade-in-0 zoom-in-95"}
     >
       <div className={"flex flex-col gap-2 flex-1"}>
         <Controller
@@ -90,11 +90,11 @@ const EditAccount: FC<Props> = ({
           )}
         />
       </div>
-      <div className="flex flex-col gap-2">
-        <Button size={"icon"} type="reset" variant={"outline"} onClick={cancel}>
+      <div className={"flex flex-col gap-2"}>
+        <Button size={"icon"} type={"reset"} variant={"outline"} onClick={cancel}>
           <Undo2 />
         </Button>
-        <Button size={"icon"} type="submit">
+        <Button size={"icon"} type={"submit"}>
           <Save />
         </Button>
       </div>

@@ -2,7 +2,7 @@ import { Auth } from "@/types/auth";
 import { FirebaseApp } from "firebase/app";
 import { transormListToMap, useDataStore } from "@/store/data";
 import { TCreateDept, TDept, TNewDept } from "@/types/depts/dept";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { Firestore, getFirestore, where } from "firebase/firestore";
 import {
   TAccount,
@@ -18,6 +18,8 @@ import {
 
 import { Crud } from "./crud";
 import { orderByCreatedAt } from "./utils/order-transactions";
+import { TTransferToAnotherAccount } from "@/features/transaction/transer-to-account-modal";
+import { useAuthStore } from "@/store/auth";
 
 export class API {
   private fireStore: Firestore;
@@ -47,6 +49,12 @@ export class API {
     );
     return userCredential.user;
   };
+
+  public signOut = async () => {
+    useAuthStore.getState().setUser(null);
+    const auth = this.getAuth()
+    return await signOut(auth);
+  }
 
   public getAuth = () => getAuth();
 
@@ -153,6 +161,34 @@ export class API {
       }),
     ]);
     return transaction;
+  };
+
+  public transferToAnotherAccount = async (
+    payload: TTransferToAnotherAccount
+  ) => {
+    // TODO: сделать мультиязычные комментарии для перевода с одного счета на другой
+    const newExpense: TCreateTransaction = {
+      value: payload.value,
+      title: payload.toAccountId.name,
+      description: payload.toAccountId.description,
+      account_id: payload.fromAccountId.id,
+      type: TransactionType.Expense,
+      created_at: new Date(),
+    };
+    const newIncome: TCreateTransaction = {
+      value: payload.value,
+      title: payload.fromAccountId.name,
+      description: payload.fromAccountId.description,
+      account_id: payload.toAccountId.id,
+      type: TransactionType.Income,
+      created_at: new Date(),
+    };
+
+    const [, incomeTransaction] = await Promise.all([
+      this.createTransactionAndUpdateAccount(newExpense),
+      this.createTransactionAndUpdateAccount(newIncome),
+    ]);
+    return incomeTransaction;
   };
   //* ------------------------- -------------------------
 

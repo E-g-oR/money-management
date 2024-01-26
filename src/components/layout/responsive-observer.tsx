@@ -1,4 +1,4 @@
-import { useResponsive } from "@/lib/hooks/useResponsive";
+import { useResponsive } from "@/hooks/useResponsive";
 import { getSetDeviceSize, useResponsiveStore } from "@/store/responsive";
 import { FC, ReactNode, useEffect } from "react";
 

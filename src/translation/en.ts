@@ -7,9 +7,12 @@ import { Translation } from ".";
 export const en: Translation = {
   format: {
     currency: (value: number, currency = "USD") =>
-      new Intl.NumberFormat("en-US", { style: "currency", currency }).format(
-        value
-      ),
+      new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency,
+        minimumFractionDigits: 1,
+        maximumFractionDigits: 2,
+      }).format(value),
     date: (timestamp: string) =>
       format(Date.parse(timestamp), "LLL do, p", { locale }),
     dateShort: (timestamp: string) =>
@@ -19,6 +22,7 @@ export const en: Translation = {
     time: (date) => format(date, "p", { locale }),
   },
   common: {
+    loading: "Loading",
     rates: "Rates",
     currency: "Currency",
     selectCurrency: "Select Currency",
@@ -34,6 +38,8 @@ export const en: Translation = {
       delete: "Delete",
       close: "Close",
       pickDate: "Pick A Date",
+      cancel: "Cancel",
+      logOut: "Log Out",
     },
     fieldMessages: {
       required: "This field is required.",
@@ -70,6 +76,10 @@ export const en: Translation = {
         namePlaceholder: "iPhone",
         descriptionPlaceholder: "Credit for iPhone",
       },
+    },
+    payModal: {
+      needsTo: "Needs to pay",
+      toCloseDept: "to close this dept",
     },
   },
   accounts: {
@@ -110,12 +120,37 @@ export const en: Translation = {
       transactions: "Transactions",
       chart: "Chart",
     },
+    transeferToAnotherAccountModal: {
+      title: "Transfer to another account",
+      description: "Here you can note the transfer of money to another account",
+    },
+    deleteAccountModal: {
+      title: "Delete Account",
+      description:
+        "You are about to delete your account. After this action it will be impossible to recover it. Are you sure you want to continue?",
+    },
   },
   categories: {},
-  settings: {},
+  settings: {
+    title: "Settings",
+    darkMode: "Dark mode",
+    appLanguage: "App language",
+    colorSchemes: {
+      light: "Light",
+      dark: "Dark",
+      auto: "Auto",
+    },
+  },
   inProgressPage: {
     title: "In progress...",
     description: "Sorry, this page is currently in progress.",
     secondDescription: "Please come back to this page later.",
+  },
+  auth: {
+    logOutConfirmModal: {
+      title: "Log out",
+      description:
+        "You are about to log out from the application. Are you sure you want to continue?",
+    },
   },
 };

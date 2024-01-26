@@ -6,14 +6,14 @@ import { cn } from "@/lib/utils";
 import { Pages, ROUTES } from "@/router";
 import { Card } from "@/components/ui/card";
 import { Translation } from "@/translation/index";
-import { useTranslation } from "@/lib/hooks/useTranslation";
+import { useTranslation } from "@/hooks/useTranslation";
 
 type TTab = {
   url: string;
   key: keyof Translation["accountPage"]["tabs"];
 };
 
-const AccountTabs: FC = () => {
+export const AccountTabs: FC = () => {
   const { accountId } = useParams<"accountId">();
   const t = useTranslation();
   const tabs: ReadonlyArray<TTab> = useMemo(
@@ -27,7 +27,7 @@ const AccountTabs: FC = () => {
     [accountId]
   );
   return (
-    <Card className="flex gap-2 p-2 max-w-xs">
+    <Card className={"flex gap-2 p-2 max-w-xs"}>
       {tabs.map((tab) => (
         <NavLink key={tab.key} to={tab.url} className={"flex-1"}>
           {({ isActive }) => (

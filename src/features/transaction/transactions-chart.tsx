@@ -11,10 +11,10 @@ import {
 } from "recharts";
 
 import { Card } from "@/components/ui/card";
-import { useTranslation } from "@/lib/hooks/useTranslation";
+import { useTranslation } from "@/hooks/useTranslation";
 import { TTransaction } from "@/types/transactions/transaction";
 
-import { processChartData } from "./utils/process-chart-data";
+import { processChartData } from "../account/utils/process-chart-data";
 
 type TTooltipPayload = {
   stroke: string;
@@ -72,12 +72,12 @@ type Props = {
   transactions: ReadonlyArray<TTransaction> | null;
   currency: string;
 };
-const AreaChart_: FC<Props> = ({ transactions = [], currency = "BYN" }) => {
+export const TransactionsChart: FC<Props> = ({ transactions = [], currency = "BYN" }) => {
   const t = useTranslation();
   const processedData = transactions?.length && processChartData(transactions);
 
   return (
-    <Card className="pb-3 pt-2 px-4 h-full flex-1 flex flex-col gap-3">
+    <Card className={"pb-3 pt-2 px-4 h-full flex-1 flex flex-col gap-3"}>
       {/* <div className={"flex justify-between gap-4"}>
         <div>
           <span>month</span>
@@ -164,4 +164,3 @@ const AreaChart_: FC<Props> = ({ transactions = [], currency = "BYN" }) => {
   );
 };
 
-export default AreaChart_;

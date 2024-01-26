@@ -3,7 +3,7 @@ import { FC } from "react";
 import { NavLink } from "react-router-dom";
 
 import { cn } from "@/lib/utils";
-import { navbarIcons, navbarItems } from "@/lib/constants";
+import { navbarIcons, navbarItems } from "@/data/constants";
 
 const BottomNavigation: FC = () => {
   return (

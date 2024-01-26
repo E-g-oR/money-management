@@ -6,9 +6,12 @@ import { Translation } from ".";
 export const ru: Translation = {
   format: {
     currency: (value: number, currency = "USD") =>
-      new Intl.NumberFormat("ru-RU", { style: "currency", currency }).format(
-        value
-      ),
+      new Intl.NumberFormat("ru-RU", {
+        style: "currency",
+        currency,
+        minimumFractionDigits: 1,
+        maximumFractionDigits: 2,
+      }).format(value),
     date: (timestamp: string) =>
       format(Date.parse(timestamp), "LLL do, p", { locale }),
     dateShort: (timestamp: string) =>
@@ -18,6 +21,7 @@ export const ru: Translation = {
     time: (date) => format(date, "p", { locale }),
   },
   common: {
+    loading: "Загрузка",
     rates: "Курсы",
     currency: "Валюта",
     selectCurrency: "Выберите валюту",
@@ -33,6 +37,8 @@ export const ru: Translation = {
       delete: "Удалить",
       close: "Закрыть",
       pickDate: "Выбрать дату",
+      cancel: "Отменить",
+      logOut: "Выйти"
     },
     fieldMessages: {
       required: "Это поле обязательно для заполнения.",
@@ -70,6 +76,10 @@ export const ru: Translation = {
         namePlaceholder: "Айфон",
         descriptionPlaceholder: "Кредит за Айфон в А1",
       },
+    },
+    payModal: {
+      needsTo: "Необходимо заплатить еще",
+      toCloseDept: "чтобы закрыть этот долг",
     },
   },
   accounts: {
@@ -110,13 +120,37 @@ export const ru: Translation = {
       transactions: "Операции",
       chart: "График",
     },
+    transeferToAnotherAccountModal: {
+      title: "Перевод на другой счет",
+      description: "Здесь вы можете отметить перевод денег на другой счет",
+    },
+    deleteAccountModal: {
+      title: "Удаление счета",
+      description:
+        "Вы собираетесь удалить свой счет. После этого действия восстановление будет недоступно. Вы уверены, что хотите продолжить?",
+    },
   },
   categories: {},
-  settings: {},
+  settings: {
+    title: "Настройки",
+    darkMode: "Темная тема",
+    appLanguage: "Язык приложения",
+    colorSchemes: {
+      light: "Светлая",
+      dark: "Темная",
+      auto: "Авто",
+    },
+  },
   inProgressPage: {
     title: "В разработке...",
     description:
       "Приносим извинения, эта страница еще находится в стадии разработки.",
     secondDescription: "Пожалуйста, возвращайтесь на эту страницу позже.",
   },
+   auth: {
+    logOutConfirmModal: {
+      title: "Выйти из приложения",
+      description: "Вы собираетесь покинуть приложение. Вы уверены, что хотите продолжить?",
+    }
+  }
 };

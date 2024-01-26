@@ -1,10 +1,10 @@
-import { useTranslation } from "@/lib/hooks/useTranslation";
+import { useTranslation } from "@/hooks/useTranslation";
 import { FC } from "react";
 
 const InProgress: FC = () => {
   const t = useTranslation();
   return (
-    <div className={"flex flex-col gap-3 justify-center items-center text-center"}>
+    <div className={"flex flex-col gap-3 justify-center items-center text-center animate-in fade-in-0 zoom-in-95"}>
       <h1 className={"text-4xl font-bold text-center"}>
         {t.inProgressPage.title}
       </h1>

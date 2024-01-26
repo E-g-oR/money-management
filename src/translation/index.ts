@@ -8,6 +8,8 @@ export type NavigationItemKey =
   | "categories"
   | "settings";
 
+export type ColorSchemeKey = "light" | "dark" | "auto";
+
 export interface Translation {
   format: {
     currency: (value: number, currency?: string) => string;
@@ -18,6 +20,7 @@ export interface Translation {
     time: (date: Date) => string;
   };
   common: {
+    loading: string;
     rates: string;
     selectCurrency: string;
     rate: string;
@@ -33,6 +36,8 @@ export interface Translation {
       delete: string;
       close: string;
       pickDate: string;
+      cancel: string;
+      logOut: string;
     };
     fieldMessages: {
       required: string;
@@ -63,6 +68,10 @@ export interface Translation {
         descriptionPlaceholder: string;
       };
     };
+    payModal: {
+      needsTo: string;
+      toCloseDept: string;
+    }
   };
   accounts: {
     title: string;
@@ -101,14 +110,33 @@ export interface Translation {
       transactions: string;
       chart: string;
     };
+    transeferToAnotherAccountModal: {
+      title: string;
+      description: string;
+    };
+    deleteAccountModal: {
+      title: string;
+      description: string;
+    }
   };
   categories: {};
-  settings: {};
+  settings: {
+    title: string;
+    darkMode: string;
+    appLanguage: string;
+    colorSchemes: Record<ColorSchemeKey, string>
+  };
   inProgressPage: {
     title: string;
     description: string;
     secondDescription: string;
   };
+  auth: {
+    logOutConfirmModal: {
+      title: string
+      description: string;
+    }
+  }
 }
 
 export const dictionaries = {

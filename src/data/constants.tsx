@@ -1,4 +1,5 @@
-import { NavigationItemKey } from "@/translation";
+import { ReactNode } from "react";
+
 import {
   Cog,
   CreditCard,
@@ -6,7 +7,8 @@ import {
   Layers,
   LayoutDashboard,
 } from "lucide-react";
-import { ReactNode } from "react";
+
+import { ColorSchemeKey, NavigationItemKey, dictionaries } from "@/translation";
 
 export const navbarIcons: Record<NavigationItemKey, ReactNode> = {
   accounts: <Landmark />,
@@ -23,3 +25,14 @@ export const navbarItems: ReadonlyArray<NavigationItemKey> = [
   "categories",
   "settings",
 ];
+
+export const ColorSchemeKeys: ReadonlyArray<ColorSchemeKey> = [
+  "light",
+  "dark",
+  "auto",
+];
+
+export const langages: Record<keyof typeof dictionaries, string> = {
+  en: "English",
+  ru: "Русский",
+};

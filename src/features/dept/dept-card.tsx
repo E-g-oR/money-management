@@ -9,20 +9,20 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useTranslation } from "@/lib/hooks/useTranslation";
+import { useTranslation } from "@/hooks/useTranslation";
 
-import { calcProgress } from "./utils";
 import PayDeptNodal from "./pay-dept-modal";
 import { ArrowUpFromLine, MoreVertical } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Show from "@/components/show";
+import { calcProgress } from "./utils";
 
 interface Props {
   dept: TDept;
   updateDepts: () => void;
 }
 
-const DeptCard: FC<Props> = ({ dept, updateDepts }) => {
+export const DeptCard: FC<Props> = ({ dept, updateDepts }) => {
   const t = useTranslation();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   // const { confirm } = useContext(confirmModalContext);
@@ -36,7 +36,7 @@ const DeptCard: FC<Props> = ({ dept, updateDepts }) => {
     <Card
       className={cn("flex flex-col gap-2 py-3 px-4", isClosed && "saturate-50 brightness-75")}
     >
-      <div className="flex gap-2 justify-between">
+      <div className={"flex gap-2 justify-between"}>
         <h2 className={"text-lg font-semibold line-clamp-1 text-ellipsis"}>
           {dept.name}
         </h2>
@@ -48,7 +48,7 @@ const DeptCard: FC<Props> = ({ dept, updateDepts }) => {
         <span className={"line-clamp-1 text-ellipsis text-muted-foreground"}>
           {dept.description}
         </span>
-        <div className="flex gap-2">
+        <div className={"flex gap-2"}>
           <Show when={!isClosed}>
             <PayDeptNodal
               dept={dept}
@@ -119,13 +119,13 @@ export default DeptCard;
 export const DeptCardSkeleton: FC = () => {
   return (
     <Card className={"flex flex-col gap-2 py-3 px-4"}>
-      <div className="flex gap-2 justify-between">
+      <div className={"flex gap-2 justify-between"}>
         <Skeleton className={"h-7 w-36"} />
         <Skeleton className={"h-7 w-24"} />
       </div>
       <div className={"flex gap-2 justify-between items-center"}>
         <Skeleton className={"h-6 w-44"} />
-        <div className="flex gap-2">
+        <div className={"flex gap-2"}>
           <Button size={"icon"} disabled>
             <ArrowUpFromLine />
           </Button>
@@ -135,7 +135,7 @@ export const DeptCardSkeleton: FC = () => {
         </div>
       </div>
       <div className={"flex flex-col items-center gap-2"}>
-        <Skeleton className="h-6 w-16" />
+        <Skeleton className={"h-6 w-16"} />
         <Progress color={"primary"} value={40} />
       </div>
     </Card>

@@ -3,27 +3,26 @@ import { FC } from "react";
 import { useParams } from "react-router-dom";
 
 import { Api } from "@/api";
-import { useRequest } from "@/lib/hooks/useRequest";
-import { useTranslation } from "@/lib/hooks/useTranslation";
+import { useRequest } from "@/hooks/useRequest";
+import { AccountPageHeader } from "@/features/account";
+import { useTranslation } from "@/hooks/useTranslation";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
-import AreaChart from "./area-chart";
-import TransactionsView from "./transactions-view";
-import AccountPageHeader from "./account-page-header";
-import { groupTransactions } from "./utils/group-transactions";
-import CreateTransactionModal from "./create-transaction-modal";
+import {
+  CreateTransactionModal,
+  TransactionsChart,
+  TransactionsView,
+  TransferToAccountModal,
+} from "@/features/transaction";
+import { Currencies } from "@/types/currency";
 
 const AccountPage: FC = () => {
   const t = useTranslation();
   const { accountId } = useParams<"accountId">();
 
-  const {
-    data: transactions,
-    run: updateTransactions,
-  } = useRequest(Api.getTransactionsForAccount, accountId ?? "");
-
-  const grouped = groupTransactions(transactions ?? []);
-  console.log(grouped);
+  const { data: transactions, run: updateTransactions } = useRequest(
+    Api.getTransactionsForAccount,
+    accountId ?? ""
+  );
 
   const { data: account, run: updateAccount } = useRequest(
     Api.getAccount,
@@ -36,19 +35,29 @@ const AccountPage: FC = () => {
       <div className={"flex justify-between items-center"}>
         {/* TODO: make dynamic label */}
         <p>{t.accountPage.recentTransactions}</p>
-        <CreateTransactionModal
-          accountId={accountId}
-          onSuccess={() => {
-            updateTransactions(accountId ?? "");
-            updateAccount(accountId ?? "");
-          }}
-        />
+        <div className={"flex gap-4"}>
+          <TransferToAccountModal
+            accountId={accountId ?? ""}
+            onSuccess={() => {
+              updateAccount(accountId ?? "");
+              updateTransactions(accountId ?? "");
+            }}
+          />
+          <CreateTransactionModal
+            accountId={accountId}
+            onSuccess={() => {
+              updateTransactions(accountId ?? "");
+              updateAccount(accountId ?? "");
+            }}
+          />
+        </div>
       </div>
       <Tabs
         defaultValue={t.accountPage.tabs.transactions}
         className={"flex flex-col gap-4 2xl:gap-6 h-full overflow-hidden"}
       >
         <TabsList className={"sm:max-w-xs grid grid-cols-2"}>
+          {/* TODO: заменить Object.keys на что-то более надежное и понятное */}
           {Object.keys(t.accountPage.tabs).map((key) => (
             <TabsTrigger
               key={key}
@@ -62,13 +71,16 @@ const AccountPage: FC = () => {
           value={t.accountPage.tabs.transactions}
           className={"overflow-hidden m-0"}
         >
-          <TransactionsView transactions={transactions} />
+          <TransactionsView
+            transactions={transactions}
+            currency={account?.currency ?? Currencies.BYN}
+          />
         </TabsContent>
         <TabsContent
           value={t.accountPage.tabs.chart}
           className={"overflow-hidden m-0 h-full"}
         >
-          <AreaChart
+          <TransactionsChart
             transactions={transactions}
             currency={account?.currency ?? "BYN"}
           />

@@ -1,4 +1,4 @@
-import { useTranslation } from "@/lib/hooks/useTranslation";
+import { useTranslation } from "@/hooks/useTranslation";
 import { FC, useEffect, useState } from "react";
 
 const HeaderDate: FC = () => {
@@ -18,10 +18,10 @@ const HeaderDate: FC = () => {
   }, [date]);
 
   return (
-    <span className="ml-auto">
+    <span className={"ml-auto"}>
       {t.format.weekAndMonthDay(date)}
       {", "}
-      <span className="text-xl">{t.format.time(date)}</span>
+      <span className={"text-xl"}>{t.format.time(date)}</span>
     </span>
   );
 };

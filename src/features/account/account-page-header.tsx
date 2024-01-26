@@ -9,12 +9,12 @@ import Show from "@/components/show";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { TAccount } from "@/types/accounts/account";
-import { useTranslation } from "@/lib/hooks/useTranslation";
+import { useTranslation } from "@/hooks/useTranslation";
 import { confirmModalContext } from "@/components/confirm-modal";
 
 const EditAccount = lazy(() => import("./edit-account"));
 
-const AccountPageHeaderSkeleton: FC = () => (
+export const AccountPageHeaderSkeleton: FC = () => (
   <div className={"flex flex-col gap-3 animate-in fade-in-0 zoom-in-95"}>
     <Skeleton className={"w-32 h-10"} />
     <Skeleton className={"w-56 h-5"} />
@@ -26,7 +26,7 @@ interface Props {
   account: TAccount | null;
   updateAccount: (accountId: string) => void;
 }
-const AccountPageHeader: FC<Props> = ({ account, updateAccount }) => {
+export const AccountPageHeader: FC<Props> = ({ account, updateAccount }) => {
   const t = useTranslation();
   const navigate = useNavigate();
 
@@ -66,7 +66,7 @@ const AccountPageHeader: FC<Props> = ({ account, updateAccount }) => {
                 {t.format.currency(account?.value ?? 0, account?.currency)}
               </p>
             </div>
-            <div className="flex flex-col gap-2">
+            <div className={"flex flex-col gap-2"}>
               <Button
                 variant={"ghost"}
                 size={"icon"}
@@ -80,8 +80,8 @@ const AccountPageHeader: FC<Props> = ({ account, updateAccount }) => {
                 onClick={() =>
                   confirm({
                     // TODO: add translation to confirm dialog
-                    title: "Delete account",
-                    description: "Are you sure about that ?",
+                    title: t.accountPage.deleteAccountModal.title,
+                    description: t.accountPage.deleteAccountModal.description,
                     onConfirm: deleteAccount,
                   })
                 }

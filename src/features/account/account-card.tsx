@@ -6,12 +6,12 @@ import { ROUTES } from "@/router";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { TAccount } from "@/types/accounts/account";
-import { useTranslation } from "@/lib/hooks/useTranslation";
+import { useTranslation } from "@/hooks/useTranslation";
 
 interface Props {
   account: TAccount;
 }
-const AccountCard: FC<Props> = ({ account }) => {
+export const AccountCard: FC<Props> = ({ account }) => {
   const t = useTranslation()
   return (
     <Link
