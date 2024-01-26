@@ -13,6 +13,7 @@ import {
   TransactionsView,
   TransferToAccountModal,
 } from "@/features/transaction";
+import { Currencies } from "@/types/currency";
 
 const AccountPage: FC = () => {
   const t = useTranslation();
@@ -56,6 +57,7 @@ const AccountPage: FC = () => {
         className={"flex flex-col gap-4 2xl:gap-6 h-full overflow-hidden"}
       >
         <TabsList className={"sm:max-w-xs grid grid-cols-2"}>
+          {/* TODO: заменить Object.keys на что-то более надежное и понятное */}
           {Object.keys(t.accountPage.tabs).map((key) => (
             <TabsTrigger
               key={key}
@@ -69,7 +71,10 @@ const AccountPage: FC = () => {
           value={t.accountPage.tabs.transactions}
           className={"overflow-hidden m-0"}
         >
-          <TransactionsView transactions={transactions} />
+          <TransactionsView
+            transactions={transactions}
+            currency={account?.currency ?? Currencies.BYN}
+          />
         </TabsContent>
         <TabsContent
           value={t.accountPage.tabs.chart}
