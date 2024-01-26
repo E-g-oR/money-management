@@ -95,7 +95,7 @@ export const CreateDeptModal: FC<Props> = ({ onSuccess }) => {
           <PlusIcon />
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className={"sm:max-w-[425px]"}>
         <DialogHeader>
           <DialogTitle>{t.depts.createModal.title}</DialogTitle>
           <DialogDescription>

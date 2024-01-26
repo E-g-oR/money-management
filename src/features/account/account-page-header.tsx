@@ -66,7 +66,7 @@ export const AccountPageHeader: FC<Props> = ({ account, updateAccount }) => {
                 {t.format.currency(account?.value ?? 0, account?.currency)}
               </p>
             </div>
-            <div className="flex flex-col gap-2">
+            <div className={"flex flex-col gap-2"}>
               <Button
                 variant={"ghost"}
                 size={"icon"}
@@ -80,8 +80,8 @@ export const AccountPageHeader: FC<Props> = ({ account, updateAccount }) => {
                 onClick={() =>
                   confirm({
                     // TODO: add translation to confirm dialog
-                    title: "Delete account",
-                    description: "Are you sure about that ?",
+                    title: t.accountPage.deleteAccountModal.title,
+                    description: t.accountPage.deleteAccountModal.description,
                     onConfirm: deleteAccount,
                   })
                 }

@@ -11,7 +11,7 @@ export const ColorSchemeSelect: FC = () => {
   const setIsDark = useSettingsStore(getSetIsDark);
 
   return (
-    <div className="flex items-center gap-2">
+    <div className={"flex items-center gap-2"}>
       <Label htmlFor={"dark-mode-select"}>{t.settings.darkMode}</Label>
       <Switch
         id={"dark-mode-select"}

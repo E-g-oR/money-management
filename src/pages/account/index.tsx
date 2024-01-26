@@ -34,7 +34,7 @@ const AccountPage: FC = () => {
       <div className={"flex justify-between items-center"}>
         {/* TODO: make dynamic label */}
         <p>{t.accountPage.recentTransactions}</p>
-        <div className="flex gap-4">
+        <div className={"flex gap-4"}>
           <TransferToAccountModal
             accountId={accountId ?? ""}
             onSuccess={() => {

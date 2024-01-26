@@ -19,8 +19,8 @@ export const TransactionsView: FC<Props> = ({ transactions }) => {
   );
 
   return (
-    <ScrollArea className="h-full">
-      <div className="grid gap-3 md:gap-6">
+    <ScrollArea className={"h-full"}>
+      <div className={"grid gap-3 md:gap-6"}>
         {groupedTransactions.map((transactionsList) => (
           <div
             key={transactionsList[0].created_at.toDate().toISOString()}

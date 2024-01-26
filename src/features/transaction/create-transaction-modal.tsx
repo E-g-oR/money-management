@@ -181,7 +181,7 @@ export const CreateTransactionModal: FC<Props> = ({ accountId = "", onSuccess })
                   },
                 }}
                 render={({ field }) => (
-                  <FormItem className="flex-1">
+                  <FormItem className={"flex-1"}>
                     <FormLabel>{t.common.transactionType}</FormLabel>
                     <Select
                       onValueChange={field.onChange}
@@ -218,7 +218,7 @@ export const CreateTransactionModal: FC<Props> = ({ accountId = "", onSuccess })
                   },
                 }}
                 render={({ field }) => (
-                  <FormItem className="flex-1">
+                  <FormItem className={"flex-1"}>
                     <FormLabel>{t.common.value}</FormLabel>
                     <FormControl>
                       <Input
@@ -248,7 +248,7 @@ export const CreateTransactionModal: FC<Props> = ({ accountId = "", onSuccess })
                               !field.value && "text-muted-foreground"
                             )}
                           >
-                            <CalendarIcon className="mr-2 h-4 w-4" />
+                            <CalendarIcon className={"mr-2 h-4 w-4"} />
                             {field.value ? (
                               format(field.value, "PPP")
                             ) : (
@@ -261,7 +261,7 @@ export const CreateTransactionModal: FC<Props> = ({ accountId = "", onSuccess })
                           align={"start"}
                         >
                           <Calendar
-                            mode="single"
+                            mode={"single"}
                             selected={field.value}
                             onSelect={field.onChange}
                             initialFocus

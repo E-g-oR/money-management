@@ -38,6 +38,7 @@ export const en: Translation = {
       delete: "Delete",
       close: "Close",
       pickDate: "Pick A Date",
+      cancel: "Cancel",
     },
     fieldMessages: {
       required: "This field is required.",
@@ -121,6 +122,11 @@ export const en: Translation = {
     transeferToAnotherAccountModal: {
       title: "Transfer to another account",
       description: "Here you can note the transfer of money to another account",
+    },
+    deleteAccountModal: {
+      title: "Delete Account",
+      description:
+        "You are about to delete your account. After this action it will be impossible to recover it. Are you sure you want to continue?",
     },
   },
   categories: {},

@@ -36,6 +36,7 @@ export interface Translation {
       delete: string;
       close: string;
       pickDate: string;
+      cancel: string;
     };
     fieldMessages: {
       required: string;
@@ -112,6 +113,10 @@ export interface Translation {
       title: string;
       description: string;
     };
+    deleteAccountModal: {
+      title: string;
+      description: string;
+    }
   };
   categories: {};
   settings: {

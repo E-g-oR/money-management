@@ -14,7 +14,7 @@ const NavigationMenu: FC = () => {
   const deviceSize = useResponsiveStore(getDeviceSize);
 
   return (
-    <nav className="flex flex-col gap-2">
+    <nav className={"flex flex-col gap-2"}>
       {/* TODO: move to separated component */}
       {navbarItems.map((key) => (
         <NavLink
@@ -36,7 +36,7 @@ const NavigationMenu: FC = () => {
 };
 
 const Aside: FC = () => (
-  <div className="flex flex-col justify-between">
+  <div className={"flex flex-col justify-between"}>
     <NavigationMenu />
   </div>
 );

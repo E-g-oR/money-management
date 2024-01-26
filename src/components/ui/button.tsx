@@ -71,7 +71,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           <Show when={isLoading} fallback={children}>
             <Loader2 className={"animate-spin"} />
             <Show when={size !== "icon"}>
-              <p className="ml-2">{t.common.loading}...</p>
+              <p className={"ml-2"}>{t.common.loading}...</p>
             </Show>
           </Show>
         }

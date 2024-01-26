@@ -37,6 +37,7 @@ export const ru: Translation = {
       delete: "Удалить",
       close: "Закрыть",
       pickDate: "Выбрать дату",
+      cancel: "Отменить",
     },
     fieldMessages: {
       required: "Это поле обязательно для заполнения.",
@@ -77,8 +78,8 @@ export const ru: Translation = {
     },
     payModal: {
       needsTo: "Необходимо заплатить еще",
-      toCloseDept: "чтобы закрыть этот долг"
-    }
+      toCloseDept: "чтобы закрыть этот долг",
+    },
   },
   accounts: {
     noAccountsFallback: "У вас пока нет ни одного счета.",
@@ -121,6 +122,11 @@ export const ru: Translation = {
     transeferToAnotherAccountModal: {
       title: "Перевод на другой счет",
       description: "Здесь вы можете отметить перевод денег на другой счет",
+    },
+    deleteAccountModal: {
+      title: "Удаление счета",
+      description:
+        "Вы собираетесь удалить свой счет. После этого действия восстановление будет недоступно. Вы уверены, что хотите продолжить?",
     },
   },
   categories: {},
