@@ -51,13 +51,13 @@ const LoginForm: FC = () => {
           >
             <FormField
               control={form.control}
-              name="email"
+              name={"email"}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
                     <Input
-                      type="email"
+                      type={"email"}
                       placeholder={"exmple@mail.com"}
                       {...field}
                     />
@@ -67,13 +67,13 @@ const LoginForm: FC = () => {
             />
             <FormField
               control={form.control}
-              name="password"
+              name={"password"}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
                     <Input
-                      type="password"
+                      type={"password"}
                       placeholder={"exmple@mail.com"}
                       {...field}
                     />
@@ -92,7 +92,7 @@ const LoginForm: FC = () => {
           Don't have an account? You can register{" "}
           <Link
             to={ROUTES.auth.register.path}
-            className="underline underline-offset-2"
+            className={"underline underline-offset-2"}
           >
             here
           </Link>

@@ -3,73 +3,18 @@ import { FC } from "react";
 import { NavLink } from "react-router-dom";
 
 import { cn } from "@/lib/utils";
-import { dictionaries } from "@/translation";
-import { Sun } from "lucide-react";
 import { navbarIcons, navbarItems } from "@/data/constants";
 import { useTranslation } from "@/hooks/useTranslation";
 import { checkDeviceSize } from "@/hooks/useResponsive";
 import { getDeviceSize, useResponsiveStore } from "@/store/responsive";
-import {
-  getIsDark,
-  getLanguage,
-  getSetIsDark,
-  getSetLanguage,
-  useSettingsStore,
-} from "@/store/settings";
 
-import { Button } from "./button";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "./select";
-
-const langages: Record<keyof typeof dictionaries, string> = {
-  en: "English",
-  ru: "Русский",
-};
-
-const AsideSettings: FC = () => {
-  const isDark = useSettingsStore(getIsDark);
-  const setIsDark = useSettingsStore(getSetIsDark);
-  const appLanguage = useSettingsStore(getLanguage);
-  const setLanguage = useSettingsStore(getSetLanguage);
-  const deviceSize = useResponsiveStore(getDeviceSize);
-
-  return (
-    !checkDeviceSize(deviceSize, "lg") && (
-      <div className="flex justify-between gap-4">
-        <Select value={appLanguage} onValueChange={setLanguage}>
-          <SelectTrigger>
-            <SelectValue placeholder={"choose app language"} />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              {Object.keys(langages).map((lang) => (
-                <SelectItem value={lang} key={lang}>
-                  {langages[lang as keyof typeof dictionaries]}
-                </SelectItem>
-              ))}
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-        <Button className="flex-0" size={"icon"} onClick={() => setIsDark(!isDark)}>
-          <Sun />
-        </Button>
-      </div>
-    )
-  );
-};
 
 const NavigationMenu: FC = () => {
   const t = useTranslation();
   const deviceSize = useResponsiveStore(getDeviceSize);
 
   return (
-    <nav className="flex flex-col gap-2">
+    <nav className={"flex flex-col gap-2"}>
       {/* TODO: move to separated component */}
       {navbarItems.map((key) => (
         <NavLink
@@ -91,9 +36,8 @@ const NavigationMenu: FC = () => {
 };
 
 const Aside: FC = () => (
-  <div className="flex flex-col justify-between">
+  <div className={"flex flex-col justify-between"}>
     <NavigationMenu />
-    <AsideSettings />
   </div>
 );
 

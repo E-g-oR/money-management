@@ -7,11 +7,13 @@ import { TTransaction } from "@/types/transactions/transaction";
 
 import { groupTransactions } from "../account/utils/group-transactions";
 import TransactionCard, { TransactionCardSkeleton } from "./transaction-card";
+import { Currencies } from "@/types/currency";
 
 type Props = {
   transactions: ReadonlyArray<TTransaction> | null;
+  currency: Currencies
 };
-export const TransactionsView: FC<Props> = ({ transactions }) => {
+export const TransactionsView: FC<Props> = ({ transactions, currency }) => {
   const t = useTranslation();
   const groupedTransactions = useMemo(
     () => groupTransactions(transactions ?? []),
@@ -19,12 +21,12 @@ export const TransactionsView: FC<Props> = ({ transactions }) => {
   );
 
   return (
-    <ScrollArea className="h-full">
-      <div className="grid gap-3 md:gap-6">
+    <ScrollArea className={"h-full"}>
+      <div className={"grid gap-3 md:gap-6"}>
         {groupedTransactions.map((transactionsList) => (
           <div
             key={transactionsList[0].created_at.toDate().toISOString()}
-            className={"space-y-3"}
+            className={"flex flex-col gap-2"}
           >
             <p className={"text-lg font-semibold"}>
               {t.format.dateHeader(transactionsList[0].created_at.toDate())}
@@ -36,6 +38,7 @@ export const TransactionsView: FC<Props> = ({ transactions }) => {
                 <TransactionCard
                   key={transaction.id}
                   transaction={transaction}
+                  currency={currency}
                 />
               )}
               skeletonComponent={<TransactionCardSkeleton />}

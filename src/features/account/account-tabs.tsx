@@ -27,7 +27,7 @@ export const AccountTabs: FC = () => {
     [accountId]
   );
   return (
-    <Card className="flex gap-2 p-2 max-w-xs">
+    <Card className={"flex gap-2 p-2 max-w-xs"}>
       {tabs.map((tab) => (
         <NavLink key={tab.key} to={tab.url} className={"flex-1"}>
           {({ isActive }) => (

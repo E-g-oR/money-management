@@ -1,38 +1,22 @@
 import { FC, useCallback, useState } from "react";
 
 import { useForm } from "react-hook-form";
+import { ArrowUpFromLine } from "lucide-react";
 
 import { Api } from "@/api";
 import { TDept } from "@/types/depts/dept";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "@/hooks/useTranslation";
 import { getAccountsById, useDataStore } from "@/store/data";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import ValueAndAccountForm from "@/components/value-and-account-form";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { ArrowUpFromLine } from "lucide-react";
-import { useTranslation } from "@/hooks/useTranslation";
 
 interface IPayDept {
   value: string;
@@ -84,78 +68,17 @@ export const PayDeptNodal: FC<Props> = ({ dept, onSuccess }) => {
           <DialogDescription>{dept.description}</DialogDescription>
         </DialogHeader>
         <p>
-          Needs to pay{" "}
+          {t.depts.payModal.needsTo}{" "}
           <b>
             {t.format.currency(dept.value - dept.coveredValue, dept.currency)}
           </b>{" "}
-          to close the dept.
+          {t.depts.payModal.toCloseDept}.
         </p>
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="flex flex-col gap-4"
-          >
-            <div className={"flex gap-2"}>
-              <FormField
-                control={form.control}
-                name={"value"}
-                rules={{
-                  required: {
-                    value: true,
-                    message: "Please enter a value",
-                  },
-                  min: {
-                    value: 0,
-                    message: "Please enter a positive value",
-                  },
-                }}
-                render={({ field }) => (
-                  <FormItem className={"flex-1"}>
-                    <FormLabel>{t.common.value}</FormLabel>
-                    <FormControl>
-                      <Input placeholder={"13"} {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name={"accountId"}
-                render={({ field }) => (
-                  <FormItem className={"flex-1"}>
-                    <FormLabel>{t.common.account}</FormLabel>
-                    <Select onValueChange={field.onChange}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder={"Select account"} />
-                        </SelectTrigger>
-                      </FormControl>
-                      <FormMessage />
-                      <SelectContent>
-                        {/* TODO: extract logic to separated functions */}
-                        {Array.from(accountsById)
-                          .filter(([, acc]) => acc.currency === dept.currency)
-                          .map(([, account]) => (
-                            <SelectItem value={account.id}>
-                              {account.name}:{" "}
-                              {t.format.currency(
-                                account.value,
-                                account.currency
-                              )}
-                            </SelectItem>
-                          ))}
-                      </SelectContent>
-                    </Select>
-                  </FormItem>
-                )}
-              />
-            </div>
-            <DialogFooter>
-              <Button type="submit">{t.common.actions.pay}</Button>
-            </DialogFooter>
-          </form>
-        </Form>
+        <ValueAndAccountForm
+          form={form}
+          onSubmit={onSubmit}
+          isLoading={false}
+        />
       </DialogContent>
     </Dialog>
   );

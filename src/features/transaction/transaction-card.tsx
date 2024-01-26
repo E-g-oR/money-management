@@ -48,7 +48,7 @@ export const TransactionCard: FC<Props> = ({ transaction, currency = Currencies.
   return (
     <Card className={cn("flex gap-4 px-4 py-2.5")}>
       {isIncome ? <IncomeIcon /> : <ExpenseIcon />}
-      <div className="flex flex-col gap-0.5 flex-1">
+      <div className={"flex flex-col gap-0.5 flex-1"}>
         <div className={"flex items-baseline flex-1 gap-3"}>
           <p
             className={"text-base sm:text-lg  flex-1 line-clamp-1 text-ellipsis"}
@@ -87,7 +87,7 @@ export default TransactionCard;
 export const TransactionCardSkeleton: FC = () => (
   <div className={"flex gap-4 px-4 py-2 border rounded-xl"}>
     <IncomeIcon />
-    <div className="flex flex-col gap-2 flex-1 w-full">
+    <div className={"flex flex-col gap-2 flex-1 w-full"}>
       <div className={"flex items-baseline flex-1 justify-between"}>
         <Skeleton className={"h-8 w-20"} />
         <Skeleton className={"h-6 w-16"} />

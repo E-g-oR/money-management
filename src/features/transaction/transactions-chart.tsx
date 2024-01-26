@@ -77,7 +77,7 @@ export const TransactionsChart: FC<Props> = ({ transactions = [], currency = "BY
   const processedData = transactions?.length && processChartData(transactions);
 
   return (
-    <Card className="pb-3 pt-2 px-4 h-full flex-1 flex flex-col gap-3">
+    <Card className={"pb-3 pt-2 px-4 h-full flex-1 flex flex-col gap-3"}>
       {/* <div className={"flex justify-between gap-4"}>
         <div>
           <span>month</span>

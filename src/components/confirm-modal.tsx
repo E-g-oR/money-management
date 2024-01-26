@@ -1,5 +1,7 @@
 import { createContext, FC, ReactNode, useCallback, useState } from "react";
 
+import { useTranslation } from "@/hooks/useTranslation";
+
 import { Button } from "./ui/button";
 import {
   Dialog,
@@ -28,31 +30,35 @@ interface Props {
   children: ReactNode;
 }
 const ConfirmModal: FC<Props> = ({ children }) => {
-  const [title, setTitle] = useState("Confirm");
+  const t = useTranslation();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const [title, setTitle] = useState(t.common.actions.submit);
   const [description, setDescription] = useState("Are you sure about this?");
   const [onConfirm, setOnConfirm] = useState<() => void>(() => {});
+
   const confirm = useCallback(
     (payload: IConfirmPayload) => {
-      console.log(payload);
-
       setTitle(payload.title);
       setDescription(payload.description);
       setOnConfirm(() => payload.onConfirm);
+      setIsOpen(true);
     },
-    [setTitle, setDescription, setOnConfirm]
+    [setTitle, setDescription, setOnConfirm, setIsOpen]
   );
 
   const onClose = useCallback(() => {
-    setTitle("");
-    setDescription("");
+    // setTitle("");
+    // setDescription("");
     setOnConfirm(() => {});
+    setIsOpen(false);
   }, []);
 
   return (
     <confirmModalContext.Provider value={{ confirm }}>
       {children}
       <Dialog
-        open={!!(title && onConfirm)}
+        open={isOpen}
         onOpenChange={(isOpen) => {
           if (!isOpen) onClose();
         }}
@@ -62,8 +68,8 @@ const ConfirmModal: FC<Props> = ({ children }) => {
             <DialogTitle>{title}</DialogTitle>
             <DialogDescription>{description}</DialogDescription>
           </DialogHeader>
-          <div className="flex flex-row gap-3 ml-auto">
-            <Button>Cancel</Button>
+          <div className={"flex flex-row gap-3 ml-auto"}>
+            <Button onClick={onClose}>{t.common.actions.cancel}</Button>
             <Button
               variant={"destructive"}
               onClick={() => {
@@ -71,7 +77,7 @@ const ConfirmModal: FC<Props> = ({ children }) => {
                 onClose();
               }}
             >
-              Confirm
+              {t.common.actions.submit}
             </Button>
           </div>
         </DialogContent>
