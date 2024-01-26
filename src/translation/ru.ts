@@ -38,6 +38,7 @@ export const ru: Translation = {
       close: "Закрыть",
       pickDate: "Выбрать дату",
       cancel: "Отменить",
+      logOut: "Выйти"
     },
     fieldMessages: {
       required: "Это поле обязательно для заполнения.",
@@ -146,4 +147,10 @@ export const ru: Translation = {
       "Приносим извинения, эта страница еще находится в стадии разработки.",
     secondDescription: "Пожалуйста, возвращайтесь на эту страницу позже.",
   },
+   auth: {
+    logOutConfirmModal: {
+      title: "Выйти из приложения",
+      description: "Вы собираетесь покинуть приложение. Вы уверены, что хотите продолжить?",
+    }
+  }
 };

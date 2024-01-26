@@ -37,6 +37,7 @@ export interface Translation {
       close: string;
       pickDate: string;
       cancel: string;
+      logOut: string;
     };
     fieldMessages: {
       required: string;
@@ -130,6 +131,12 @@ export interface Translation {
     description: string;
     secondDescription: string;
   };
+  auth: {
+    logOutConfirmModal: {
+      title: string
+      description: string;
+    }
+  }
 }
 
 export const dictionaries = {

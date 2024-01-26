@@ -39,6 +39,7 @@ export const en: Translation = {
       close: "Close",
       pickDate: "Pick A Date",
       cancel: "Cancel",
+      logOut: "Log Out",
     },
     fieldMessages: {
       required: "This field is required.",
@@ -144,5 +145,12 @@ export const en: Translation = {
     title: "In progress...",
     description: "Sorry, this page is currently in progress.",
     secondDescription: "Please come back to this page later.",
+  },
+  auth: {
+    logOutConfirmModal: {
+      title: "Log out",
+      description:
+        "You are about to log out from the application. Are you sure you want to continue?",
+    },
   },
 };
