@@ -17,6 +17,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface IPayDept {
   value: string;
@@ -56,9 +61,16 @@ export const PayDeptNodal: FC<Props> = ({ dept, onSuccess }) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button size={"icon"}>
-          <ArrowUpFromLine />
-        </Button>
+        <Tooltip>
+          <TooltipTrigger>
+            <Button size={"icon"} onClick={() => setOpen(true)}>
+              <ArrowUpFromLine />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent side={"bottom"}>
+            <p>{t.common.actions.pay}</p>
+          </TooltipContent>
+        </Tooltip>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

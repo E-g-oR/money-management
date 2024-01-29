@@ -33,6 +33,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface AccountCreate {
   account_name: string;
@@ -89,9 +95,18 @@ export const CreateAccountModal: FC<Props> = ({ onSuccess }) => {
       }}
     >
       <DialogTrigger asChild>
-        <Button size={"icon"} onClick={() => setIsOpen(true)}>
-          <PlusIcon />
-        </Button>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button size={"icon"} onClick={() => setIsOpen(true)}>
+                <PlusIcon />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>{t.accounts.createAccountModal.tooltip}</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </DialogTrigger>
       <DialogContent className={"sm:max-w-[425px]"}>
         <DialogHeader>

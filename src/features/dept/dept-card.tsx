@@ -16,6 +16,11 @@ import { ArrowUpFromLine, MoreVertical } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Show from "@/components/show";
 import { calcProgress } from "./utils";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface Props {
   dept: TDept;
@@ -34,7 +39,10 @@ export const DeptCard: FC<Props> = ({ dept, updateDepts }) => {
 
   return (
     <Card
-      className={cn("flex flex-col gap-2 py-3 px-4", isClosed && "saturate-50 brightness-75")}
+      className={cn(
+        "flex flex-col gap-2 py-3 px-4",
+        isClosed && "saturate-50 brightness-75"
+      )}
     >
       <div className={"flex gap-2 justify-between"}>
         <h2 className={"text-lg font-semibold line-clamp-1 text-ellipsis"}>
@@ -57,9 +65,16 @@ export const DeptCard: FC<Props> = ({ dept, updateDepts }) => {
               }}
             />
           </Show>
-          <Button variant={"ghost"} size={"icon"} onClick={() => {}}>
-            <MoreVertical />
-          </Button>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant={"ghost"} size={"icon"} onClick={() => {}}>
+                <MoreVertical />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>{t.common.moreActions}</p>
+            </TooltipContent>
+          </Tooltip>
         </div>
       </div>
       <div className={"flex flex-col items-center"}>

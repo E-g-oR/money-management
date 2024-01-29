@@ -33,6 +33,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface CreateDept {
   name: string;
@@ -91,9 +96,16 @@ export const CreateDeptModal: FC<Props> = ({ onSuccess }) => {
       }}
     >
       <DialogTrigger asChild>
-        <Button size={"icon"}>
-          <PlusIcon />
-        </Button>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button size={"icon"} onClick={()=> setIsOpen(true)}>
+              <PlusIcon />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>{t.depts.createModal.tooltip}</p>
+          </TooltipContent>
+        </Tooltip>
       </DialogTrigger>
       <DialogContent className={"sm:max-w-[425px]"}>
         <DialogHeader>

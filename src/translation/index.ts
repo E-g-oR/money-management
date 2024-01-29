@@ -28,6 +28,7 @@ export interface Translation {
     transactionType: string;
     greeting: string;
     account: string;
+    moreActions: string;
     actions: {
       pay: string;
       edit: string;
@@ -67,6 +68,7 @@ export interface Translation {
         namePlaceholder: string;
         descriptionPlaceholder: string;
       };
+      tooltip: string;
     };
     payModal: {
       needsTo: string;
@@ -78,6 +80,7 @@ export interface Translation {
     noAccountsFallback: string;
     searchPlaceholder: string;
     createAccountModal: {
+      tooltip: string;
       title: string;
       description: string;
       fields: {
@@ -103,6 +106,7 @@ export interface Translation {
           placeholder: string;
         };
       };
+      tooltip: string;
     };
     recentTransactions: string;
     noTransactionsFallback: string;
@@ -113,6 +117,7 @@ export interface Translation {
     transeferToAnotherAccountModal: {
       title: string;
       description: string;
+      tooltip: string;
     };
     deleteAccountModal: {
       title: string;
