@@ -8,6 +8,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/hooks/useTranslation";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface AccountEdit {
   account_name: string;
@@ -39,12 +44,10 @@ export const EditAccount: FC<Props> = ({
       Api.updateAccount(id, {
         name: data.account_name,
         description: data.account_description,
-      })
-        // todo: update account
-        .then(() => {
-          onSuccess();
-          cancel();
-        });
+      }).then(() => {
+        onSuccess();
+        cancel();
+      });
     },
     [id, cancel, onSuccess]
   );
@@ -91,12 +94,31 @@ export const EditAccount: FC<Props> = ({
         />
       </div>
       <div className={"flex flex-col gap-2"}>
-        <Button size={"icon"} type={"reset"} variant={"outline"} onClick={cancel}>
-          <Undo2 />
-        </Button>
-        <Button size={"icon"} type={"submit"}>
-          <Save />
-        </Button>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              size={"icon"}
+              type={"reset"}
+              variant={"outline"}
+              onClick={cancel}
+            >
+              <Undo2 />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent side={"left"}>
+            <p>{t.common.actions.cancel}</p>
+          </TooltipContent>
+        </Tooltip>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button size={"icon"} type={"submit"}>
+              <Save />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent side={"left"}>
+            <p>{t.common.actions.save}</p>
+          </TooltipContent>
+        </Tooltip>
       </div>
     </form>
   );

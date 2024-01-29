@@ -44,12 +44,20 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
 import { useRequestTrigger } from "@/hooks/useRequest";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface Props {
   accountId: string | undefined;
   onSuccess: () => void;
 }
-export const CreateTransactionModal: FC<Props> = ({ accountId = "", onSuccess }) => {
+export const CreateTransactionModal: FC<Props> = ({
+  accountId = "",
+  onSuccess,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const { run: createTransaction, isLoading: isCreatingTransaction } =
     useRequestTrigger(Api.createTransactionAndUpdateAccount);
@@ -103,9 +111,20 @@ export const CreateTransactionModal: FC<Props> = ({ accountId = "", onSuccess })
       }}
     >
       <DialogTrigger asChild>
-        <Button onClick={() => setIsOpen(true)} size={"icon"} isLoading={isCreatingTransaction}>
-          <Plus />
-        </Button>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              onClick={() => setIsOpen(true)}
+              size={"icon"}
+              isLoading={isCreatingTransaction}
+            >
+              <Plus />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>{t.accountPage.createTransactionModal.tooltip}</p>
+          </TooltipContent>
+        </Tooltip>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
@@ -284,4 +303,3 @@ export const CreateTransactionModal: FC<Props> = ({ accountId = "", onSuccess })
     </Dialog>
   );
 };
-
