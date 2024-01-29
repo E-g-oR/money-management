@@ -67,18 +67,21 @@ export class API {
   };
 
   public getAccounts = async (): Promise<ReadonlyArray<TAccount>> => {
+    const setIsAccountsLoading = useDataStore.getState().setIsAccountsLoading;
+    setIsAccountsLoading(true);
     const q = this.getAccountsQuery();
     const accounts = await this.accounts.readAll(q);
 
     const setAccounts = useDataStore.getState().setAccountsById;
     setAccounts(transormListToMap(accounts));
+    setIsAccountsLoading(false);
     return accounts;
   };
 
   public getAccount = async (accountId: string) => {
     const account = await this.accounts.read(accountId);
     const { setAccountsById, accountsById } = useDataStore.getState();
-    
+
     const newAccountsById = new Map(accountsById);
     newAccountsById.set(account.id, account);
     setAccountsById(newAccountsById);
