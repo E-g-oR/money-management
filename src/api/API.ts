@@ -52,9 +52,9 @@ export class API {
 
   public signOut = async () => {
     useAuthStore.getState().setUser(null);
-    const auth = this.getAuth()
+    const auth = this.getAuth();
     return await signOut(auth);
-  }
+  };
 
   public getAuth = () => getAuth();
 
@@ -77,6 +77,11 @@ export class API {
 
   public getAccount = async (accountId: string) => {
     const account = await this.accounts.read(accountId);
+    const { setAccountsById, accountsById } = useDataStore.getState();
+    
+    const newAccountsById = new Map(accountsById);
+    newAccountsById.set(account.id, account);
+    setAccountsById(newAccountsById);
     return account;
   };
 
