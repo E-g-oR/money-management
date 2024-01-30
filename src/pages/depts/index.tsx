@@ -7,12 +7,15 @@ import PageLayout from "@/components/layout/page-layout";
 import { useTranslation } from "@/hooks/useTranslation";
 import { CreateDeptModal, DeptCard } from "@/features/dept";
 import { DeptCardSkeleton } from "@/features/dept/dept-card";
+import { getDeptsList, useDataStore } from "@/store/data";
 
 const DeptsPage: FC = () => {
   const t = useTranslation();
+
+  const depts = useDataStore(getDeptsList)
+
   const { run: updateAccounts } = useRequest(Api.getAccounts, undefined);
   const {
-    data: depts,
     run: updateDepts,
     isLoading,
   } = useRequest(Api.getDepts, undefined);

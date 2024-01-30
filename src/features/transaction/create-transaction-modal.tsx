@@ -29,7 +29,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import {
   TCreateTransaction,
@@ -110,22 +109,20 @@ export const CreateTransactionModal: FC<Props> = ({
         }
       }}
     >
-      <DialogTrigger asChild>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              onClick={() => setIsOpen(true)}
-              size={"icon"}
-              isLoading={isCreatingTransaction}
-            >
-              <Plus />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>{t.accountPage.createTransactionModal.tooltip}</p>
-          </TooltipContent>
-        </Tooltip>
-      </DialogTrigger>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            onClick={() => setIsOpen(true)}
+            size={"icon"}
+            isLoading={isCreatingTransaction}
+          >
+            <Plus />
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>{t.accountPage.createTransactionModal.tooltip}</p>
+        </TooltipContent>
+      </Tooltip>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>

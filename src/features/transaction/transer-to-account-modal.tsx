@@ -21,7 +21,6 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 
 export interface ITransfer {
@@ -84,22 +83,20 @@ export const TransferToAccountModal: FC<Props> = ({ onSuccess, accountId }) => {
         }
       }}
     >
-      <DialogTrigger asChild>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              variant={"outline"}
-              size={"icon"}
-              onClick={() => setIsOpen(true)}
-            >
-              <ArrowUpFromLine />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>{t.accountPage.transeferToAnotherAccountModal.tooltip}</p>
-          </TooltipContent>
-        </Tooltip>
-      </DialogTrigger>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            variant={"outline"}
+            size={"icon"}
+            onClick={() => setIsOpen(true)}
+          >
+            <ArrowUpFromLine />
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>{t.accountPage.transeferToAnotherAccountModal.tooltip}</p>
+        </TooltipContent>
+      </Tooltip>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>

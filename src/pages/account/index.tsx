@@ -1,4 +1,4 @@
-import { FC, useMemo } from "react";
+import { FC, useEffect, useMemo } from "react";
 
 import { useParams } from "react-router-dom";
 
@@ -14,18 +14,22 @@ import {
   TransferToAccountModal,
 } from "@/features/transaction";
 import { Currencies } from "@/types/currency";
-import { getAccountsById, useDataStore } from "@/store/data";
+import {
+  getAccountsById,
+  getSetSelectedAccountId,
+  useDataStore,
+} from "@/store/data";
 import { TAccount } from "@/types/accounts/account";
 
 const AccountPage: FC = () => {
   const t = useTranslation();
   const { accountId } = useParams<"accountId">();
-
+  const setSelectedAccountId = useDataStore(getSetSelectedAccountId);
   const accountsById = useDataStore(getAccountsById);
   const account = useMemo(
     () =>
       accountId && accountsById.has(accountId)
-        ? accountsById.get(accountId) as TAccount
+        ? (accountsById.get(accountId) as TAccount)
         : null,
     [accountId, accountsById]
   );
@@ -36,6 +40,15 @@ const AccountPage: FC = () => {
   );
 
   const { run: updateAccount } = useRequest(Api.getAccount, accountId ?? "");
+
+  useEffect(() => {
+    if (accountId) {
+      setSelectedAccountId(accountId);
+    }
+    return () => {
+      setSelectedAccountId("");
+    }
+  }, [accountId, setSelectedAccountId]);
 
   return (
     <>

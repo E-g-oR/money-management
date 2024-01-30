@@ -3,7 +3,11 @@ import { FC } from "react";
 import { UseFormReturn } from "react-hook-form";
 
 import { useTranslation } from "@/hooks/useTranslation";
-import { getAccountsById, useDataStore } from "@/store/data";
+import {
+  getAccountsById,
+  getSelectedAccountId,
+  useDataStore,
+} from "@/store/data";
 import { ITransfer } from "@/features/transaction/transer-to-account-modal";
 
 import { Input } from "./ui/input";
@@ -33,6 +37,7 @@ type Props = {
 const ValueAndAccountForm: FC<Props> = ({ form, isLoading, onSubmit }) => {
   const t = useTranslation();
   const accountsById = useDataStore(getAccountsById);
+  const accountId = useDataStore(getSelectedAccountId);
   return (
     <Form {...form}>
       <form
@@ -83,12 +88,15 @@ const ValueAndAccountForm: FC<Props> = ({ form, isLoading, onSubmit }) => {
                   <FormMessage />
                   <SelectContent>
                     {/* TODO: extract logic to separated functions */}
-                    {Array.from(accountsById).map(([, account]) => (
-                      <SelectItem value={account.id}>
-                        {account.name}:{" "}
-                        {t.format.currency(account.value, account.currency)}
-                      </SelectItem>
-                    ))}
+                    {Array.from(accountsById)
+                      .map(([, account]) => account)
+                      .filter((account) => account.id !== accountId)
+                      .map((account) => (
+                        <SelectItem key={account.id} value={account.id}>
+                          {account.name}:{" "}
+                          {t.format.currency(account.value, account.currency)}
+                        </SelectItem>
+                      ))}
                   </SelectContent>
                 </Select>
               </FormItem>
