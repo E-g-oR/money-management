@@ -34,10 +34,11 @@ const AccountPage: FC = () => {
     [accountId, accountsById]
   );
 
-  const { data: transactions, run: updateTransactions } = useRequest(
-    Api.getTransactionsForAccount,
-    accountId ?? ""
-  );
+  const {
+    data: transactions,
+    run: updateTransactions,
+    isLoading: isLoadingTransactions,
+  } = useRequest(Api.getTransactionsForAccount, accountId ?? "");
 
   const { run: updateAccount } = useRequest(Api.getAccount, accountId ?? "");
 
@@ -47,7 +48,7 @@ const AccountPage: FC = () => {
     }
     return () => {
       setSelectedAccountId("");
-    }
+    };
   }, [accountId, setSelectedAccountId]);
 
   return (
@@ -93,7 +94,7 @@ const AccountPage: FC = () => {
           className={"overflow-hidden m-0"}
         >
           <TransactionsView
-            transactions={transactions}
+            isLoading={isLoadingTransactions}
             currency={account?.currency ?? Currencies.BYN}
           />
         </TabsContent>

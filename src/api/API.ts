@@ -137,9 +137,15 @@ export class API {
   };
 
   public getTransactionsForAccount = async (accountId: string) => {
+    const { transactionsByAccountId, setTransactionsByAccountId } =
+      useDataStore.getState();
     const q = this.getTransactionsQuery(accountId);
     const transactions = await this.transactions.readAll(...q);
     const orderedTransactions = orderByCreatedAt(transactions);
+
+    const newTransactionsMap = new Map(transactionsByAccountId);
+    newTransactionsMap.set(accountId, orderedTransactions);
+    setTransactionsByAccountId(newTransactionsMap);
     return orderedTransactions;
   };
 
@@ -207,12 +213,12 @@ export class API {
   };
 
   public getDepts = async () => {
-    const {setIsDeptsLoading, setDeptsList} = useDataStore.getState();
-    setIsDeptsLoading(true)
+    const { setIsDeptsLoading, setDeptsList } = useDataStore.getState();
+    setIsDeptsLoading(true);
     const q = this.getAccountsQuery();
     const depts = await this.depts_.readAll(q);
-    setDeptsList(depts)
-    setIsDeptsLoading(false)
+    setDeptsList(depts);
+    setIsDeptsLoading(false);
     return depts;
   };
 
