@@ -30,6 +30,7 @@ export const en: Translation = {
     rate: "Rate",
     greeting: "Welcome back",
     account: "Account",
+    moreActions: "More Actions",
     actions: {
       pay: "Pay",
       edit: "Edit",
@@ -70,6 +71,7 @@ export const en: Translation = {
       closedCount: "Closed depts",
     },
     createModal: {
+      tooltip: "Create new dept",
       title: "Create dept",
       description: `Create dept here. Press "confirm", when finished.`,
       fields: {
@@ -87,6 +89,7 @@ export const en: Translation = {
     noAccountsFallback: "You dont have any accounts yet.",
     searchPlaceholder: "Search accounts",
     createAccountModal: {
+      tooltip: "Create new account",
       title: "Create account",
       description: "Create your new account here. Click save when you're done.",
       fields: {
@@ -102,6 +105,7 @@ export const en: Translation = {
   accountPage: {
     title: "string",
     createTransactionModal: {
+      tooltip: "Create transaction",
       title: "Create transaction",
       description: "Create a transaction of income or expense on your account",
       fields: {
@@ -121,6 +125,7 @@ export const en: Translation = {
       chart: "Chart",
     },
     transeferToAnotherAccountModal: {
+      tooltip: "Transfer",
       title: "Transfer to another account",
       description: "Here you can note the transfer of money to another account",
     },

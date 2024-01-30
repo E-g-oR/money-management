@@ -12,6 +12,7 @@ import ResponsiveObserver from "@/components/layout/responsive-observer.tsx";
 
 import "./index.css";
 import Settings from "./pages/settings";
+import { TooltipProvider } from "./components/ui/tooltip";
 
 const DeptsPage = lazy(() => import("@/pages/depts/index.tsx")),
   AuthLayout = lazy(() => import("@/pages/auth/Layout.tsx")),
@@ -102,7 +103,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <ThemeProvider>
       <ResponsiveObserver>
         <ConfirmModal>
-          <RouterProvider router={router} />
+          <TooltipProvider>
+            <RouterProvider router={router} />
+          </TooltipProvider>
         </ConfirmModal>
       </ResponsiveObserver>
     </ThemeProvider>

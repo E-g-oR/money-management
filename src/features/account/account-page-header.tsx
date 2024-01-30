@@ -11,6 +11,11 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { TAccount } from "@/types/accounts/account";
 import { useTranslation } from "@/hooks/useTranslation";
 import { confirmModalContext } from "@/components/confirm-modal";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const EditAccount = lazy(() => import("./edit-account"));
 
@@ -67,27 +72,41 @@ export const AccountPageHeader: FC<Props> = ({ account, updateAccount }) => {
               </p>
             </div>
             <div className={"flex flex-col gap-2"}>
-              <Button
-                variant={"ghost"}
-                size={"icon"}
-                onClick={() => setIsEdit(true)}
-              >
-                <PencilIcon />
-              </Button>
-              <Button
-                variant={"destructive"}
-                size={"icon"}
-                onClick={() =>
-                  confirm({
-                    // TODO: add translation to confirm dialog
-                    title: t.accountPage.deleteAccountModal.title,
-                    description: t.accountPage.deleteAccountModal.description,
-                    onConfirm: deleteAccount,
-                  })
-                }
-              >
-                <Trash />
-              </Button>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant={"ghost"}
+                    size={"icon"}
+                    onClick={() => setIsEdit(true)}
+                  >
+                    <PencilIcon />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent side={"left"}>
+                  <p>{t.common.actions.edit}</p>
+                </TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant={"destructive"}
+                    size={"icon"}
+                    onClick={() =>
+                      confirm({
+                        title: t.accountPage.deleteAccountModal.title,
+                        description:
+                          t.accountPage.deleteAccountModal.description,
+                        onConfirm: deleteAccount,
+                      })
+                    }
+                  >
+                    <Trash />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent side={"left"}>
+                  <p>{t.common.actions.delete}</p>
+                </TooltipContent>
+              </Tooltip>
             </div>
           </div>
         </Show>

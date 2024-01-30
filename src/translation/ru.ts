@@ -29,6 +29,7 @@ export const ru: Translation = {
     rate: "Курс",
     greeting: "С возвращением",
     account: "Счет",
+    moreActions: "Больше действий",
     actions: {
       pay: "Заплатить",
       edit: "Изменить",
@@ -76,6 +77,7 @@ export const ru: Translation = {
         namePlaceholder: "Айфон",
         descriptionPlaceholder: "Кредит за Айфон в А1",
       },
+      tooltip: "Создать долг"
     },
     payModal: {
       needsTo: "Необходимо заплатить еще",
@@ -98,6 +100,7 @@ export const ru: Translation = {
           placeholder: "Главный счет, куда приходит зарплата.",
         },
       },
+      tooltip: "Создать счет"
     },
   },
   accountPage: {
@@ -113,6 +116,7 @@ export const ru: Translation = {
           placeholder: "Творог, яйца, куриное филе",
         },
       },
+      tooltip: "Создать транзакцию"
     },
     recentTransactions: "Ваши недавние транзакции",
     noTransactionsFallback: "У вас пока нет тразакций для данного аккаунта.",
@@ -123,6 +127,7 @@ export const ru: Translation = {
     transeferToAnotherAccountModal: {
       title: "Перевод на другой счет",
       description: "Здесь вы можете отметить перевод денег на другой счет",
+      tooltip: "Отправить",
     },
     deleteAccountModal: {
       title: "Удаление счета",

@@ -52,9 +52,9 @@ export class API {
 
   public signOut = async () => {
     useAuthStore.getState().setUser(null);
-    const auth = this.getAuth()
+    const auth = this.getAuth();
     return await signOut(auth);
-  }
+  };
 
   public getAuth = () => getAuth();
 
@@ -67,16 +67,24 @@ export class API {
   };
 
   public getAccounts = async (): Promise<ReadonlyArray<TAccount>> => {
+    const setIsAccountsLoading = useDataStore.getState().setIsAccountsLoading;
+    setIsAccountsLoading(true);
     const q = this.getAccountsQuery();
     const accounts = await this.accounts.readAll(q);
 
     const setAccounts = useDataStore.getState().setAccountsById;
     setAccounts(transormListToMap(accounts));
+    setIsAccountsLoading(false);
     return accounts;
   };
 
   public getAccount = async (accountId: string) => {
     const account = await this.accounts.read(accountId);
+    const { setAccountsById, accountsById } = useDataStore.getState();
+
+    const newAccountsById = new Map(accountsById);
+    newAccountsById.set(account.id, account);
+    setAccountsById(newAccountsById);
     return account;
   };
 
@@ -129,9 +137,15 @@ export class API {
   };
 
   public getTransactionsForAccount = async (accountId: string) => {
+    const { transactionsByAccountId, setTransactionsByAccountId } =
+      useDataStore.getState();
     const q = this.getTransactionsQuery(accountId);
     const transactions = await this.transactions.readAll(...q);
     const orderedTransactions = orderByCreatedAt(transactions);
+
+    const newTransactionsMap = new Map(transactionsByAccountId);
+    newTransactionsMap.set(accountId, orderedTransactions);
+    setTransactionsByAccountId(newTransactionsMap);
     return orderedTransactions;
   };
 
@@ -199,8 +213,12 @@ export class API {
   };
 
   public getDepts = async () => {
+    const { setIsDeptsLoading, setDeptsList } = useDataStore.getState();
+    setIsDeptsLoading(true);
     const q = this.getAccountsQuery();
     const depts = await this.depts_.readAll(q);
+    setDeptsList(depts);
+    setIsDeptsLoading(false);
     return depts;
   };
 

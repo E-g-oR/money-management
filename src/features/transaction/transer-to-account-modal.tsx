@@ -11,12 +11,16 @@ import { useTranslation } from "@/hooks/useTranslation";
 import { getAccountsById, useDataStore } from "@/store/data";
 import ValueAndAccountForm from "@/components/value-and-account-form";
 import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 
 export interface ITransfer {
@@ -79,11 +83,20 @@ export const TransferToAccountModal: FC<Props> = ({ onSuccess, accountId }) => {
         }
       }}
     >
-      <DialogTrigger asChild>
-        <Button variant={"outline"} size={"icon"}>
-          <ArrowUpFromLine />
-        </Button>
-      </DialogTrigger>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            variant={"outline"}
+            size={"icon"}
+            onClick={() => setIsOpen(true)}
+          >
+            <ArrowUpFromLine />
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>{t.accountPage.transeferToAnotherAccountModal.tooltip}</p>
+        </TooltipContent>
+      </Tooltip>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>
