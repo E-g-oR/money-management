@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useMemo } from "react";
 
 import { useParams } from "react-router-dom";
 
@@ -14,20 +14,42 @@ import {
   TransferToAccountModal,
 } from "@/features/transaction";
 import { Currencies } from "@/types/currency";
+import {
+  getAccountsById,
+  getSetSelectedAccountId,
+  useDataStore,
+} from "@/store/data";
+import { TAccount } from "@/types/accounts/account";
 
 const AccountPage: FC = () => {
   const t = useTranslation();
   const { accountId } = useParams<"accountId">();
-
-  const { data: transactions, run: updateTransactions } = useRequest(
-    Api.getTransactionsForAccount,
-    accountId ?? ""
+  const setSelectedAccountId = useDataStore(getSetSelectedAccountId);
+  const accountsById = useDataStore(getAccountsById);
+  const account = useMemo(
+    () =>
+      accountId && accountsById.has(accountId)
+        ? (accountsById.get(accountId) as TAccount)
+        : null,
+    [accountId, accountsById]
   );
 
-  const { data: account, run: updateAccount } = useRequest(
-    Api.getAccount,
-    accountId ?? ""
-  );
+  const {
+    data: transactions,
+    run: updateTransactions,
+    isLoading: isLoadingTransactions,
+  } = useRequest(Api.getTransactionsForAccount, accountId ?? "");
+
+  const { run: updateAccount } = useRequest(Api.getAccount, accountId ?? "");
+
+  useEffect(() => {
+    if (accountId) {
+      setSelectedAccountId(accountId);
+    }
+    return () => {
+      setSelectedAccountId("");
+    };
+  }, [accountId, setSelectedAccountId]);
 
   return (
     <>
@@ -72,7 +94,7 @@ const AccountPage: FC = () => {
           className={"overflow-hidden m-0"}
         >
           <TransactionsView
-            transactions={transactions}
+            isLoading={isLoadingTransactions}
             currency={account?.currency ?? Currencies.BYN}
           />
         </TabsContent>

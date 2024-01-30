@@ -82,18 +82,33 @@ export const theme = {
         from: { height: "var(--radix-accordion-content-height)" },
         to: { height: 0 },
       },
+      wiggle: {
+        "0%": { 
+          width: "10%", 
+          left: "0%" 
+        },
+        "50%": { 
+          width: "40%", 
+          left: "30%" 
+        },
+        "100%": { 
+          width: "10%", 
+          left: "90%" 
+        },
+      },
     },
     animation: {
       "accordion-down": "accordion-down 0.2s ease-out",
       "accordion-up": "accordion-up 0.2s ease-out",
+      wiggle: "wiggle 1s linear infinite alternate",
     },
     gridTemplateColumns: {
       layout: "minmax(200px, 250px) minmax(490px, 1fr) minmax(200px, 280px)",
-      layoutLg: "56px 1fr 200px"
+      layoutLg: "56px 1fr 200px",
     },
     gridTemplateRows: {
       layout: "50px 1fr",
-      layoutSm: "1fr 56px"
+      layoutSm: "1fr 56px",
     },
   },
 };

@@ -11,13 +11,14 @@ import {
   AccountCardSkeleton,
   CreateAccountModal,
 } from "@/features/account";
+import { getAccountsById, getIsAccountsLoading, useDataStore } from "@/store/data";
 
 const AccountsPage: FC = () => {
   const t = useTranslation();
+  const accountsById = useDataStore(getAccountsById)
+  const isAccountsLoading = useDataStore(getIsAccountsLoading)
   const {
-    data: accounts,
     run: updateAccountsList,
-    isLoading,
   } = useRequest(Api.getAccounts, undefined);
 
   return (
@@ -29,8 +30,8 @@ const AccountsPage: FC = () => {
     >
       <Input placeholder={"Search accounts"} />
       <CardsList
-        isLoading={isLoading}
-        data={accounts}
+        isLoading={isAccountsLoading}
+        data={Array.from(accountsById.values())}
         render={(account) => <AccountCard key={account.id} account={account} />}
         skeletonComponent={<AccountCardSkeleton />}
         fallback={t.accounts.noAccountsFallback}
